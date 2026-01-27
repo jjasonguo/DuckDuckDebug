@@ -1,15 +1,16 @@
 from rag_chain import final_rag_chain1, final_rag_chain2, filtering_chain, retriever
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
+from elevenlabs import ElevenLabs
 import openai
 import tempfile
 import os
-import requests
 
 app = Flask(__name__)
 CORS(app)
 
 client = openai.OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+elevenlabs_client = ElevenLabs(api_key=os.getenv("ELEVENLABS_API_KEY"))
 
 @app.route("/query", methods=["POST"])
 def query():
@@ -56,37 +57,23 @@ def text_to_speech():
         
         if not text:
             return jsonify({'error': 'No text provided'}), 400
+        
+        # Use ElevenLabs client to convert text to speech
+        audio = elevenlabs_client.text_to_speech.convert(
+            voice_id="vDIugAdS5Kvhnm7nVYQ7",
+            text=text,
+            model_id="eleven_multilingual_v2",
+            output_format="mp3_44100_128",
+        )
+        
+        # Save temporary audio file
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio:
+            for chunk in audio:
+                temp_audio.write(chunk)
+            temp_path = temp_audio.name
             
-        # ElevenLabs API endpoint
-        url = "https://api.elevenlabs.io/v1/text-to-speech/vDIugAdS5Kvhnm7nVYQ7"
-        
-        headers = {
-            "Accept": "audio/mpeg",
-            "Content-Type": "application/json",
-            "xi-api-key": os.getenv("ELEVENLABS_API_KEY")
-        }
-        
-        payload = {
-            "text": text,
-            "model_id": "eleven_monolingual_v1",
-            "voice_settings": {
-                "stability": 0.5,
-                "similarity_boost": 0.5
-            }
-        }
-        
-        response = requests.post(url, json=payload, headers=headers)
-        
-        if response.status_code == 200:
-            # Save temporary audio file
-            with tempfile.NamedTemporaryFile(delete=False, suffix=".mp3") as temp_audio:
-                temp_audio.write(response.content)
-                temp_path = temp_audio.name
-                
-            # Return the audio file path
-            return jsonify({'audio_url': f'/audio/{os.path.basename(temp_path)}'})
-        else:
-            return jsonify({'error': f'ElevenLabs API error: {response.text}'}), response.status_code
+        # Return the audio file path
+        return jsonify({'audio_url': f'/audio/{os.path.basename(temp_path)}'})
             
     except Exception as e:
         return jsonify({'error': str(e)}), 500
