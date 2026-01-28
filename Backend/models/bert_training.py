@@ -81,7 +81,6 @@ def train_model(model, train_loader, val_loader, epochs=5, lr=2e-5, temperature=
     )
 
     best_val_loss = float("inf")
-    patience_counter = 0
 
     for epoch in range(1, epochs + 1):
         model.train()
