@@ -108,7 +108,16 @@ def train_model(model, train_loader, val_loader, epochs=5, lr=2e-5, temperature=
         val_loss = validate_model(model, val_loader, temperature)
 
         print(f"Epoch {epoch}/{epochs} | Train Loss: {avg_train_loss:.4f} | Val Loss: {val_loss:.4f}")
-        torch.save(model.state_dict(), "final_model.pth")
+
+        # Save best model when validation loss improves
+        if val_loss < best_val_loss:
+            best_val_loss = val_loss
+            torch.save(model.state_dict(), "best_model.pth")
+            print("Model improved; saved to best_model.pth")
+
+    # Save final model after all epochs complete
+    torch.save(model.state_dict(), "final_model.pth")
+    print("Training complete; saved final model to final_model.pth")
 
 def validate_model(model, dataloader, temperature=0.07):
     model.eval()
