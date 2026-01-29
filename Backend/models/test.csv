@@ -1,558 +1,1302 @@
 nl_text,code_snippet
-send a signal `signal.sigusr1` to the current process,"os.kill(os.getpid(), signal.SIGUSR1)"
-decode a hex string '4a4b4c' to utf-8.,bytes.fromhex('4a4b4c').decode('utf-8')
-check if all elements in list `mylist` are identical,all(x == myList[0] for x in myList)
-"format number of spaces between strings `python`, `:` and `very good` to be `20`","print('%*s : %*s' % (20, 'Python', 20, 'Very Good'))"
-how to convert a string from cp-1251 to utf-8?,d.decode('cp1251').encode('utf8')
-get rid of none values in dictionary `kwargs`,"res = {k: v for k, v in list(kwargs.items()) if v is not None}"
-get rid of none values in dictionary `kwargs`,"res = dict((k, v) for k, v in kwargs.items() if v is not None)"
-capture final output of a chain of system commands `ps -ef | grep something | wc -l`,"subprocess.check_output('ps -ef | grep something | wc -l', shell=True)"
-"concatenate a list of strings `['a', 'b', 'c']`",""""""""""""".join(['a', 'b', 'c'])"
-find intersection data between series `s1` and series `s2`,pd.Series(list(set(s1).intersection(set(s2))))
-sending http headers to `client`,client.send('HTTP/1.0 200 OK\r\n')
-format a datetime string `when` to extract date only,"then = datetime.datetime.strptime(when, '%Y-%m-%d').date()"
-split a multi-line string `inputstring` into separate strings,inputString.split('\n')
-split a multi-line string ` a \n b \r\n c ` by new line character `\n`,' a \n b \r\n c '.split('\n')
-"concatenate elements of list `b` by a colon "":""",""""""":"""""".join(str(x) for x in b)"
-get the first object from a queryset in django model `entry`,Entry.objects.filter()[:1].get()
-calculate sum over all rows of 2d numpy array,a.sum(axis=1)
-enable warnings using action 'always',warnings.simplefilter('always')
-concatenate items of list `l` with a space ' ',"print(' '.join(map(str, l)))"
-run script 'hello.py' with argument 'htmlfilename.htm' on terminal using python executable,"subprocess.call(['python.exe', 'hello.py', 'htmlfilename.htm'])"
-how can i parse a time string containing milliseconds in it with python?,"time.strptime('30/03/09 16:31:32.123', '%d/%m/%y %H:%M:%S.%f')"
-convert a string `my_string` with dot and comma into a float number `my_float`,"my_float = float(my_string.replace(',', ''))"
-"convert a string `123,456.908` with dot and comma into a floating number","float('123,456.908'.replace(',', ''))"
-set pythonpath in python script.,sys.path.append('/path/to/whatever')
-"split string 'words, words, words.' using a regex '(\\w+)'","re.split('(\\W+)', 'Words, words, words.')"
-open a file `output.txt` in append mode,"file = open('Output.txt', 'a')"
-"download a file ""http://www.example.com/songs/mp3.mp3"" over http and save to ""mp3.mp3""","urllib.request.urlretrieve('http://www.example.com/songs/mp3.mp3', 'mp3.mp3')"
-download a file `url` over http and save to `file_name`,"u = urllib.request.urlopen(url)
-f = open(file_name, 'wb')
-meta = u.info()
-file_size = int(meta.getheaders('Content-Length')[0])
-print(('Downloading: %s Bytes: %s' % (file_name, file_size)))
-file_size_dl = 0
-block_sz = 8192
-while True:
-    buffer = u.read(block_sz)
-    if (not buffer):
-        break
-    file_size_dl += len(buffer)
-    f.write(buffer)
-    status = ('%10d  [%3.2f%%]' % (file_size_dl, ((file_size_dl * 100.0) / file_size)))
-    status = (status + (chr(8) * (len(status) + 1)))
-    print(status, end=' ')
-f.close()"
-download a file 'http://www.example.com/' over http,"response = urllib.request.urlopen('http://www.example.com/')
-html = response.read()"
-download a file `url` over http,r = requests.get(url)
-"download a file `url` over http and save to ""10mb""","response = requests.get(url, stream=True)
-with open('10MB', 'wb') as handle:
-    for data in tqdm(response.iter_content()):
-        handle.write(data)"
-argparse add argument with flag '--version' and version action of '%(prog)s 2.0' to parser `parser`,"parser.add_argument('--version', action='version', version='%(prog)s 2.0')"
-remove key 'c' from dictionary `d`,{i: d[i] for i in d if i != 'c'}
-"create new dataframe object by merging columns ""key"" of  dataframes `split_df` and `csv_df` and rename the columns from dataframes `split_df` and `csv_df` with suffix `_left` and `_right` respectively","pd.merge(split_df, csv_df, on=['key'], suffixes=('_left', '_right'))"
-split a string `s` by space with `4` splits,"s.split(' ', 4)"
-read keyboard-input,input('Enter your input:')
-enable debug mode on flask application `app`,app.run(debug=True)
-python save list `mylist` to file object 'save.txt',"pickle.dump(mylist, open('save.txt', 'wb'))"
-multiply a matrix `p` with a 3d tensor `t` in scipy,"scipy.tensordot(P, T, axes=[1, 1]).swapaxes(0, 1)"
-"create 3d array of zeroes of size `(3,3,3)`","numpy.zeros((3, 3, 3))"
-cut off the last word of a sentence `content`,""""""" """""".join(content.split(' ')[:-1])"
-convert scalar `x` to array,"x = np.asarray(x).reshape(1, -1)[(0), :]"
+two values from one input in python?,"var1, var2 = input('enter two numbers:').split(' ')"
+remove all square brackets from string 'abcd[e]yth[ac]ytwec',"re.sub('\\[.*?\\]', '', 'abcd[e]yth[ac]ytwec')"
+making a list of evenly spaced numbers in a certain range in python,"np.linspace(0, 5, 10, endpoint=False)"
+atomic writing to file with python,f.write('huzza')
+"append line ""appended text"" to file ""test.txt""","with open('test.txt', 'a') as myfile:
+    myfile.write('appended text')"
+insert 0s into 2d array,"array([[-1, -2, -1, 2], [0, -1, 0, 3], [1, 0, 1, 4]])"
+options for building a python web based application,app.run()
+getting the last element of list `some_list`,some_list[(-1)]
+python json dumps,"""""""[{u'name': u'squats', u'wrs': [[u'99', 8]], u'id': 2}]"""""".replace(""u'"", ""'"")"
+create list of dictionary python,"[{'data': 0}, {'data': 1}, {'data': 2}]"
+flask: how to handle application/octet-stream,app.run()
+check if list item contains items from another list,[item for item in my_list if any(x in item for x in bad)]
+django - multiple apps on one webpage?,"url('home/$', app.views.home, name='home')"
+advanced input in python,x = eval(input('My score is \x1b[s  of 10\x1b[u'))
+how to specify the endiannes directly in the numpy datatype for a 16bit unsigned integer?,"np.memmap('test.bin', dtype=np.dtype('>u2'), mode='r')"
+execute external commands/script `your_own_script` with csh instead of bash,os.system('tcsh your_own_script')
+python repeat string,print('{0} {0}'.format(s[:5]))
+python: how to normalize a confusion matrix?,C / C.astype(np.float).sum(axis=1)
+creating a python dictionary from a line of text,"fields = tuple(field.strip() for field in line.split(','))"
+get file creation time with python on mac,return os.stat(path).st_birthtime
+sqlalchemy query where a column contains a substring,Model.query.filter(Model.columnName.contains('sub_string'))
+unpack each value in list `x` to its placeholder '%' in string '%.2f',""""""", """""".join(['%.2f'] * len(x))"
+how can i use named arguments in a decorator?,"return func(*args, **kwargs)"
+selenium with ghostdriver in python on windows,browser.get('http://stackoverflow.com/')
+"extract first two substrings in string `phrase` that end in `.`, `?` or `!`","re.match('(.*?[.?!](?:\\s+.*?[.?!]){0,1})', phrase).group(1)"
+iterate a list of tuples,"tuple_list = [(a, some_process(b)) for a, b in tuple_list]"
+how to retrieve only arabic texts from a string using regular expression?,"print(re.findall('[\\u0600-\\u06FF]+', my_string))"
 sum all elements of nested list `l`,"sum(sum(i) if isinstance(i, list) else i for i in L)"
-convert hex string '470fc614' to a float number,"struct.unpack('!f', '470FC614'.decode('hex'))[0]"
-multiple each value by `2` for all keys in a dictionary `my_dict`,"my_dict.update((x, y * 2) for x, y in list(my_dict.items()))"
-running bash script 'sleep.sh',"subprocess.call('sleep.sh', shell=True)"
-"join elements of list `l` with a comma `,`",""""""","""""".join(l)"
-make a comma-separated string from a list `mylist`,"myList = ','.join(map(str, myList))"
-reverse the list that contains 1 to 10,list(reversed(list(range(10))))
-"remove substring 'bag,' from a string 'lamp, bag, mirror'","print('lamp, bag, mirror'.replace('bag,', ''))"
-"reverse the order of words, delimited by `.`, in string `s`","""""""."""""".join(s.split('.')[::-1])"
-convert epoch time represented as milliseconds `s` to string using format '%y-%m-%d %h:%m:%s.%f',datetime.datetime.fromtimestamp(s).strftime('%Y-%m-%d %H:%M:%S.%f')
-parse milliseconds epoch time '1236472051807' to format '%y-%m-%d %h:%m:%s',"time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime(1236472051807 / 1000.0))"
-get the date 7 days before the current date,(datetime.datetime.now() - datetime.timedelta(days=7)).date()
-sum elements at index `column` of each list in list `data`,print(sum(row[column] for row in data))
-sum columns of a list `array`,[sum(row[i] for row in array) for i in range(len(array[0]))]
-encode binary string 'your string' to base64 code,"base64.b64encode(bytes('your string', 'utf-8'))"
-combine list of dictionaries `dicts` with the same keys in each list to a single dictionary,"dict((k, [d[k] for d in dicts]) for k in dicts[0])"
-merge a nested dictionary `dicts` into a flat dictionary by concatenating nested values with the same key `k`,{k: [d[k] for d in dicts] for k in dicts[0]}
-how do i get the url parameter in a flask view,request.args['myParam']
-identify duplicate values in list `mylist`,"[k for k, v in list(Counter(mylist).items()) if v > 1]"
-insert directory 'apps' into directory `__file__`,"sys.path.insert(1, os.path.join(os.path.dirname(__file__), 'apps'))"
-modify sys.path for python module `subdir`,"sys.path.append(os.path.join(os.path.dirname(__file__), 'subdir'))"
-insert a 'none' value into a sqlite3 table.,"db.execute(""INSERT INTO present VALUES('test2', ?, 10)"", (None,))"
-flatten list `list_of_menuitems`,[image for menuitem in list_of_menuitems for image in menuitem]
-append elements of a set `b` to a list `a`,a.extend(b)
-append elements of a set to a list in python,a.extend(list(b))
-write the data of dataframe `df` into text file `np.txt`,"np.savetxt('c:\\data\\np.txt', df.values, fmt='%d')"
-write content of dataframe `df` into text file 'c:\\data\\pandas.txt',"df.to_csv('c:\\data\\pandas.txt', header=None, index=None, sep=' ', mode='a')"
-split a string `x` by last occurrence of character `-`,print(x.rpartition('-')[0])
-get the last part of a string before the character '-',"print(x.rsplit('-', 1)[0])"
-upload file using ftp,"ftp.storlines('STOR ' + filename, open(filename, 'r'))"
-add one to the hidden web element with id 'xyz' with selenium python script,"browser.execute_script(""document.getElementById('XYZ').value+='1'"")"
-"create array containing the maximum value of respective elements of array `[2, 3, 4]` and array `[1, 5, 2]`","np.maximum([2, 3, 4], [1, 5, 2])"
-print a list `l` and move first 3 elements to the end of the list,print(l[3:] + l[:3])
-loop over files in directory '.',"for fn in os.listdir('.'):
-    if os.path.isfile(fn):
-        pass"
-loop over files in directory `source`,"for (root, dirs, filenames) in os.walk(source):
-    for f in filenames:
-        pass"
-create a random list of integers,[int(1000 * random.random()) for i in range(10000)]
-using %f with strftime() in python to get microseconds,datetime.datetime.now().strftime('%H:%M:%S.%f')
-google app engine execute gql query 'select * from schedule where station = $1' with parameter `foo.key()`,"db.GqlQuery('SELECT * FROM Schedule WHERE station = $1', foo.key())"
-filter rows in pandas starting with alphabet 'f' using regular expression.,df.b.str.contains('^f')
-print a 2 dimensional list `tab` as a table with delimiters,print('\n'.join('\t'.join(str(col) for col in row) for row in tab))
-pandas: delete rows in dataframe `df` based on multiple columns values,"df.set_index(list('BC')).drop(tuples, errors='ignore').reset_index()"
-format the variables `self.goals` and `self.penalties` using string formatting,"""""""({:d} goals, ${:d})"""""".format(self.goals, self.penalties)"
-"format string ""({} goals, ${})"" with variables `goals` and `penalties`","""""""({} goals, ${})"""""".format(self.goals, self.penalties)"
-"format string ""({0.goals} goals, ${0.penalties})""","""""""({0.goals} goals, ${0.penalties})"""""".format(self)"
-convert list of lists `l` to list of integers,[int(''.join(str(d) for d in x)) for x in L]
-combine elements of each list in list `l` into digits of a single integer,[''.join(str(d) for d in x) for x in L]
-convert a list of lists `l` to list of integers,L = [int(''.join([str(y) for y in x])) for x in L]
-write the elements of list `lines` concatenated by special character '\n' to file `myfile`,myfile.write('\n'.join(lines))
-removing an element from a list based on a predicate 'x' or 'n',"[x for x in ['AAT', 'XAC', 'ANT', 'TTA'] if 'X' not in x and 'N' not in x]"
-remove duplicate words from a string `text` using regex,"text = re.sub('\\b(\\w+)( \\1\\b)+', '\\1', text)"
-count non zero values in each column in pandas data frame,df.astype(bool).sum(axis=1)
-search for string that matches regular expression pattern '(?<!distillr)\\\\acrotray\\.exe' in string 'c:\\somedir\\acrotray.exe',"re.search('(?<!Distillr)\\\\AcroTray\\.exe', 'C:\\SomeDir\\AcroTray.exe')"
-split string 'qh qd jc kd js' into a list on white spaces,"""""""QH QD JC KD JS"""""".split()"
-search for occurrences of regex pattern '>.*<' in xml string `line`,"print(re.search('>.*<', line).group(0))"
-erase all the contents of a file `filename`,"open(filename, 'w').close()"
-convert a string into datetime using the format '%y-%m-%d %h:%m:%s.%f',"datetime.datetime.strptime(string_date, '%Y-%m-%d %H:%M:%S.%f')"
-find the index of a list with the first element equal to '332' within the list of lists `thelist`,"[index for index, item in enumerate(thelist) if item[0] == '332']"
-lower a string `text` and remove non-alphanumeric characters aside from space,"re.sub('[^\\sa-zA-Z0-9]', '', text).lower().strip()"
-remove all non-alphanumeric characters except space from a string `text` and lower it,"re.sub('(?!\\s)[\\W_]', '', text).lower().strip()"
-subscript text 'h20' with '2' as subscripted in matplotlib labels for arrays 'x' and 'y'.,"plt.plot(x, y, label='H\u2082O')"
-subscript text 'h20' with '2' as subscripted in matplotlib labels for arrays 'x' and 'y'.,"plt.plot(x, y, label='$H_2O$')"
-loop over a list `mylist` if sublists length equals 3,[x for x in mylist if len(x) == 3]
-initialize a list `lst` of 100 objects object(),lst = [Object() for _ in range(100)]
-create list `lst` containing 100 instances of object `object`,lst = [Object() for i in range(100)]
-get the content of child tag with`href` attribute whose parent has css `someclass`,self.driver.find_element_by_css_selector('.someclass a').get_attribute('href')
-joining data from dataframe `df1` with data from dataframe `df2` based on matching values of column 'date_time' in both dataframes,"df1.merge(df2, on='Date_Time')"
-use `%s` operator to print variable values `str1` inside a string,"'first string is: %s, second one is: %s' % (str1, 'geo.tif')"
-split a string by a delimiter in python,[x.strip() for x in '2.MATCHES $$TEXT$$ STRING'.split('$$TEXT$$')]
-check if directory `directory ` exists and create it if necessary,"if (not os.path.exists(directory)):
-    os.makedirs(directory)"
-check if a directory `path` exists and create it if necessary,"try:
-    os.makedirs(path)
-except OSError:
-    if (not os.path.isdir(path)):
-        raise"
-check if a directory `path` exists and create it if necessary,distutils.dir_util.mkpath(path)
-check if a directory `path` exists and create it if necessary,"try:
-    os.makedirs(path)
-except OSError as exception:
-    if (exception.errno != errno.EEXIST):
-        raise"
-replace a separate word 'h3' by 'h1' in a string 'text',"re.sub('\\bH3\\b', 'H1', text)"
-substitute ascii letters in string 'aas30dsa20' with empty string '',"re.sub('\\D', '', 'aas30dsa20')"
-get digits only from a string `aas30dsa20` using lambda function,""""""""""""".join([x for x in 'aas30dsa20' if x.isdigit()])"
-"access a tag called ""name"" in beautifulsoup `soup`",print(soup.find('name').string)
-get a dictionary `records` of key-value pairs in pymongo cursor `cursor`,"records = dict((record['_id'], record) for record in cursor)"
-create new matrix object  by concatenating data from matrix a and matrix b,"np.concatenate((A, B))"
-concat two matrices `a` and `b` in numpy,"np.vstack((A, B))"
-get the characters count in a file `filepath`,os.stat(filepath).st_size
-"count the occurrences of item ""a"" in list `l`",l.count('a')
-count the occurrences of items in list `l`,Counter(l)
-count the occurrences of items in list `l`,"[[x, l.count(x)] for x in set(l)]"
-count the occurrences of items in list `l`,"dict(((x, l.count(x)) for x in set(l)))"
-"count the occurrences of item ""b"" in list `l`",l.count('b')
-copy file `srcfile` to directory `dstdir`,"shutil.copy(srcfile, dstdir)"
-find the key associated with the largest value in dictionary `x` whilst key is non-zero value,"max(k for k, v in x.items() if v != 0)"
-get the largest key whose not associated with value of 0 in dictionary `x`,"(k for k, v in x.items() if v != 0)"
-get the largest key in a dictionary `x` with non-zero value,"max(k for k, v in x.items() if v != 0)"
-put the curser at beginning of the file,file.seek(0)
-combine values from column 'b' and column 'a' of dataframe `df`  into column 'c' of datafram `df`,"df['c'] = np.where(df['a'].isnull, df['b'], df['a'])"
-remove key 'ele' from dictionary `d`,del d['ele']
-update datetime field in `mymodel` to be the existing `timestamp` plus 100 years,MyModel.objects.update(timestamp=F('timestamp') + timedelta(days=36524.25))
-merge list `['it']` and list `['was']` and list `['annoying']` into one list,['it'] + ['was'] + ['annoying']
-increment a value with leading zeroes in a number `x`,str(int(x) + 1).zfill(len(x))
-check if a pandas dataframe `df`'s index is sorted,all(df.index[:-1] <= df.index[1:])
-convert tuple `t` to list,list(t)
-convert list `t` to tuple,tuple(l)
-convert tuple `level1` to list,"level1 = map(list, level1)"
-send the output of pprint object `dataobject` to file `logfile`,"pprint.pprint(dataobject, logFile)"
-get index of rows in column 'boolcol',df.loc[df['BoolCol']]
-create a list containing the indexes of rows where the value of column 'boolcol' in dataframe `df` are equal to true,df.iloc[np.flatnonzero(df['BoolCol'])]
-get list of indexes of rows where column 'boolcol' values match true,df[df['BoolCol'] == True].index.tolist()
-get index of rows in dataframe `df` which column 'boolcol' matches value true,df[df['BoolCol']].index.tolist()
-change working directory to the directory `owd`,os.chdir(owd)
-insert data from a string `testfield` to sqlite db `c`,"c.execute(""INSERT INTO test VALUES (?, 'bar')"", (testfield,))"
-"decode string ""\\x89\\n"" into a normal string","""""""\\x89\\n"""""".decode('string_escape')"
-convert a raw string `raw_string` into a normal string,raw_string.decode('string_escape')
-convert a raw string `raw_byte_string` into a normal string,raw_byte_string.decode('unicode_escape')
-split a string `s` with into all strings of repeated characters,"[m.group(0) for m in re.finditer('(\\d)\\1*', s)]"
-"scatter a plot with x, y position of `np.random.randn(100)` and face color equal to none","plt.scatter(np.random.randn(100), np.random.randn(100), facecolors='none')"
-do a scatter plot with empty circles,"plt.plot(np.random.randn(100), np.random.randn(100), 'o', mfc='none')"
-remove a div with a id `main-content` using beautifulsoup,"soup.find('div', id='main-content').decompose()"
-filter rows containing key word `ball` in column `ids`,df[df['ids'].str.contains('ball')]
-convert index at level 0 into a column in dataframe `df`,"df.reset_index(level=0, inplace=True)"
-add indexes in a data frame `df` to a column `index1`,df['index1'] = df.index
-convert pandas index in a dataframe to columns,"df.reset_index(level=['tick', 'obs'])"
-get reverse of list items from list 'b' using extended slicing,[x[::-1] for x in b]
-join each element in array `a` with element at the same index in array `b` as a tuple,"np.array([zip(x, y) for x, y in zip(a, b)])"
-zip two 2-d arrays `a` and `b`,"np.array(zip(a.ravel(), b.ravel()), dtype='i4,i4').reshape(a.shape)"
-convert list `list_of_ints` into a comma separated string,""""""","""""".join([str(i) for i in list_of_ints])"
-send a post request with raw data `data` and basic authentication with `username` and `password`,"requests.post(url, data=DATA, headers=HEADERS_DICT, auth=(username, password))"
-"find last occurrence of character '}' in string ""abcd}def}""",'abcd}def}'.rfind('}')
-"iterate ove list `[1, 2, 3]` using list comprehension","print([item for item in [1, 2, 3]])"
-extract all the values with keys 'x' and 'y' from a list of dictionaries `d` to list of tuples,"[(x['x'], x['y']) for x in d]"
-get the filename without the extension from file 'hemanth.txt',print(os.path.splitext(os.path.basename('hemanth.txt'))[0])
-create a dictionary by adding each two adjacent elements in tuple `x` as key/value pair to it,"dict(x[i:i + 2] for i in range(0, len(x), 2))"
-"create a list containing flattened list `[['a', 'b', 'c'], ['d', 'e', 'f'], ['g', 'h', 'i']]`","values = sum([['A', 'B', 'C'], ['D', 'E', 'F'], ['G', 'H', 'I']], [])"
-select rows in a dataframe `df` column 'closing_price' between two values 99 and 101,df = df[(df['closing_price'] >= 99) & (df['closing_price'] <= 101)]
-replace all occurences of newlines `\n` with `<br>` in dataframe `df`,"df.replace({'\n': '<br>'}, regex=True)"
-replace all occurrences of a string `\n` by string `<br>` in a pandas data frame `df`,"df.replace({'\n': '<br>'}, regex=True)"
-create a list containing each two adjacent letters in string `word` as its elements,"[(x + y) for x, y in zip(word, word[1:])]"
-get a list of pairs from a string `word` using lambda function,"list(map(lambda x, y: x + y, word[:-1], word[1:]))"
-extract a url from a string `mystring`,"print(re.findall('(https?://[^\\s]+)', myString))"
-extract a url from a string `mystring`,"print(re.search('(?P<url>https?://[^\\s]+)', myString).group('url'))"
-"remove all special characters, punctuation and spaces from a string `mystring` using regex","re.sub('[^A-Za-z0-9]+', '', mystring)"
-create a datetimeindex containing 13 periods of the second friday of each month starting from date '2016-01-01',"pd.date_range('2016-01-01', freq='WOM-2FRI', periods=13)"
-create multidimensional array `matrix` with 3 rows and 2 columns in python,"matrix = [[a, b], [c, d], [e, f]]"
-replace spaces with underscore,"mystring.replace(' ', '_')"
-get an absolute file path of file 'mydir/myfile.txt',os.path.abspath('mydir/myfile.txt')
-split string `my_string` on white spaces,""""""" """""".join(my_string.split())"
-get filename without extension from file `filename`,os.path.splitext(filename)[0]
-get a list containing the sum of each element `i` in list `l` plus the previous elements,"[sum(l[:i]) for i, _ in enumerate(l)]"
-split a string `docs/src/scripts/temp` by `/` keeping `/` in the result,"""""""Docs/src/Scripts/temp"""""".replace('/', '/\x00/').split('\x00')"
-shuffle columns of an numpy array 'r',np.random.shuffle(np.transpose(r))
-copy all values in a column 'b' to a new column 'd' in a pandas data frame 'df',df['D'] = df['B']
-find a value within nested json 'data' where the key inside another key 'b' is unknown.,list(data['A']['B'].values())[0]['maindata'][0]['Info']
-check characters of string `string` are true predication of function `predicate`,all(predicate(x) for x in string)
-determine number of files on a drive with python,os.statvfs('/').f_files - os.statvfs('/').f_ffree
-how to get a single result from a sqlite query in python?,cursor.fetchone()[0]
-convert string `user_input` into a list of integers `user_list`,"user_list = [int(number) for number in user_input.split(',')]"
-get a list of integers by splitting  a string `user` with comma,"[int(s) for s in user.split(',')]"
-sorting a python list by two criteria,"sorted(list, key=lambda x: (x[0], -x[1]))"
-"sort a list of objects `ut`, based on a function `cmpfun` in descending order","ut.sort(key=cmpfun, reverse=True)"
-reverse list `ut` based on the `count` attribute of each object,"ut.sort(key=lambda x: x.count, reverse=True)"
-sort a list of objects `ut` in reverse order by their `count` property,"ut.sort(key=lambda x: x.count, reverse=True)"
-click a href button 'send' with selenium,driver.find_element_by_partial_link_text('Send').click()
-click a href button having text `send inmail` with selenium,driver.findElement(By.linkText('Send InMail')).click()
-click a href button with text 'send inmail' with selenium,driver.find_element_by_link_text('Send InMail').click()
-cast an int `i` to a string and concat to string 'me','ME' + str(i)
-sorting data in dataframe pandas,"df.sort_values(['System_num', 'Dis'])"
-prepend the line '#test firstline\n' to the contents of file 'infile' and save as the file 'outfile',"open('outfile', 'w').write('#test firstline\n' + open('infile').read())"
-sort a list `l` by length of value in tuple,"l.sort(key=lambda t: len(t[1]), reverse=True)"
-split string `s` by words that ends with 'd',"re.findall('\\b(\\w+)d\\b', s)"
-return `true` if string `foobarrrr` contains regex `ba[rzd]`,"bool(re.search('ba[rzd]', 'foobarrrr'))"
-removing duplicates in list `t`,list(set(t))
-removing duplicates in list `source_list`,list(set(source_list))
-removing duplicates in list `abracadabra`,list(OrderedDict.fromkeys('abracadabra'))
-convert array `a` into a list,numpy.array(a).reshape(-1).tolist()
-convert the first row of numpy matrix `a` to a list,numpy.array(a)[0].tolist()
-"in `soup`, get the content of the sibling of the `td`  tag with text content `address:`",print(soup.find(text='Address:').findNext('td').contents[0])
-convert elements of each tuple in list `l` into a string  separated by character `@`,""""""" """""".join([('%d@%d' % t) for t in l])"
+finding the minimum value in a numpy array and the corresponding values for the rest of that array's row,"a[np.argmin(a[:, (1)])]"
+add column to dataframe with default value,df['Name'] = 'abc'
+how to create a ssh tunnel using python and paramiko?,ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+reverse a string `some_string`,some_string[::(-1)]
+add line based on slope and intercept in matplotlib?,plt.show()
+confusing with the usage of regex in python,"re.findall('[a-z]*', '123456789')"
+in django : how to serialize dict object to json?,data = json.dumps({'a': 1})
+how do i unit test a monkey patch in python,"self.assertEqual(my_patch_method, patch_my_lib().target_method.__func__)"
+pythonic way to insert every 2 elements in a string,"""""""-"""""".join(a + b for a, b in zip(s[::2], s[1::2]))"
+how to plot a gradient color line in matplotlib?,plt.show()
+"check whether a path ""/etc"" exists",print(os.path.exists('/etc'))
+right align string `mystring` with a width of 7,"""""""{:>7s}"""""".format(mystring)"
+how can i convert a url query string into a list of tuples using python?,"[('foo', 'bar'), ('key', 'val')]"
+pythonic way to use range with excluded last number?,"list(range(0, 100, 5))"
+"python, numpy; how to insert element at the start of an array","np.insert(my_array, 0, myvalue, axis=1)"
+converting json date string to python datetime,"datetime.datetime.strptime('2012-05-29T19:30:03.283Z', '%Y-%m-%dT%H:%M:%S.%fZ')"
+python insert numpy array into sqlite3 database,"cur.execute('insert into test (arr) values (?)', (x,))"
+create dictionary from list of variables 'foo' and 'bar' already defined,"dict((k, globals()[k]) for k in ('foo', 'bar'))"
+extract last two fields from split,s.split(':')[-2:]
+how to get multiple conditional operations after a pandas groupby?,return df.groupby('A').apply(my_func)
+calling types via their name as a string in python,"getattr(__builtin__, 'int')"
+how do i dissolve a pattern in a numpy array?,"[0, 0, 0, 0, 0, 0, 0, 0, 0],"
+reverse a string `string`,''.join(reversed(string))
+pythonic way to insert every 2 elements in a string,"""""""-"""""".join(a + b for a, b in zip(t, t))"
+reshape pandas dataframe from rows to columns,gb = df2.groupby('Name')
+how to create matplotlib colormap that treats one value specially?,plt.show()
+how to detect exceptions in concurrent.futures in python3?,time.sleep(1)
+python initializing a list of lists,x = [[] for i in range(3)]
+"order a list of lists `[[1, 'mike'], [1, 'bob']]` by the first value of individual list","sorted([[1, 'mike'], [1, 'bob']])"
+how do convert unicode escape sequences to unicode characters in a python string,name.decode('latin-1').encode('utf-8')
 convert each tuple in list `l` to a string with '@' separating the tuples' elements,""""""" """""".join([('%d@%d' % (t[0], t[1])) for t in l])"
-get the html from the current web page of a selenium driver,driver.execute_script('return document.documentElement.outerHTML;')
-get all matches with regex pattern `\\d+[xx]` in list of string `teststr`,"[i for i in teststr if re.search('\\d+[xX]', i)]"
-"select values from column 'a' for which corresponding values in column 'b' will be greater than 50, and in column 'c' - equal 900 in dataframe `df`",df['A'][(df['B'] > 50) & (df['C'] == 900)]
-sort dictionary `o` in ascending order based on its keys and items,sorted(o.items())
-get sorted list of keys of dict `d`,sorted(d)
-how to sort dictionaries by keys in python,sorted(d.items())
-"convert string ""1"" into integer",int('1')
-function to convert strings into integers,int()
-convert items in `t1` to integers,"T2 = [map(int, x) for x in T1]"
-call a shell script `./test.sh` using subprocess,subprocess.call(['./test.sh'])
-call a shell script `notepad` using subprocess,subprocess.call(['notepad'])
-combine lists `l1` and `l2`  by alternating their elements,"[val for pair in zip(l1, l2) for val in pair]"
-encode string 'data to be encoded',encoded = base64.b64encode('data to be encoded')
-encode a string `data to be encoded` to `ascii` encoding,encoded = 'data to be encoded'.encode('ascii')
-parse tab-delimited csv file 'text.txt' into a list,"lol = list(csv.reader(open('text.txt', 'rb'), delimiter='\t'))"
-get attribute `my_str` of object `my_object`,"getattr(my_object, my_str)"
-group a list of dicts `ld` into one dict by key,"print(dict(zip(LD[0], zip(*[list(d.values()) for d in LD]))))"
-how do i sum the first value in each tuple in a list of tuples in python?,sum([pair[0] for pair in list_of_pairs])
-"convert unicode string u""{'code1':1,'code2':1}"" into dictionary","d = ast.literal_eval(""{'code1':1,'code2':1}"")"
-find all words in a string `mystring` that start with the `$` sign,[word for word in mystring.split() if word.startswith('$')]
-remove any url within string `text`,"text = re.sub('^https?:\\/\\/.*[\\r\\n]*', '', text, flags=re.MULTILINE)"
-"replace all elements in array `a` that are not present in array `[1, 3, 4]` with zeros","np.where(np.in1d(A, [1, 3, 4]).reshape(A.shape), A, 0)"
-calculate mean across dimension in a 2d array `a`,"np.mean(a, axis=1)"
-running r script '/pathto/myrscript.r' from python,"subprocess.call(['/usr/bin/Rscript', '--vanilla', '/pathto/MyrScript.r'])"
-run r script '/usr/bin/rscript --vanilla /pathto/myrscript.r',"subprocess.call('/usr/bin/Rscript --vanilla /pathto/MyrScript.r', shell=True)"
-add a header to a csv file,writer.writeheader()
-replacing nan in the dataframe `df` with row average,"df.fillna(df.mean(axis=1), axis=1)"
-convert unix timestamp '1347517370' to formatted string '%y-%m-%d %h:%m:%s',"time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(1347517370))"
-call a base class's class method `do` from derived class `derived`,"super(Derived, cls).do(a)"
-"selecting rows in numpy ndarray 'a', where the value in the first column is 0 and value in the second column is 1","a[np.where((a[:, (0)] == 0) * (a[:, (1)] == 1))]"
-separate words delimited by one or more spaces into a list,"re.split(' +', 'hello world sample text')"
-length of longest element in list `words`,"len(max(words, key=len))"
-get the value associated with unicode key 'from_user' of first dictionary in list `result`,result[0]['from_user']
-retrieve each line from a file 'file.txt' as a list,[line.split() for line in open('File.txt')]
-swap keys with values in a dictionary `a`,"res = dict((v, k) for k, v in a.items())"
-open a file `path/to/file_name.ext` in write mode,"new_file = open('path/to/FILE_NAME.ext', 'w')"
-how to count distinct values in a column of a pandas group by object?,"df.groupby(['col1', 'col2'])['col3'].nunique().reset_index()"
-check if any key in the dictionary `dict1` starts with the string `emp$$`,any(key.startswith('EMP$$') for key in dict1)
-create list of values from dictionary `dict1` that have a key that starts with 'emp$$',"[value for key, value in list(dict1.items()) if key.startswith('EMP$$')]"
-convert a pandas series `sf` into a pandas dataframe `df` with columns `email` and `list`,"pd.DataFrame({'email': sf.index, 'list': sf.values})"
-print elements of list `list` seperated by tabs `\t`,"print('\t'.join(map(str, list)))"
-print unicode string '\xd0\xbf\xd1\x80\xd0\xb8' with utf-8,print('\xd0\xbf\xd1\x80\xd0\xb8'.encode('raw_unicode_escape'))
-encode a latin character in string `sopet\xc3\xb3n` properly,'Sopet\xc3\xb3n'.encode('latin-1').decode('utf-8')
-"resized image `image` to width, height of `(x, y)` with filter of `antialias`","image = image.resize((x, y), Image.ANTIALIAS)"
-"regex, find ""n""s only in the middle of string `s`","re.findall('n(?<=[^n]n)n+(?=[^n])(?i)', s)"
-display the float `1/3*100` as a percentage,print('{0:.0f}%'.format(1.0 / 3 * 100))
-sort a list of dictionary `mylist` by the key `title`,mylist.sort(key=lambda x: x['title'])
-sort a list `l` of dicts by dict value 'title',l.sort(key=lambda x: x['title'])
-"sort a list of dictionaries by the value of keys 'title', 'title_url', 'id' in ascending order.","l.sort(key=lambda x: (x['title'], x['title_url'], x['id']))"
-find 10 largest differences between each respective elements of list `l1` and list `l2`,"heapq.nlargest(10, range(len(l1)), key=lambda i: abs(l1[i] - l2[i]))"
-beautifulsoup find all 'span' elements in html string `soup` with class of 'stargryb sp',"soup.find_all('span', {'class': 'starGryB sp'})"
-write records in dataframe `df` to table 'test' in schema 'a_schema',"df.to_sql('test', engine, schema='a_schema')"
-extract brackets from string `s`,"brackets = re.sub('[^(){}[\\]]', '', s)"
-remove duplicate elements from list 'l',"list(dict((x[0], x) for x in L).values())"
-read a file `file` without newlines,[line.rstrip('\n') for line in file]
-get the position of item 1 in `testlist`,"[i for (i, x) in enumerate(testlist) if (x == 1)]"
-get the position of item 1 in `testlist`,"[i for (i, x) in enumerate(testlist) if (x == 1)]"
-get the position of item 1 in `testlist`,"for i in [i for (i, x) in enumerate(testlist) if (x == 1)]:
-    pass"
-get the position of item 1 in `testlist`,"for i in (i for (i, x) in enumerate(testlist) if (x == 1)):
-    pass"
-get the position of item 1 in `testlist`,"gen = (i for (i, x) in enumerate(testlist) if (x == 1))
-for i in gen:
-    pass"
-get the position of item `element` in list `testlist`,print(testlist.index(element))
-get the position of item `element` in list `testlist`,"try:
-    print(testlist.index(element))
-except ValueError:
-    pass"
-find the first element of the tuple with the maximum second element in a list of tuples `lis`,"max(lis, key=lambda item: item[1])[0]"
-get the item at index 0 from the tuple that has maximum value at index 1 in list `lis`,"max(lis, key=itemgetter(1))[0]"
-make a delay of 1 second,time.sleep(1)
-convert list of tuples `l` to a string,""""""", """""".join('(' + ', '.join(i) + ')' for i in L)"
-django set default value of field `b` equal to '0000000',"b = models.CharField(max_length=7, default='0000000', editable=False)"
-sort lis `list5` in ascending order based on the degrees value of its elements,"sorted(list5, lambda x: (degree(x), x))"
-how do i perform secondary sorting in python?,"sorted(list5, key=lambda vertex: (degree(vertex), vertex))"
-convert a list  into a generator object,"(n for n in [1, 2, 3, 5])"
-remove elements from list `oldlist` that have an index number mentioned in list `removelist`,"newlist = [v for i, v in enumerate(oldlist) if i not in removelist]"
-open a file `yourfile.txt` in write mode,"f = open('yourfile.txt', 'w')"
-get attribute 'attr' from object `obj`,"getattr(obj, 'attr')"
-"convert tuple of tuples `(('aa',), ('bb',), ('cc',))` to tuple","from functools import reduce
-reduce(lambda a, b: a + b, (('aa',), ('bb',), ('cc',)))"
-"convert tuple of tuples `(('aa',), ('bb',), ('cc',))` to list in one line","map(lambda a: a[0], (('aa',), ('bb',), ('cc',)))"
-python pandas: how to replace a characters in a column of a dataframe?,"df['range'].replace(',', '-', inplace=True)"
-"unzip the list `[('a', 1), ('b', 2), ('c', 3), ('d', 4)]`","zip(*[('a', 1), ('b', 2), ('c', 3), ('d', 4)])"
-"unzip the list `[('a', 1), ('b', 2), ('c', 3), ('d', 4)]`","zip(*[('a', 1), ('b', 2), ('c', 3), ('d', 4)])"
-unzip list `original`,"result = ([a for (a, b) in original], [b for (a, b) in original])"
-unzip list `original` and return a generator,"result = ((a for (a, b) in original), (b for (a, b) in original))"
-"unzip list `[('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', )]`","zip(*[('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e',)])"
-"unzip list `[('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e', )]` and fill empty results with none","map(None, *[('a', 1), ('b', 2), ('c', 3), ('d', 4), ('e',)])"
-encode `decimal('3.9')` to a json string,json.dumps(Decimal('3.9'))
-"add key ""mynewkey"" to dictionary `d` with value ""mynewvalue""",d['mynewkey'] = 'mynewvalue'
-add key 'a' to dictionary `data` with value 1,"data.update({'a': 1, })"
-add key 'a' to dictionary `data` with value 1,data.update(dict(a=1))
-add key 'a' to dictionary `data` with value 1,data.update(a=1)
-find maximal value in matrix `matrix`,max([max(i) for i in matrix])
-round number `answer` to 2 precision after the decimal point,"answer = str(round(answer, 2))"
-extract ip address from an html string,"ip = re.findall('[0-9]+(?:\\.[0-9]+){3}', s)"
-filter dataframe `df` by values in column `a` that appear more than once,df.groupby('A').filter(lambda x: len(x) > 1)
-append each line in file `myfile` into a list,[x for x in myfile.splitlines() if x != '']
-get a list of integers `lst` from a file `filename.txt`,"lst = map(int, open('filename.txt').readlines())"
-add color bar with image `mappable` to plot `plt`,"plt.colorbar(mappable=mappable, cax=ax3)"
-count most frequent 100 words in column 'text' of dataframe `df`,Counter(' '.join(df['text']).split()).most_common(100)
-python split a string using regex,"re.findall('(.+?):(.+?)\\b ?', text)"
-"generate all 2-element subsets of tuple `(1, 2, 3)`","list(itertools.combinations((1, 2, 3), 2))"
-get a value of datetime.today() in the utc time zone,datetime.now(pytz.utc)
-get a new list `list2`by removing empty list from a list of lists `list1`,list2 = [x for x in list1 if x != []]
-create `list2` to contain the lists from list `list1` excluding the empty lists from `list1`,list2 = [x for x in list1 if x]
-django response with json `data`,"return HttpResponse(data, mimetype='application/json')"
-get all text that is not enclosed within square brackets in string `example_str`,"re.findall('(.*?)\\[.*?\\]', example_str)"
-use a regex to get all text in a string `example_str` that is not surrounded by square brackets,"re.findall('(.*?)(?:\\[.*?\\]|$)', example_str)"
-"get whatever is between parentheses as a single match, and any char outside as an individual match in string '(zyx)bc'","re.findall('\\(.+?\\)|\\w', '(zyx)bc')"
-match regex '\\((.*?)\\)|(\\w)' with string '(zyx)bc',"re.findall('\\((.*?)\\)|(\\w)', '(zyx)bc')"
-match multiple regex patterns with the alternation operator `|` in a string `(zyx)bc`,"re.findall('\\(.*?\\)|\\w', '(zyx)bc')"
-formate each string cin list `elements` into pattern '%{0}%',elements = ['%{0}%'.format(element) for element in elements]
-open a background process 'background-process' with arguments 'arguments',"subprocess.Popen(['background-process', 'arguments'])"
-get list of values from dictionary 'mydict' w.r.t. list of keys 'mykeys',[mydict[x] for x in mykeys]
-"convert list `[('name', 'joe'), ('age', 22)]` into a dictionary","dict([('Name', 'Joe'), ('Age', 22)])"
-average each two columns of array `data`,"data.reshape(-1, j).mean(axis=1).reshape(data.shape[0], -1)"
-double backslash escape all double quotes in string `s`,"print(s.encode('unicode-escape').replace('""', '\\""'))"
-split a string into a list of words and whitespace,"re.split('(\\W+)', s)"
-plotting stacked barplots on a panda data frame,"df.plot(kind='barh', stacked=True)"
-reverse the keys and values in a dictionary `mydictionary`,{i[1]: i[0] for i in list(myDictionary.items())}
-finding the index of elements containing substring 'how' and 'what' in a list of strings 'mylist'.,"[i for i, j in enumerate(myList) if 'how' in j.lower() or 'what' in j.lower()]"
-check if object `obj` is a string,"isinstance(obj, str)"
-check if object `o` is a string,"isinstance(o, str)"
-check if object `o` is a string,(type(o) is str)
-check if object `o` is a string,"isinstance(o, str)"
-check if `obj_to_test` is a string,"isinstance(obj_to_test, str)"
-append list `list1` to `list2`,list2.extend(list1)
-append list `mylog` to `list1`,list1.extend(mylog)
-append list `a` to `c`,c.extend(a)
-append items in list `mylog` to `list1`,"for line in mylog:
-    list1.append(line)"
-append a tuple of elements from list `a` with indexes '[0][0] [0][2]' to list `b`,"b.append((a[0][0], a[0][2]))"
-initialize `secret_key` in flask config with `your_secret_string `,app.config['SECRET_KEY'] = 'Your_secret_string'
-unpack a series of tuples in pandas into a dataframe with column names 'out-1' and 'out-2',"pd.DataFrame(out.tolist(), columns=['out-1', 'out-2'], index=out.index)"
-find the index of an element 'msft' in a list `stocks_list`,[x for x in range(len(stocks_list)) if stocks_list[x] == 'MSFT']
-rotate the xtick labels of matplotlib plot `ax` by `45` degrees to make long labels readable,"ax.set_xticklabels(labels, rotation=45)"
-remove symbols from a string `s`,"re.sub('[^\\w]', ' ', s)"
-get the current directory of a script,os.path.basename(os.path.dirname(os.path.realpath(__file__)))
-find octal characters matches from a string `str` using regex,"print(re.findall(""'\\\\[0-7]{1,3}'"", str))"
-split string `input` based on occurrences of regex pattern '[ ](?=[a-z]+\\b)',"re.split('[ ](?=[A-Z]+\\b)', input)"
-split string `input` at every space followed by an upper-case letter,"re.split('[ ](?=[A-Z])', input)"
-send multipart encoded file `files` to url `url` with headers `headers` and metadata `data`,"r = requests.post(url, files=files, headers=headers, data=data)"
-write bytes `bytes_` to a file `filename` in python 3,"open('filename', 'wb').write(bytes_)"
-get a list from a list `lst` with values mapped into a dictionary `dct`,[dct[k] for k in lst]
-find duplicate names in column 'name' of the dataframe `x`,x.set_index('name').index.get_duplicates()
-truncate float 1.923328437452 to 3 decimal places,"round(1.923328437452, 3)"
-sort list `li` in descending order based on the date value in second element of each list in list `li`,"sorted(li, key=lambda x: datetime.strptime(x[1], '%d/%m/%Y'), reverse=True)"
-place the radial ticks in plot `ax` at 135 degrees,ax.set_rlabel_position(135)
-check if path `my_path` is an absolute path,os.path.isabs(my_path)
-get number of keys in dictionary `yourdict`,len(list(yourdict.keys()))
-count the number of keys in dictionary `yourdictfile`,len(set(open(yourdictfile).read().split()))
-pandas dataframe get first row of each group by 'id',df.groupby('id').first()
-split a list in first column  into multiple columns keeping other columns as well in pandas data frame,"pd.concat([df[0].apply(pd.Series), df[1]], axis=1)"
-"extract attributes 'src=""js/([^""]*\\bjquery\\b[^""]*)""' from string `data`","re.findall('src=""js/([^""]*\\bjquery\\b[^""]*)""', data)"
-"sum integers contained in strings in list `['', '3.4', '', '', '1.0']`","sum(int(float(item)) for item in [_f for _f in ['', '3.4', '', '', '1.0'] if _f])"
-call a subprocess with arguments `c:\\program files\\vmware\\vmware server\\vmware-cmd.bat` that may contain spaces,subprocess.Popen(['c:\\Program Files\\VMware\\VMware Server\\vmware-cmd.bat'])
-reverse a priority queue `q` in python without using classes,"q.put((-n, n))"
-make a barplot of data in column `group` of dataframe `df` colour-coded according to list `color`,"df['group'].plot(kind='bar', color=['r', 'g', 'b', 'r', 'g', 'b', 'r'])"
-find all matches of regex pattern '([a-fa-f\\d]{32})' in string `data`,"re.findall('([a-fA-F\\d]{32})', data)"
-get the length of list `my_list`,len(my_list)
-getting the length of array `l`,len(l)
-getting the length of array `s`,len(s)
-getting the length of `my_tuple`,len(my_tuple)
-getting the length of `my_string`,len(my_string)
-"remove escape character from string ""\\a""","""""""\\a"""""".decode('string_escape')"
-replace each 'a' with 'b' and each 'b' with 'a' in the string 'obama' in a single pass.,"""""""obama"""""".replace('a', '%temp%').replace('b', 'a').replace('%temp%', 'b')"
-remove directory tree '/folder_name',shutil.rmtree('/folder_name')
-create a new column `weekday` in pandas data frame `data` based on the values in column `my_dt`,data['weekday'] = data['my_dt'].apply(lambda x: x.weekday())
-reverse sort counter `x` by values,"sorted(x, key=x.get, reverse=True)"
-reverse sort counter `x` by value,"sorted(list(x.items()), key=lambda pair: pair[1], reverse=True)"
-append a numpy array 'b' to a numpy array 'a',"np.vstack((a, b))"
-numpy concatenate two arrays `a` and `b` along the first axis,"print(concatenate((a, b), axis=0))"
-numpy concatenate two arrays `a` and `b` along the second axis,"print(concatenate((a, b), axis=1))"
-numpy concatenate two arrays `a` and `b` along the first axis,"c = np.r_[(a[None, :], b[None, :])]"
-numpy concatenate two arrays `a` and `b` along the first axis,"np.array((a, b))"
-fetch address information for host 'google.com' ion port 80,"print(socket.getaddrinfo('google.com', 80))"
-add a column 'day' with value 'sat' to dataframe `df`,"df.xs('sat', level='day', drop_level=False)"
-return a 401 unauthorized in django,"return HttpResponse('Unauthorized', status=401)"
-flask set folder 'wherever' as the default template folder,"Flask(__name__, template_folder='wherever')"
-how do i insert into t1 (select * from t2) in sqlalchemy?,session.execute('INSERT INTO t1 (SELECT * FROM t2)')
-sort a list of lists 'c2' such that third row comes first,c2.sort(key=lambda row: row[2])
-sorting a list of lists in python,"c2.sort(key=lambda row: (row[2], row[1], row[0]))"
-sorting a list of lists in python,"c2.sort(key=lambda row: (row[2], row[1]))"
-set font `arial` to display non-ascii characters in matplotlib,"matplotlib.rc('font', **{'sans-serif': 'Arial', 'family': 'sans-serif'})"
-convert  datetime column 'date' of pandas dataframe 'df' to ordinal,df['date'].apply(lambda x: x.toordinal())
-get html source of selenium webelement `element`,element.get_attribute('innerHTML')
-get the integer location of a key `bob` in a pandas data frame,df.index.get_loc('bob')
-open a 'gnome' terminal from python script and run  'sudo apt-get update' command.,"os.system('gnome-terminal -e \'bash -c ""sudo apt-get update; exec bash""\'')"
-add an item with key 'third_key' and value 1 to an dictionary `my_dict`,my_dict.update({'third_key': 1})
-declare an array,my_list = []
-insert item `12` to a list `my_list`,my_list.append(12)
-add an entry 'wuggah' at the beginning of list `mylist`,"myList.insert(0, 'wuggah')"
-convert a hex-string representation to actual bytes,"""""""\\xF3\\xBE\\x80\\x80"""""".replace('\\x', '').decode('hex')"
-select the last column of dataframe `df`,df[df.columns[-1]]
-get the first value from dataframe `df` where column 'letters' is equal to 'c',"df.loc[df['Letters'] == 'C', 'Letters'].values[0]"
-"converting two lists `[1, 2, 3]` and `[4, 5, 6]` into a matrix","np.column_stack(([1, 2, 3], [4, 5, 6]))"
-get the type of `i`,type(i)
-determine the type of variable `v`,type(v)
-determine the type of variable `v`,type(v)
-determine the type of variable `v`,type(v)
-determine the type of variable `v`,type(v)
-get the type of variable `variable_name`,print(type(variable_name))
-get the 5th item of a generator,"next(itertools.islice(range(10), 5, 5 + 1))"
-print a string `word` with string format,"print('""{}""'.format(word))"
-join a list of strings `list` using a space ' ',""""""" """""".join(list)"
-create list `y` containing two empty lists,y = [[] for n in range(2)]
-read a file 'c:/name/mydocuments/numbers' into a list `data`,"data = [line.strip() for line in open('C:/name/MyDocuments/numbers', 'r')]"
-delete all occurrences of character 'i' in string 'it is icy',""""""""""""".join([char for char in 'it is icy' if char != 'i'])"
-delete all instances of a character 'i' in a string 'it is icy',"re.sub('i', '', 'it is icy')"
-"delete all characters ""i"" in string ""it is icy""","""""""it is icy"""""".replace('i', '')"
-how to delete all instances of a character in a string in python?,""""""""""""".join([char for char in 'it is icy' if char != 'i'])"
-"drop rows of pandas dataframe `df` having nan in column at index ""1""",df.dropna(subset=[1])
-"get elements from list `mylist`, that have a field `n` value 30",[x for x in myList if x.n == 30]
-converting list of strings `intstringlist` to list of integer `nums`,nums = [int(x) for x in intstringlist]
-convert list of string numbers into list of integers,"map(int, eval(input('Enter the unfriendly numbers: ')))"
-"print ""."" without newline",sys.stdout.write('.')
-round off the float that is the product of `2.52 * 100` and convert it to an int,int(round(2.51 * 100))
-"find all files in directory ""/mydir"" with extension "".txt""","os.chdir('/mydir')
-for file in glob.glob('*.txt'):
-    pass"
-"find all files in directory ""/mydir"" with extension "".txt""","for file in os.listdir('/mydir'):
-    if file.endswith('.txt'):
-        pass"
+how to zoomed a portion of image and insert in the same plot in matplotlib,plt.show()
+how to retrieve only arabic texts from a string using regular expression?,"print(re.sub('[a-zA-Z?]', '', my_string).strip())"
+"generate a random number in 1 to 7 with a given distribution [0.1, 0.05, 0.05, 0.2, 0.4, 0.2]","numpy.random.choice(numpy.arange(1, 7), p=[0.1, 0.05, 0.05, 0.2, 0.4, 0.2])"
+order a list by all item's digits in python,"sorted(myList, key=dist)"
+removing vowel characters 'aeiouaeiou' from string `text`,""""""""""""".join(c for c in text if c not in 'aeiouAEIOU')"
 "find all files in directory ""/mydir"" with extension "".txt""","for (root, dirs, files) in os.walk('/mydir'):
     for file in files:
         if file.endswith('.txt'):
             pass"
-plot dataframe `df` without a legend,df.plot(legend=False)
-"loop through the ip address range ""192.168.x.x""","for i in range(256):
-    for j in range(256):
-        ip = ('192.168.%d.%d' % (i, j))
-        print(ip)"
-"loop through the ip address range ""192.168.x.x""","for (i, j) in product(list(range(256)), list(range(256))):
+how to get a random value in python dictionary,random.choice(list(d.keys()))
+how do i combine two lists into a dictionary in python?,"dict(zip([1, 2, 3, 4], [a, b, c, d]))"
+python implementation of jenkins hash?,"hash, hash2 = hashlittle2(hashstr, 3735928559, 3735928559)"
+understanding list comprehension for flattening list of lists in python,[item for sublist in list_of_lists for item in sublist if valid(item)]
+add a colorbar to plot `plt` using image `im` on axes `ax`,"plt.colorbar(im, ax=ax)"
+"print the string `total score for`, the value of the variable `name`, the string `is` and the value of the variable `score` in one print call.","print(('Total score for', name, 'is', score))"
+spawning a thread in python,t.start()
+python - converting a string of numbers into a list of int,"[int(s) for s in example_string.split(',')]"
+regular expression matching all but 'aa' and 'bb',"re.findall('-(?!aa|bb)([^-]+)', string)"
+pandas how to apply multiple functions to dataframe,"df.groupby(lambda idx: 0).agg(['mean', 'std'])"
+sort list `mylist` in alphabetical order,mylist.sort(key=str.lower)
+get all the sentences from a string `text` using regex,"re.split('\\.\\s', text)"
+context dependent split of a string in python,"re.split('(?<!\\d),(?! )|(?<=\\d),(?![\\d ])', s)"
+lower-case the string obtained by replacing the occurrences of regex pattern '(?<=[a-z])([a-z])' in string `s` with eplacement '-\\1',"re.sub('(?<=[a-z])([A-Z])', '-\\1', s).lower()"
+python for increment inner loop,"list(range(0, 6, 2))"
+pythonic way to get the largest item in a list,"max(a_list, key=operator.itemgetter(1))"
+match regex pattern '((?:a|b|c)d)' on string 'bde',"re.findall('((?:A|B|C)D)', 'BDE')"
+how to remove all of the data in a table using django,Reporter.objects.all().delete()
+find the index of sub string 'df' in string 'sdfasdf','sdfasdf'.index('df')
+django csrf check failing with an ajax post request,"request_csrf_token = request.META.get('HTTP_X_CSRFTOKEN', '')"
+matplotlib: how to force integer tick labels?,ax.xaxis.set_major_locator(MaxNLocator(integer=True))
+perform a reverse cumulative sum on a numpy array,np.cumsum(x[::-1])[::-1]
+how to add a string to every even row in a pandas dataframe column series?,print(df['New_Col'])
+sum of squares values in a list `l`,sum(i * i for i in l)
+prepend string 'hello' to all items in list 'a',['hello{0}'.format(i) for i in a]
+finding the minimum value in a numpy array and the corresponding values for the rest of that array's row,"np.argmin(a[:, (1)])"
+how do i get the raw representation of a string in python?,print(rawstr(test7))
+get the union set from list of lists `results_list`,results_union = set().union(*results_list)
+how can i color python logging output?,logging.warn('a warning')
+python pickle/unpickle a list to/from a file 'afile',"pickle.load(open('afile', 'rb'))"
+printing tabular data in python,print('%20s' % somevar)
+python - how to calculate equal parts of two dictionaries?,"dict((x, set(y) & set(d1.get(x, ()))) for x, y in d2.items())"
+python: comparing two strings,"difflib.SequenceMatcher(None, a, b).ratio()"
+sorting numpy array on multiple columns in python,"order_array.sort(order=['year', 'month', 'day'])"
+convert a list to a dictionary in python,"dict((k, 2) for k in a)"
+pyqt dialog - how to make it quit after pressing a button?,btn.clicked.connect(self.close)
+java equivalent of python's string partition,"""""""foo bar hello world"""""".split(' ', 2)"
+python - how can i do a string find on a unicode character that is a variable?,s.decode('utf-8').find('\u0101')
+find and click an item from 'onclick' partial value,"driver.find_element_by_css_selector(""input[onclick*='1 Bedroom Deluxe']"")"
+equivalent of objects.latest() in app engine,MyObject.all().order('-time')
+"how to insert to a mysql table using mysaldb, where the table name is in a python variable?",'%%s %s' % 'x'
+how to draw directed graphs using networkx in python?,"nx.draw_networkx_edges(G, pos, edgelist=black_edges, arrows=False)"
+how can i send email using python?,"server = smtplib.SMTP(host='smtp.gmail.com', port=587)"
+"check if two items are in a list, in a particular order?","[2, 3] in [v[i:i + 2] for i in range(len(v) - 1)]"
+return value while using cprofile,"cP.runctx('a=foo()', globals(), locales())"
+python get focused entry name,"print(('focus object class:', window2.focus_get().__class__))"
+get key by value in dictionary with same value in python?,print([key for key in d if d[key] == 1])
+how do i escape closing '/' in html tags in json with python?,"""""""{""asset_id"": ""575155948f7d4c4ebccb02d4e8f84d2f"", ""body"": ""\\u003cscript\\u003e\\u003c/script\\u003e"", ""asset_created"": null}"""""""
+"unescape special characters without splitting data in array of strings `['i ', u'<', '3s u ', u'&', ' you luvz me']`",""""""""""""".join(['I ', '<', '3s U ', '&', ' you luvz me'])"
+return common element indices between two numpy arrays,"numpy.nonzero(numpy.in1d(a2, a1))[0]"
+multiindex from array in pandas with non unique data,"df.set_index(['Z', 'A', 'pos']).unstack('pos')"
+pandas dataframe to list,df['a'].values.tolist()
+how to plot with x-axis at the top of the figure?,plt.show()
+dealing with spaces in flask url creation,"{'south_carolina': 'SC', 'north_carolina': 'NC'}"
+how do i combine two lists into a dictionary in python?,"dict(zip([1, 2, 3, 4], ['a', 'b', 'c', 'd']))"
+python: how to generate a 12-digit random number?,"random.randint(100000000000, 999999999999)"
+pythonic way to access arbitrary element from dictionary,return next(iter(dictionary.values()))
+how to make print statement one line in python?,"print('If a hippo ways 2000 pounds, gives birth to a 100 pound calf and ' + 'then eats a 50 pound meal how much does she weigh?')"
+check if a given key 'key1' exists in dictionary `dict`,"if ('key1' in dict):
     pass"
-"loop through the ip address range ""192.168.x.x""","generator = iter_iprange('192.168.1.1', '192.168.255.255', step=1)"
-sum the corresponding decimal values for binary values of each boolean element in list `x`,"sum(1 << i for i, b in enumerate(x) if b)"
-"write multiple strings `line1`, `line2` and `line3` in one line in a file `target`","target.write('%r\n%r\n%r\n' % (line1, line2, line3))"
-convert list of lists `data` into a flat list,"[y for x in data for y in (x if isinstance(x, list) else [x])]"
-print new line character as `\n` in a string `foo\nbar`,print('foo\nbar'.encode('string_escape'))
-"remove last comma character ',' in string `s`",""""""""""""".join(s.rsplit(',', 1))"
-calculate the mean of each element in array `x` with the element previous to it,(x[1:] + x[:-1]) / 2
+how to hide output of subprocess in python 2.7,"subprocess.check_output(['espeak', text], stderr=subprocess.STDOUT)"
+"generate, fill and plot a hexagonal lattice in python",plt.show()
+"dynamically import a method in a file, from a string",importlib.import_module('abc.def.ghi.jkl.myfile.mymethod')
+authenticate with private key using paramiko transport (channel),session.exec_command('cd /home/harperville/my_scripts/')
+parse 4th capital letter of line in python?,""""""""""""".join(re.findall('[A-Z][^A-Z]*', s)[3:])"
+inserting json into mysql using python,db.execute('INSERT INTO json_col VALUES (' + json_value + ')')
+python: how to get local maxima values from 1d-array or list,y[argrelmax(y)[0]]
+is it possible for beautifulsoup to work in a case-insensitive manner?,"soup.findAll('meta', attrs={'name': re.compile('^description$', re.I)})"
+"get value for  ""username"" parameter in get request  in django","request.GET.get('username', '')"
+replace duplicate values across columns in pandas,"pd.Series(['M', '0', 'M', '0']).duplicated()"
+matplotlib diagrams with 2 y-axis,plt.show()
+how to index a pandas dataframe using locations wherever the data changes,"df.drop_duplicates(keep='last', subset=['valueA', 'valueB'])"
+write pdf file from url using urllib2,"FILE = open('report.pdf', 'wb')"
+sorting a dictionary (with date keys) in python,"ordered = OrderedDict(sorted(list(mydict.items()), key=lambda t: t[0]))"
+"add row `['8/19/2014', 'jun', 'fly', '98765']` to dataframe `df`","df.loc[len(df)] = ['8/19/2014', 'Jun', 'Fly', '98765']"
+subprocess: deleting child processes in windows,"subprocess.call(['taskkill', '/F', '/T', '/PID', str(p.pid)])"
+remove first word in string `s`,"s.split(' ', 1)[1]"
+passing an argument to a python script and opening a file,name = sys.argv[1:]
+sort a part of a list in place,a[i:j] = sorted(a[i:j])
+match urls whose domain doesn't start with `t` from string `document` using regex,"re.findall('http://[^t][^s""]+\\.html', document)"
+python - print tuple elements with no brackets,"print(', ,'.join([str(i[0]) for i in mytuple]))"
+filter pyspark dataframe column with none value,df.filter('dt_mvmt is not NULL')
+efficient serialization of numpy boolean arrays,"numpy.array(b).reshape(5, 5)"
+how to initialize multiple columns to existing pandas dataframe,"pd.concat([df, pd.DataFrame(0, df.index, list('cd'))], axis=1)"
+calculate ratio of sparsity in a numpy array `a`,np.isnan(a).sum() / np.prod(a.shape)
+pandas: get unique multiindex level values by label,df.index.get_level_values('co').unique()
+"using python's datetime module, can i get the year that utc-11 is currently in?",(datetime.datetime.utcnow() - datetime.timedelta(hours=11)).year
+is there a multi-dimensional version of arange/linspace in numpy?,"X, Y = np.mgrid[-5:5:21j, -5:5:21j]"
+convert an rgb image 'messi5.jpg' into grayscale `img`,"img = cv2.imread('messi5.jpg', 0)"
+how to convert datetime to string in python in django,{{(item.date | date): 'Y M d'}}
+count the number of keys in dictionary `yourdictfile`,len(set(open(yourdictfile).read().split()))
+get the widget which has currently the focus in tkinter instance `window2`,"print(('focus object class:', window2.focus_get().__class__))"
+how to use pgdb.executemany?,pgdb.paramstyle
+using django models in external python script,sys.path.append('/var/www/cloudloon')
+apply `numpy.linalg.norm` to each row of a matrix `a`,"numpy.apply_along_axis(numpy.linalg.norm, 1, a)"
+convert string to binary in python,""""""" """""".join(map(bin, bytearray(st)))"
+python pandas extract unique dates from time series,df['Date'].map(pd.Timestamp.date).unique()
+how do you concatenate two differently named columns together in pandas?,"pd.lreshape(df, {'D': ['B', 'C']})"
+matplotlib large set of colors for plots,plt.show()
+how to find duplicate elements in array using for loop in python?,[i for i in y if y[i] > 1]
+string.lower in python 3,"""""""FOo"""""".lower()"
+generate a list of consecutive integers from 0 to 8,list(range(9))
+hashing a python dictionary,hash(frozenset(list(my_dict.items())))
+add color bar with image `mappable` to plot `plt`,"plt.colorbar(mappable=mappable, cax=ax3)"
+remove all whitespaces in string `sentence`,"sentence = re.sub('\\s+', '', sentence, flags=re.UNICODE)"
+how to add group labels for bar charts in matplotlib?,ax.set_xticklabels(x)
+python: how to convert a string containing hex bytes to a hex string,s.decode('hex')
+settin general defaults for named arguments in python,PERIMETER = 'xyz'
+finding the position of an object in an image,im.save('out.png')
+blank lines in file after sorting content of a text file in python,lines.sort()
+how to get python interactive console in current namespace?,code.interact(local=locals())
+"how to split but ignore separators in quoted strings, in python?","re.split(';(?=(?:[^\'""]|\'[^\']*\'|""[^""]*"")*$)', data)"
+how to write pandas dataframe to sqlite with index,"sql.write_frame(price2, name='price2', con=cnx)"
+convert datetime object to date object in python,datetime.datetime.now().date()
 get an array of the mean of each two consecutive values in numpy array `x`,x[:-1] + (x[1:] - x[:-1]) / 2
-load data containing `utf-8` from file `new.txt` into numpy array `arr`,"arr = numpy.fromiter(codecs.open('new.txt', encoding='utf-8'), dtype='<U2')"
-reverse sort list of dicts `l` by value for key `time`,"l = sorted(l, key=itemgetter('time'), reverse=True)"
-sort a list of dictionary `l` based on key `time` in descending order,"l = sorted(l, key=lambda a: a['time'], reverse=True)"
-get rows of dataframe `df` that match regex '(hel|just)',df.loc[df[0].str.contains('(Hel|Just)')]
-"find the string in `your_string` between two special characters ""["" and ""]""","re.search('\\[(.*)\\]', your_string).group(1)"
-how to create a list of date string in 'yyyymmdd' format with python pandas?,"[d.strftime('%Y%m%d') for d in pandas.date_range('20130226', '20130302')]"
-count number of times string 'brown' occurred in string 'the big brown fox is brown',"""""""The big brown fox is brown"""""".count('brown')"
-decode json string `request.body` to python dict,json.loads(request.body)
-download the file from url `url` and save it under file `file_name`,"urllib.request.urlretrieve(url, file_name)"
-split string `text` by space,text.split()
-"split string `text` by "",""","text.split(',')"
-split string `line` into a list by whitespace,line.split()
-replace dot characters  '.' associated with ascii letters in list `s` with space ' ',"[re.sub('(?<!\\d)\\.(?!\\d)', ' ', i) for i in s]"
-sort list `list_of_strings` based on second index of each string `s`,"sorted(list_of_strings, key=lambda s: s.split(',')[1])"
-call multiple bash function 'vasp' and 'tee tee_output' using '|',"subprocess.check_call('vasp | tee tee_output', shell=True)"
-eliminate all strings from list `lst`,"[element for element in lst if isinstance(element, int)]"
-get all the elements except strings from the list 'lst'.,"[element for element in lst if not isinstance(element, str)]"
-sort a list of dictionaries `list_to_be_sorted` by the value of the dictionary key `name`,"newlist = sorted(list_to_be_sorted, key=lambda k: k['name'])"
-sort a list of dictionaries `l` by values in key `name` in descending order,"newlist = sorted(l, key=itemgetter('name'), reverse=True)"
-how do i sort a list of dictionaries by values of the dictionary in python?,list_of_dicts.sort(key=operator.itemgetter('name'))
-how do i sort a list of dictionaries by values of the dictionary in python?,list_of_dicts.sort(key=operator.itemgetter('age'))
-how to sort a dataframe by the ocurrences in a column in python (pandas),"df.groupby('prots').sum().sort('scores', ascending=False)"
-"join together with "","" elements inside a list indexed with 'category' within a dictionary `trans`",""""""","""""".join(trans['category'])"
-"concatenate array of strings `['a', 'b', 'c', 'd']` into a string",""""""""""""".join(['A', 'B', 'C', 'D'])"
-get json data from restful service 'url',json.load(urllib.request.urlopen('url'))
-remove all strings from a list a strings `sents` where the values starts with `@$\t` or `#`,[x for x in sents if not x.startswith('@$\t') and not x.startswith('#')]
-django filter by hour,Entry.objects.filter(pub_date__contains='08:00')
-sort a list of dictionary `list` first by key `points` and then by `time`,"list.sort(key=lambda item: (item['points'], item['time']))"
-"convert datetime object `(1970, 1, 1)` to seconds","(t - datetime.datetime(1970, 1, 1)).total_seconds()"
-insert `_suff` before the file extension in `long.file.name.jpg` or replace `_a` with `suff` if it precedes the extension.,"re.sub('(\\_a)?\\.([^\\.]*)$', '_suff.\\2', 'long.file.name.jpg')"
-reload a module `module`,"import imp
-imp.reload(module)"
-convert integer `number` into an unassigned integer,"struct.unpack('H', struct.pack('h', number))"
-convert int values in list `numlist` to float,numlist = [float(x) for x in numlist]
-"write dataframe `df`, excluding index, to a csv file","df.to_csv(filename, index=False)"
-convert a urllib unquoted string `unescaped` to a json data `json_data`,json_data = json.loads(unescaped)
-create a list containing all ascii characters as its elements,[chr(i) for i in range(127)]
-write `newfilebytes` to a binary file `newfile`,"newFile.write(struct.pack('5B', *newFileBytes))"
-python regex - check for a capital letter with a following lowercase in string `string`,"re.sub('^[A-Z0-9]*(?![a-z])', '', string)"
-get the last key of dictionary `dict`,list(dict.keys())[-1]
-"write line ""hi there"" to file `f`","print('hi there', file=f)"
-"write line ""hi there"" to file `myfile`","f = open('myfile', 'w')
-f.write('hi there\n')
-f.close()"
+use sched module to run at a given time,time.sleep(60)
+how to define two-dimensional array in python,matrix = [([0] * 5) for i in range(5)]
+format floating point number  `totalamount` to be rounded off to two decimal places and have a comma thousands' seperator,"print('Total cost is: ${:,.2f}'.format(TotalAmount))"
+listing files from a directory using glob python,glob.glob('[!hello]*.txt')
+how to remove tags from a string in python using regular expressions? (not in html),"print(re.sub('<[A-Za-z\\/][^>]*>', '', my_string))"
+how do i change the string representation of a python class?,"""""""""a\"""""""""
+add missing date index in dataframe,df.to_csv('test.csv')
+saving a numpy array as an image,"scipy.misc.imsave('outfile.jpg', image_array)"
+combining two series in pandas along their index,"pd.concat([s1, s2], axis=1)"
+how to use schemas in django?,"db_table = 'schema"".""tablename'"
+how can i convert literal escape sequences in a string to the corresponding bytes?,"""""""\\xc3\\x85a"""""".encode('utf-8').decode('unicode_escape').encode('latin-1')"
+python regex search and split,"re.split('(ddd)', 'aaa bbb ccc ddd eee fff', 1)"
+how can i generalize my pandas data grouping to more than 3 dimensions?,"pd.concat([df2, df2], axis=1, keys=['tier1', 'tier2'])"
+sort dates in python array,"sorted(timestamps, key=lambda d: map(int, d.split('-')))"
+python turning a list into a list of tuples,"done = [(el, x) for el in [a, b, c, d]]"
+pandas interpolate data with units,df['depth'] = df['depth'].interpolate(method='values')
+get the number of rows in table using sqlalchemy,rows = session.query(Congress).count()
+how to copy a file to a remote server in python using scp or ssh?,ssh.close()
+"generate all permutations of list `[1, 2, 3]` and list `[4, 5, 6]`","print(list(itertools.product([1, 2, 3], [4, 5, 6])))"
+plotting data from csv files using matplotlib,plt.show()
+repeat every character for 7 times in string 'map',""""""""""""".join(map(lambda x: x * 7, 'map'))"
+how to write a tuple of tuples to a csv file using python,"print('\n'.join([','.join(x) for x in A]), file=f)"
+how to set the current working directory in python?,os.chdir('c:\\Users\\uname\\desktop\\python')
+finding the most frequent character in a string,print(collections.Counter(s).most_common(1)[0])
+python requests not working with google app engine,"r = http.request('GET', 'https://www.23andme.com/')"
+choosing a maximum randomly in the case of a tie?,"max(l, key=lambda x: (x[1], random.random()))"
+show explorer's properties dialog for a file in windows,time.sleep(5)
+pandas: select the first couple of rows in each group,"df.groupby('id', as_index=False).head(2)"
+python: how can i find all files with a particular extension?,results += [each for each in os.listdir(folder) if each.endswith('.c')]
+"how to set a variable to be ""today's"" date in python/pandas",pandas.to_datetime('today')
+python - how to format variable number of arguments into a string?,"function_in_library('Hello %s' % ', '.join(['%s'] * len(my_args)), my_args)"
+"matplotlib subplot title, figure title formatting",plt.subplots_adjust(top=0.75)
+how do i create a new database in mongodb using pymongo?,collection = db['test-collection']
+how to calculate percentage in python,print('The total is ' + str(total) + ' and the average is ' + str(average))
+subtract elements of list `list1` from elements of list `list2`,"[(x1 - x2) for x1, x2 in zip(List1, List2)]"
+none,"datetime.datetime.strptime('2007-03-04T21:08:12', '%Y-%m-%dT%H:%M:%S')"
+efficient computation of the least-squares algorithm in numpy,"np.linalg.solve(np.dot(a.T, a), np.dot(a.T, b))"
+python pandas : group by in group by and average?,df.groupby(['cluster']).mean()
+get the creation time of file `file`,print(('created: %s' % time.ctime(os.path.getctime(file))))
+multiple levels of keys and values in python,creatures['birds']['eagle']['female'] += 1
+convert a string to an array,testarray = ast.literal_eval(teststr)
+stack bar plot in matplotlib and add label to each section (and suggestions),plt.show()
+replace a substring selectively inside a string,"re.sub('\\bdelhi\\b(?=(?:""[^""]*""|[^""])*$)', '', a)"
+how to make pylab.savefig() save image for 'maximized' window instead of default size,"plt.savefig('myplot.png', dpi=100)"
+add a 2d array(field) to a numpy recarray,"rf.append_fields(arr, 'vel', np.arange(3), usemask=False)"
+python: beautifulsoup - get an attribute value based on the name attribute,"soup.find('meta', {'name': 'City'})['content']"
+test a boolean expression in a python string,eval('20<30')
+how to get num results in mysqldb,"self.cursor.execute(""SELECT COUNT(*) FROM table WHERE asset_type='movie'"")"
+how to split a string using an empty separator in python,list('1111')
+get the next value greatest to `2` from a list of numbers `num_list`,min([x for x in num_list if x > 2])
+generate a random 12-digit number,""""""""""""".join(str(random.randint(0, 9)) for _ in range(12))"
+how can i find the ip address of a host using mdns?,"sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)"
+append element to a list inside nested list - python,"[['google', ['http://google.com']], ['computing', ['http://acm.org']]]"
+how to prevent table regeneration in ply,"yacc.yacc(debug=0, write_tables=0)"
+clear terminal in python,os.system('cls' if os.name == 'nt' else 'clear')
+trying to find majority element in a list,"find_majority([1, 2, 3, 4, 3, 3, 2, 4, 5, 6, 1, 2, 3, 4, 5, 1, 2, 3, 4, 6, 5])"
+how to move to one folder back in python,os.chdir('../nodes')
+python: how to count overlapping occurrences of a substring,"len([s.start() for s in re.finditer('(?=aa)', 'aaa')])"
+how to make a 3d scatter plot in python?,pyplot.show()
+find and replace values in xml using python,tree.find('.//enddate').text = '1/1/2011'
+what is the most pythonic way to exclude elements of a list that start with a specific character?,[x for x in my_list if not x.startswith('#')]
+get the logical xor of two variables `str1` and `str2`,return (bool(str1) ^ bool(str2))
+check if object `o` is a string,"isinstance(o, str)"
+capture keyboardinterrupt in python without try-except,time.sleep(1)
+how to make ordered dictionary from list of lists?,"pprint([OrderedDict(zip(names, subl)) for subl in list_of_lists])"
+assign value in `group` dynamically to class property `attr`,"setattr(self, attr, group)"
+combine two columns `foo` and `bar` in a pandas data frame,"pandas.concat([df['foo'].dropna(), df['bar'].dropna()]).reindex_like(df)"
+flask: using multiple packages in one app,app.run()
+python - create list with numbers between 2 values?,"list(range(11, 17))"
+download a file `url` over http,r = requests.get(url)
+send data from blobstore as email attachment in gae,blob_reader = blobstore.BlobReader('my_blobstore_key')
+unpivot first 2 columns into new columns 'year' and 'value' from a pandas dataframe `x`,"pd.melt(x, id_vars=['farm', 'fruit'], var_name='year', value_name='value')"
+how to find values from one dataframe in another using pandas?,"print(pd.merge(df1, df2, on='B'))"
+area intersection in python,plt.show()
+how to modify the elements in a list within list,"L = [[1, 2, 3], [4, 5, 6], [3, 4, 6]]"
+efficient python array with 100 million zeros?,a[i] += 1
+iterating key and items over dictionary `d`,"for (k, v) in list(d.items()):
+    pass"
+how do you filter pandas dataframes by multiple columns,males = df[(df[Gender] == 'Male') & (df[Year] == 2014)]
+change the current directory one level up,os.chdir('..')
+python creating tuple groups in list from another list,"[([1, 2, 3], [-4, -5]), ([3, 2, 4], [-2]), ([5, 6], [-5, -1]), ([1], [])]"
+extract all keys from a list of dictionaries,[list(d.keys()) for d in LoD]
+how to make two markers share the same label in the legend using matplotlib?,ax.set_xlabel('Distance from heated face($10^{-2}$ m)')
+how does python do string magic?,""""""""""""".join(['x', 'x', 'x'])"
+matplotlib problems plotting logged data and setting its x/y bounds,plt.axis('tight')
+how to sort tire sizes in python,"['235/40/17', '285/30/18', '315/25/19', '275/30/19', '285/30/19']"
+comparing two .txt files using difflib in python,"difflib.SequenceMatcher(None, file1.read(), file2.read())"
+"calling an external command ""echo hello world""","return_code = subprocess.call('echo Hello World', shell=True)"
+use groupby in pandas to count things in one column in comparison to another,"df.pivot_table(index='Event', columns='Status', aggfunc=len, fill_value=0)"
+efficient way to compress a numpy array (python),"my_array.compress([(x in ['this', 'that']) for x in my_array['job']])"
+regex to separate numeric from alpha,"re.findall('(\\d+|[a-zA-Z]+)', '12fgsdfg234jhfq35rjg')"
+python - convert datetime to varchar/string,"d = datetime.strptime(date_str, '%Y-%m-%d')"
+how do i access the request object or any other variable in a form's clean() method?,"myform = MyForm(request.POST, request=request)"
+how to make a numpy array from an array of arrays?,"np.concatenate(counts_array).reshape(len(counts_array), -1)"
+rounding a number in python but keeping ending zeros,"""""""{:.2f}"""""".format(round(2606.89579999999, 2))"
+align values in array `b` to the order of corresponding values in array `a`,"a[np.in1d(a, b)]"
+python - how do i make a dictionary inside of a text file?,pickle.loads(s)
+programmatically make http requests through proxies with python,"urllib.request.urlopen(your_url, proxies={'http': 'http://192.168.0.1:80'})"
+python - list of unique dictionaries,"list(dict((v['id'], v) for v in L).values())"
+how to make a timer program in python,time.sleep(1)
+join numpy array `b` with numpy array 'a' along axis 0,"b = np.concatenate((a, a), axis=0)"
+how can i split and parse a string in python?,"""""""2.7.0_bf4fda703454"""""".split('_')"
+python pandas drop columns based on max value of column,df.max()
+sorting a list of tuples such that grouping by key is not desired,"antisort([(1, 2), (1, 3), (1, 4), (2, 3), (2, 4), (3, 4)])"
+grouping daily data by month in python/pandas and then normalizing,"g.dropna().reset_index().reindex(columns=['visits', 'string', 'date'])"
+python pandas rank by column,"s.reset_index(drop=True, inplace=True)"
+how do i visualize a connection matrix with matplotlib?,plt.show()
+"remove all special characters, punctuation and spaces from a string `mystring` using regex","re.sub('[^A-Za-z0-9]+', '', mystring)"
+join list of lists in python,print(list(itertools.chain.from_iterable(a)))
+generate a waveform image from an audio file,matplotlib.pyplot.plot(raw_audio_data)
+how to filter a dictionary according to an arbitrary condition function?,"{k: v for k, v in points.items() if v[0] < 5 and v[1] < 5}"
+convert currency string `dollars` to decimal `cents_int`,cents_int = int(round(float(dollars.strip('$')) * 100))
+is there a way to reopen a socket?,"sck.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)"
+remove newline in string 'windows eol\r\n' on the right side,'Windows EOL\r\n'.rstrip('\r\n')
+bulk zeroing of elements in a scipy.sparse_matrix,A = A - A.multiply(B)
+python regex findall,"re.findall('\\[P\\]\\s?(.+?)\\s?\\[\\/P\\]', line)"
+"set size of `figure` to landscape a4 i.e. `11.69, 8.27` inches","figure(figsize=(11.69, 8.27))"
+creating an empty list,list()
+get random sample from list while maintaining ordering of items?,"random.sample(range(len(mylist)), sample_size)"
+reductions down a column in pandas,"pd.concat([pd.Series(initial_value), cum_growth]).reset_index(drop=True)"
+deleting a line from a file in python,"open('names.txt', 'w').write(''.join(lines))"
+"tkinter: set stringvar after <key> event, including the key pressed",root.mainloop()
+make subprocess find git executable on windows,"proc = subprocess.Popen(['git', 'status'], stdout=subprocess.PIPE)"
+create a json response `response_data`,"return HttpResponse(json.dumps(response_data), content_type='application/json')"
+how to clip polar plot in pylab/pyplot,plt.show()
+sort a numpy array according to 2nd column only if values in 1st column are same,"a[np.lexsort(a[:, ::-1].T)]"
+sum one number to every element in a list (or array) in python,"[3, 3, 3, 3, 3]"
+how to multiply two vector and get a matrix?,"numpy.outer(numpy.array([1, 2]), numpy.array([3, 4]))"
+how to convert encoding in python?,data.decode('utf8').encode('latin1').decode('gb2312')
+evaluate a nested dictionary `myobject.id.number` to get `number` if `myobject` is present with getattr,"getattr(getattr(myobject, 'id', None), 'number', None)"
+pandas pivot table of sales,"pd.crosstab(df.saleid, df.upc)"
+shuffle a list within a specific range python,"random.sample(list(range(1, 10)), 5)"
+django filter by datetime on a range of dates,"queryset.filter(created_at__range=(start_date, end_date))"
+how to get n elements of a list not contained in another one?,"set([3, 5, 7, 9])"
+how to select only specific columns from a dataframe with multiindex columns?,"data.loc[:, (list(itertools.product(['one', 'two'], ['a', 'c'])))]"
+how to print a pdf file to stdout using python?,sys.stdout.buffer.write(pdf_file.read())
+python: compare a list to a integer,"int(''.join(your_list), 16)"
+how to assign equal scaling on the x-axis in matplotlib?,"ax.plot(x_normalised, y, 'bo')"
+parsing date string in python (convert string to date),"datetime.strptime(data[4].partition('T')[0], '%Y-%m-%d').date()"
+how to sort a large dictionary,"['002', '020', 'key', 'value']"
+move dictionaries in list `lst` to the end of the list if value of key 'language' in each dictionary is not equal to 'en',"sorted(lst, key=lambda x: x['language'] != 'en')"
+how do i visualize a connection matrix with matplotlib?,plt.show()
+"list of tuples (string, float)with nan how to get the min value?","min(list, key=lambda x: float('inf') if math.isnan(x[1]) else x[1])"
+how can i color python logging output?,"logging.Logger.__init__(self, name, logging.DEBUG)"
+python: how to check if keys exists and retrieve value from dictionary in descending priority,"value = myDict.get('lastName', myDict.get('firstName', myDict.get('userName')))"
+how to draw a heart with pylab,pylab.savefig('heart.png')
+is there a way to make the tkinter text widget read only?,text.configure(state='disabled')
+change a string of integers separated by spaces to a list of int,"map(int, x.split(' '))"
+python 3 script to upload a file to a rest url (multipart request),"r = requests.post(url, files=files)"
+how to delete a character from a string using python?,"newstr = oldstr.replace('M', '')"
+how to export figures to files from ipython notebook,savefig('sample.pdf')
+remove key 'c' from dictionary `d`,{i: d[i] for i in d if i != 'c'}
+convert strings in list-of-lists `lst` to ints,[[int(x) for x in sublist] for sublist in lst]
+sum columns of a list `array`,[sum(row[i] for row in array) for i in range(len(array[0]))]
+how can i configure pyramid's json encoding?,return Response(json_string)
+add tuple to list of tuples in python,"result = [(x + dx, y + dy) for x, y in points for dx, dy in offsets]"
+tkinter adding line number to text widget,"self.text.pack(side='right', fill='both', expand=True)"
+matrix mirroring in python,"np.concatenate((A[::-1, :], A), axis=0)"
+group by in mongoengine embeddeddocumentlistfield,Cart.objects.filter(user=user).first().distinct('items.item')
+append string 'str' at the beginning of each value in column 'col' of dataframe `df`,df['col'] = 'str' + df['col'].astype(str)
+how to shift a string to right in python?,print(' '.join([s.split()[-1]] + s.split()[:-1]))
+django - regex for optional url parameters,"return render_to_response('my_view.html', context)"
+plot a data logarithmically in y axis,"plt.yscale('log', nonposy='clip')"
+"get the first row, second column; second row, first column, and first row third column values of numpy array `arr`","arr[[0, 1, 1], [1, 0, 2]]"
+how to print unicode character in python?,print('\u2713')
+how to avoid line color repetition in matplotlib.pyplot?,plt.savefig('pal3.png')
+specify list of possible values for pandas get_dummies,"['A', 'B', 'C', 'B', 'B', 'D', 'E']"
+getting task_id inside a celery task,print(celery.current_task.task_id)
+check if all values in the columns of a numpy matrix `a` are same,"np.all(a == a[(0), :], axis=0)"
+replace value in any column in pandas dataframe,"pd.to_numeric(df.stack(), 'coerce').unstack()"
+json to model a class using django,"[{'model': 'myapp.user', 'pk': '89900', 'fields': {'name': 'Clelio de Paula'}}]"
+"convert tuple of tuples `(('aa',), ('bb',), ('cc',))` to tuple","from functools import reduce
+reduce(lambda a, b: a + b, (('aa',), ('bb',), ('cc',)))"
+matplotlib in python - drawing shapes and animating them,plt.show()
+flask sqlalchemy query with keyword as variable,"User.query.filter_by(hometown='New York', university='USC')"
+pulling a random word/string from a line in a text file in python,print(random.choice(open('WordsForGames.txt').readline().split()))
+"in python's argparse module, how can i disable printing subcommand choices between curly brackets?",parser.parse_args()
+"how to change [1,2,3,4] to '1234' using python",""""""""""""".join([1, 2, 3, 4])"
+delete every non `utf-8` characters from a string `line`,"line = line.decode('utf-8', 'ignore').encode('utf-8')"
+create a key `key` if it does not exist in dict `dic` and append element `value` to value.,"dic.setdefault(key, []).append(value)"
+putting a variable inside a string (python),plot.savefig('hanning' + str(num) + '.pdf')
+best way to plot an angle between two lines in matplotlib,"ax.set_ylim(0, 5)"
+python convert fraction to decimal,float(a)
+django queryset filter for backwards related fields,Project.objects.filter(action__person=person)
+python: mysqldb. how to get columns name without executing select * in a big table?,cursor.execute('SELECT * FROM table_name WHERE 1=0')
+generate all possible strings from a list of token,"print([''.join(a) for a in combinations(['hel', 'lo', 'bye'], 2)])"
+print number `value` as thousands separators,"'{:,}'.format(value)"
+get first non-null value per each row from dataframe `df`,df.stack().groupby(level=0).first()
+how do i configure spacemacs for python 3?,python - -version
+sorting a list of dicts by dict values,"sorted(a, key=lambda i: list(i.values())[0], reverse=True)"
+remove anything following first character that is not a letter in a string in python,"re.split('[^A-Za-z ]|  ', 'Are you 9 years old?')[0].strip()"
+storing a matlab file using python,"scipy.io.savemat('test.mat', data)"
+call a function through a variable in python,_w()
+how to zip two lists of lists in python?,"[sum(x, []) for x in zip(L1, L2)]"
+how to do pearson correlation of selected columns of a pandas data frame,"df.corr().iloc[:-1, (-1)]"
+convert pandas dataframe to csv string,df.to_csv()
+ordering django queryset by an @property,"sorted(Thing.objects.all(), key=lambda t: t.name)"
+inserting json into mysql using python,"db.execute('INSERT INTO json_col VALUES %s', json_value)"
+python dict to numpy structured array,"numpy.array([(key, val) for key, val in result.items()], dtype)"
+how does the axis parameter from numpy work?,"e.shape == (3, 2, 2)"
+what is the best way to remove a dictionary item by value in python?,"{key: val for key, val in list(myDict.items()) if val != 42}"
+how to deal with unstable data received from rfid reader?,cache.get('data')
+what is the definition of mean in pandas data frame?,print(df['col'][0:i].mean())
+"get a list of tuples of every three consecutive items in list `[1, 2, 3, 4, 5, 6, 7, 8, 9]`","list(zip(*((iter([1, 2, 3, 4, 5, 6, 7, 8, 9]),) * 3)))"
+"join list of numbers `[1,2,3,4] ` to string of numbers.",""""""""""""".join([1, 2, 3, 4])"
+regex python adding characters after a certain word,"re.sub('(get)', '\\1@', text)"
+how do you calculate the greatest number of repetitions in a list?,"print(max(result, key=lambda a: a[1]))"
+arrows in matplotlib using mplot3d,plt.show()
+python: reduce (list of strings) -> string,print('.'.join([item[0] for item in data]))
+how do i set cell values in `np.array()` based on condition?,"np.put(arr, np.where(~np.in1d(arr, valid))[0], 0)"
+python: how to check a string for substrings from a list?,any(substring in string for substring in substring_list)
+matplotlib fill beetwen multiple lines,plt.show()
+python image library produces a crappy quality jpeg when i resize a picture,"im.save(thumbnail_file, 'JPEG', quality=90)"
+seaborn plot including different distributions of the same data,"sns.pointplot(x='grp', y='val', hue='grp', data=df)"
+create a flat dictionary by summing values associated with similar keys in each dictionary of list `dictlist`,"dict((key, sum(d[key] for d in dictList)) for key in dictList[0])"
+check whether a path is valid in python without creating a file at the path's target,"open(filename, 'r')"
 "write line ""hello"" to file `somefile.txt`","with open('somefile.txt', 'a') as the_file:
     the_file.write('Hello\n')"
-convert unicode string `s` to ascii,s.encode('iso-8859-15')
-django get maximum value associated with field 'added' in model `authorizedemail`,AuthorizedEmail.objects.filter(group=group).order_by('-added')[0]
-find all numbers and dots from a string `text` using regex,"re.findall('Test([0-9.]*[0-9]+)', text)"
-python regex  to find all numbers and dots from 'text',"re.findall('Test([\\d.]*\\d+)', text)"
+python: confusions with urljoin,"urljoin('some', 'thing')"
+compare python pandas dataframes for matching rows,"pd.merge(df1, df2, on=common_cols, how='inner')"
+how to get the label of a choice in a django forms choicefield?,{{OBJNAME.get_FIELDNAME_display}}
+how to keep a python script output window open?,input('Press enter to exit ;)')
+best way to structure a tkinter application,root.mainloop()
+test if lists share any items in python,any(i in a for i in b)
+"remove all instances of `[1, 1]` from a list `a`","[x for x in a if x != [1, 1]]"
+shutdown and restart a computer running windows from script,"subprocess.call(['shutdown', '/r'])"
+python - way to recursively find and replace string in text files,"findReplace('some_dir', 'find this', 'replace with this', '*.txt')"
+pythonic way to associate list elements with their indices,"d = dict((y, x) for x, y in enumerate(t))"
+regex search and split string 'aaa bbb ccc ddd eee fff' by delimiter '(d(d)d)',"re.split('(d(d)d)', 'aaa bbb ccc ddd eee fff', 1)"
+how to use the user_passes_test decorator in class based views?,"return super(UserSettingsView, self).dispatch(*args, **kwargs)"
+calculate the date six months from the current date,print((datetime.date.today() + datetime.timedelta(((6 * 365) / 12))).isoformat())
+hexagonal self-organizing map in python,"(i + 1, j), (i - 1, j), (i, j - 1), (i, j + 1), (i - 1, j - 1), (i + 1, j - 1)"
+how to determine pid of process started via os.system,proc.terminate()
+"add header `('cookie', 'cookiename=cookie value')` to mechanize browser `br`","br.addheaders = [('Cookie', 'cookiename=cookie value')]"
+different levels of logging in python,logger.setLevel(logging.DEBUG)
+how can i compare a date and a datetime in python?,"datetime.datetime(d.year, d.month, d.day)"
+removing the first folder in a path,os.path.join(*x.split(os.path.sep)[2:])
+pandas groupby: count the number of occurences within a time range for each group,df['WIN1'] = df['WIN'].map(lambda x: 1 if x == 'Yes' else 0)
+how to find all possible sequences of elements in a list?,"map(list, permutations([2, 3, 4]))"
+confusing with the usage of regex in python,"re.search('[a-z]*', '1234')"
+"sort a list of tuples 'unsorted' based on two elements, second and third","sorted(unsorted, key=lambda element: (element[1], element[2]))"
+how do i display current time using python + django?,now = datetime.datetime.now().strftime('%H:%M:%S')
+select dataframe rows between two dates,df['date'] = pd.to_datetime(df['date'])
+set time zone `europe/istanbul` in django,TIME_ZONE = 'Europe/Istanbul'
+how do i transform a multi-level list into a list of strings in python?,"a = [('A', 'V', 'C'), ('A', 'D', 'D')]"
+create list of 'size' empty strings,strs = ['' for x in range(size)]
+js date object to python datetime,"datetime.strptime('Tue, 22 Nov 2011 06:00:00 GMT', '%a, %d %b %Y %H:%M:%S %Z')"
+creating a json response using django and python,return JsonResponse({'foo': 'bar'})
+create a list containing the multiplication of each elements at the same index of list `lista` and list `listb`,"[(a * b) for a, b in zip(lista, listb)]"
+encode string `s` to utf-8 code,s.encode('utf8')
+parsing xml with namespace in python via 'elementtree',root.findall('{http://www.w3.org/2002/07/owl#}Class')
+replace one item in a string with one item from a list,"list(replace([1, 2, 3, 2, 2, 3, 1, 2, 4, 2], to_replace=2, fill='apple'))"
+reverse sort items in dictionary `mydict` by value,"sorted(iter(mydict.items()), key=itemgetter(1), reverse=True)"
+merge a nested dictionary `dicts` into a flat dictionary by concatenating nested values with the same key `k`,{k: [d[k] for d in dicts] for k in dicts[0]}
+how do i abort the execution of a python script?,sys.exit()
+counting the number of non-nan elements in a numpy ndarray matrix in python,np.count_nonzero(~np.isnan(data))
+issue with pandas boxplot within a subplot,"df.pivot('val', 'day', 'val').boxplot(ax=ax)"
+python 2.7 counting number of dictionary items with given value,sum(d.values())
+how to clear the screen in python,os.system('clear')
+sum up column values in pandas dataframe,"df.groupby(['score', 'type']).sum()"
+convert python datetime to epoch with strftime,"datetime.datetime(2012, 4, 1, 0, 0).timestamp()"
+how to get the size of tar.gz in (mb) file in python,os.path.getsize('large.tar.gz') >> 20
+convert binary string to list of integers using python,"[int(s[i:i + 3], 2) for i in range(0, len(s), 3)]"
+python and sqlite: insert into table,connection.commit()
+"in django, how do i check if a user is in a certain group?","return user.groups.filter(name__in=['group1', 'group2']).exists()"
+convert string to numpy array,"print(np.array(list(mystr), dtype=int))"
+how to import a module from a folder next to the current folder?,"sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))"
+deploy flask app as windows service,app.run()
+how to subset a data frame using pandas based on a group criteria?,df.loc[df.groupby('User')['X'].filter(lambda x: x.sum() == 0).index]
+kdb+ like asof join for timeseries data in pandas?,df1.apply(lambda x: x.asof(df2.index))
+can i extend within a list of lists in python?,"[[1, 100313, 0, 0, 1], [2, 100313, 0, 0, 1], [1, 100314, 0, 1, 0], [3, 100315]]"
+"how to use applymap, lambda and dataframe together to filter / modify dataframe in python?",df.fillna('o')
+find index of last occurrence of a substring in a string,s.rfind('l')
+run shell command 'rm -r some.file' in the background,"subprocess.Popen(['rm', '-r', 'some.file'])"
+wildcard matching a string in python regex search,pattern = '6 of\\s+(.+?)\\s+fans'
+how to use popen to run backgroud process and avoid zombie?,"signal.signal(signal.SIGCHLD, signal.SIG_IGN)"
+importing files in python from __init__.py,__init__.py
+pandas: how to increment a column's cell value based on a list of ids,"my_df.loc[my_df['id'].isin(ids), 'other_column'] += 1"
+how to annotate a range of the x axis in matplotlib?,"ax.annotate('important\npart', xy=(5, 1.5), ha='center', va='center')"
+get current ram usage of current program,"pid = os.getpid()
+py = psutil.Process(pid)
+memoryUse = (py.memory_info()[0] / (2.0 ** 30))"
+how to convert sql query result to pandas data structure?,"df = pd.read_sql(sql, cnxn)"
+how to write unix end of line characters in windows using python,"f = open('file.txt', 'wb')"
+don't understand this python for loop,"[('pos1', 'target1'), ('pos2', 'target2')]"
+google app engine: webtest simulating logged in user and administrator,os.environ['USER_IS_ADMIN'] = '1'
+print a string `value` with string formatting,"print('Value is ""{}""'.format(value))"
+python: how to import other python files,__init__.py
+how to convert hex string to hex number?,"print('%x' % int('2a', 16))"
+using selenium in python to click/select a radio button,"browser.find_elements_by_css(""input[type='radio'][value='SRF']"").click"
+how to get the values from a numpy array using multiple indices,"print(arr[[1, 4, 5]])"
+element-wise minimum of multiple vectors in numpy,"np.array([np.arange(3), np.arange(2, -1, -1), np.ones((3,))]).min(axis=0)"
+fastest way to find the magnitude (length) squared of a vector field,"np.einsum('...j,...j->...', vf, vf, dtype=np.double)[-1, -1, -1]"
+what would be the python code to add time to a specific timestamp?,"k.strftime('%H:%M:%S,%f ')"
+is there any way to get a repl in pydev?,pdb.set_trace()
+add column sum as new column in pyspark dataframe,"newdf = df.withColumn('total', sum(df[col] for col in df.columns))"
+how to print more than one value in a list comprehension?,"[[word, len(word), word.upper()] for word in sent]"
+convert a string to integer with decimal in python,int(Decimal(s))
+make a 60 seconds time delay,time.sleep(60)
+gnuplot linecolor variable in matplotlib?,plt.show()
+how to profile my code?,"cProfile.runctx('Your code here', globals(), locals(), 'output_file')"
+why i can't convert a list of str to a list of floats?,C1 = [float(i) for i in C if i]
+easiest way to replace a string using a dictionary of replacements?,pattern = re.compile('|'.join(list(d.keys())))
+remove none value from a list without removing the 0 value,[x for x in L if x is not None]
+how to indent python list-comprehensions?,[transform(x) for x in results if condition(x)]
+get number in list `mylist` closest in value to number `mynumber`,"min(myList, key=lambda x: abs(x - myNumber))"
+sort a list 'lst' in descending order.,"sorted(lst, reverse=True)"
+convert bytes to a python string,"""""""hello"""""".decode(encoding)"
+is it possible to create a dynamic localized scope in python?,foo()
+numpy repeat for 2d array,"res = np.zeros((arr.shape[0], m), arr.dtype)"
+string regex two mismatches python,"re.findall('(?=(SS..|S.Q.|S..P|.SQ.|.S.P|..QP))', s)"
+appending to list in python dictionary,"dates_dict.setdefault(key, []).append(date)"
+check if value 'one' is among the values of dictionary `d`,'one' in iter(d.values())
+is there a quick way to get the r equivalent of ls() in python?,"['__builtins__', '__doc__', '__loader__', '__name__', '__package__']"
+python regex pattern max length in re.compile?,stopword_pattern.match('1999')
+beautifulsoup find tag 'div' with styling 'width=300px;' in html string `soup`,"soup.findAll('div', style='width=300px;')"
+counting positive elements in a list with python list comprehensions,sum(x > 0 for x in frequencies)
+find first non-zero value in each row of pandas dataframe,"df.replace(0, np.nan).bfill(1).iloc[:, (0)]"
+using a global dictionary with threads in python,global_dict['bar'] = 'hello'
+django get all records of related models,Activity.objects.filter(list__topic__user=my_user)
+dirty fields in django,"super(Klass, self).save(*args, **kwargs)"
+pandas dataframe to list,list(set(df['a']))
+how to disable the window maximize icon using pyqt4?,win.setWindowFlags(QtCore.Qt.WindowMinimizeButtonHint)
+find maximum with lookahead = 4 in a list `arr`,"[max(abs(x) for x in arr[i:i + 4]) for i in range(0, len(arr), 4)]"
+multiplying a string by zero,s * (a + b) == s * a + s * b
+find the last substring after a character,"""""""foo:bar:baz:spam:eggs"""""".rsplit(':', 3)"
+converting byte string in unicode string,c.decode('unicode_escape')
+copy keys to a new dictionary (python),set(d.keys())
+how to set a cell to nan in a pandas dataframe,"pd.to_numeric(df['y'], errors='coerce')"
+how to create a density plot in matplotlib?,plt.show()
+is it possible to get widget settings in tkinter?,"w = Label(root, text='Hello, world!')"
+change legend size to 'x-small' in upper-left location,"pyplot.legend(loc=2, fontsize='x-small')"
+change user agent for selenium driver,driver.execute_script('return navigator.userAgent')
+how do i pull a recurring key from a json?,print(item['name'])
+sqlalchemy add child in one-to-many relationship,"parent = relationship('Parent', backref=backref('children', lazy='noload'))"
+convert array `a` into a list,numpy.array(a).reshape(-1).tolist()
+django middleware - how to edit the html of a django response object?,"response.content = response.content.replace('BAD', 'GOOD')"
+python matplotlib: change colorbar tick width,CB.lines[0].set_linewidth(10)
+python: how do i format a date in jinja2?,{{car.date_of_manufacture.strftime('%Y-%m-%d')}}
+pythonically add header to a csv file,writer.writeheader()
+change specific value in csv file via python,"df.to_csv('test.csv', index=False)"
+is there a way to get a list of column names in sqlite?,names = [description[0] for description in cursor.description]
+surface plots in matplotlib,plt.show()
+matplotlib/pyplot: how to enforce axis range?,fig.savefig('the name of your figure')
+get current url in python,self.request.url
+"serialize dictionary `d` as a json formatted string with each key formatted to pattern '%d,%d'","simplejson.dumps(dict([('%d,%d' % k, v) for k, v in list(d.items())]))"
+how to print dataframe without index,print(df.to_string(index=False))
+list is a subset of another list,"set(map(tuple, listB)) <= set(map(tuple, listA))"
+count how many of an object type there are in a list python,"sum(isinstance(x, int) for x in a)"
+how to create a self resizing grid of buttons in tkinter?,root.mainloop()
+how to get a padded slice of a multidimensional array?,arr[-2:2]
+how to iterate over unicode characters in python 3?,print('U+{:04X}'.format(i))
+python mysqldb typeerror: not all arguments converted during string formatting,"cur.execute(""SELECT * FROM records WHERE email LIKE '%s'"", (search,))"
+remove first and last lines of string `s`,s[s.find('\n') + 1:s.rfind('\n')]
+matplotlib - hiding specific ticks on x-axis,plt.show()
+how to run webpage code with phantomjs via ghostdriver (selenium),driver.get('http://stackoverflow.com')
+get logical xor of `a` and `b`,(bool(a) != bool(b))
+removing control characters from a string `s`,return ''.join(ch for ch in s if unicodedata.category(ch)[0] != 'C')
+create `list2` to contain the lists from list `list1` excluding the empty lists from `list1`,list2 = [x for x in list1 if x]
+get all combination of 3 binary values,"lst = list(itertools.product([0, 1], repeat=3))"
+how to create a ratings csr_matrix in scipy?,"scipy.sparse.csr_matrix([column['rating'], column['user'], column['movie']])"
+how to convert a string representing a binary fraction to a number in python,"return int(s[1:], 2) / 2.0 ** (len(s) - 1)"
+python - how to call bash commands with pipe?,"subprocess.call('tar c my_dir | md5sum', shell=True)"
+python - numpy - tuples as elements of an array,"a = zeros((ph, pw), dtype=(float, 3))"
+create dict of squared int values in range of 100,{(x ** 2) for x in range(100)}
+get the number of values in list `j` that is greater than 5,len([1 for i in j if (i > 5)])
+python/django: how to remove extra white spaces & tabs from a string?,""""""" """""".join(s.split())"
+accessing form fields as properties in a django view,print(myForm.cleaned_data.get('description'))
+"fetch all elements in a dictionary `parent_dict`, falling between two keys 2 and 4","dict((k, v) for k, v in parent_dict.items() if 2 < k < 4)"
+how to get transparent background in window with pygtk and pycairo?,win.show()
+python pandas: how to move one row to the first row of a dataframe?,"df = pd.DataFrame(np.random.randn(10, 5), columns=['a', 'b', 'c', 'd', 'e'])"
+"reduce the first element of list of strings `data` to a string, separated by '.'",print('.'.join([item[0] for item in data]))
+setting matplotlib colorbar range,"quadmesh.set_clim(vmin=0, vmax=15)"
+encode each value to 'utf8' in the list `employeelist`,[x.encode('UTF8') for x in EmployeeList]
+create list `c` containing items from list `b` whose index is in list `index`,c = [b[i] for i in index]
+django - filter queryset by charfield value length,MyModel.objects.extra(where=['CHAR_LENGTH(text) > 254'])
+convert unicode/utf-8 string to lower/upper case using pure & pythonic library,print('\xc4\x89'.decode('utf-8').upper())
+how to delete rows from a pandas dataframe based on a conditional expression,df[df['column name'].map(len) < 2]
+pandas dataframe to sqlite,"df = pd.DataFrame({'TestData': [1, 2, 3, 4, 5, 6, 7, 8, 9]}, dtype='float')"
+output data from all columns in a dataframe in pandas,"pandas.set_option('display.max_columns', None)"
+how can i detect dos line breaks in a file?,"print(open('myfile.txt', 'U').read())"
+how to pass arguments as tuple to odeint?,"odeint(func, y0, t, a, b, c)"
+how to get yesterday in python,datetime.datetime.now() - datetime.timedelta(days=1)
+sort list of date strings 'd',"sorted(d, key=lambda x: datetime.datetime.strptime(x, '%m-%Y'))"
+table legend with header in matplotlib,plt.show()
+create a new column `weekday` in pandas data frame `data` based on the values in column `my_dt`,data['weekday'] = data['my_dt'].apply(lambda x: x.weekday())
+percentage match in pandas dataframe,(trace_df['ratio'] > 0).mean()
+"how do i sort a list with ""nones last""","sorted(lis, key=lambda a: Infinity() if a['name'] is None else a['name'])"
+select the first row grouped per level 0 of dataframe `df`,"df.groupby(level=0, as_index=False).nth(0)"
+change the number of colors in matplotlib stylesheets,h.set_color('r')
+format strings and named arguments in python,"""""""{} {}"""""".format(10, 20)"
+pandas - fillna with another column,df['Cat1'].fillna(df['Cat2'])
+"find all digits in string '6,7)' and put them to a list","re.findall('\\d|\\d,\\d\\)', '6,7)')"
+how do i change the axis tick font in a matplotlib plot when rendering using latex?,"rc('text.latex', preamble='\\usepackage{cmbright}')"
+how can i remove text within parentheses with a regex?,"re.sub('\\([^)]*\\)', '', filename)"
+"difference between using commas, concatenation, and string formatters in python",print('here is a number: ' + str(2))
+convert pandas group by object to multi-indexed dataframe with indices 'name' and 'destination',"df.set_index(['Name', 'Destination'])"
+how do i permanently set the current directory to the desktop in python?,os.chdir('C:/Users/Name/Desktop')
+how do i draw a grid onto a plot in python?,"plt.rc('grid', linestyle='-', color='black')"
+printing multiples of numbers,"print(list(range(n, (m + 1) * n, n)))"
+insert row into excel spreadsheet using openpyxl in python,"wb.create_sheet(0, 'Sheet1')"
+"selecting element ""//li/label/input"" followed by text ""polishpottery"" with selenium webdriver `driver`","driver.find_element_by_xpath(""//li/label/input[contains(..,'polishpottery')]"")"
+how to compute a new column based on the values of other columns in pandas - python,df['c'] = (df.a.str[-1] == df.b).astype(int)
+create a file 'filename' with each tuple in the list `mylist` written to a line,"open('filename', 'w').write('\n'.join('%s %s' % x for x in mylist))"
+convert utf-8 with bom string `s` to utf-8 with no bom `u`,u = s.decode('utf-8-sig')
+python requests multipart http post,"requests.post(url, headers=headers, files=files, data=data)"
+python pandas : how to skip columns when reading a file?,"a = pd.read_table('file', header=None, sep=' ', usecols=list(range(8)))"
+adding calculated column(s) to a dataframe in pandas,"d.apply(lambda row: min([row['A'], row['B']]) - row['C'], axis=1)"
+python pandas plot is a no-show,plt.show()
+python: transform a list of lists of tuples,"map(list, zip(*main_list))"
+inserting json into mysql using python,"db.execute('INSERT INTO json_col VALUES %s', json_value)"
+escape string python for mysql,cursor.execute(sql)
+find the newest folder in a directory in python,all_subdirs = [d for d in os.listdir('.') if os.path.isdir(d)]
+list of all unique characters in a string?,list(set('aaabcabccd'))
+format output data in pandas to_html,print(df.to_html(float_format=lambda x: '%10.2f' % x))
+split string `input` based on occurrences of regex pattern '[ ](?=[a-z]+\\b)',"re.split('[ ](?=[A-Z]+\\b)', input)"
+"pandas : merge two columns, every other row","df.stack().reset_index(level=[0, 1], drop=True)"
+how does one convert a .net tick to a python datetime?,"datetime.datetime(1, 1, 1) + datetime.timedelta(microseconds=ticks / 10)"
+how to merge two dataframe in pandas to replace nan,"a.where(~np.isnan(a), other=b, inplace=True)"
+saving a numpy array with mixed data,"numpy.savetxt('output.dat', my_array.reshape((1, 8)), fmt='%f %i ' * 4)"
+get unique values from a list in python,mynewlist = list(myset)
+creating 2d dictionary in python,dict_names['d1']['name']
+how to sort tire sizes in python,"sorted(nums, key=lambda x: tuple(reversed(list(map(int, x.split('/'))))))"
+how to modify choices of modelmultiplechoicefield,self.fields['author'].queryset = choices
+python beautifulsoup extract specific urls,"soup.find_all('a', href=re.compile('http://www\\.iwashere\\.com/'))"
+pyqt qtcpserver: how to return data to multiple clients?,app.exec_()
+'in-place' string modifications in python,s = ''.join(F(c) for c in s)
+how to read lines from mmap file in python?,print(line.rstrip())
+binning a numpy array,"print(data.reshape(-1, 2).mean(axis=1))"
+creating a unicode xml from scratch with python 3.2,"tree.write('c.xml', encoding='utf-8')"
+"searching if the values on a list is in the dictionary whose format is key-string, value-list(strings)","[key for item in lst for key, value in list(my_dict.items()) if item in value]"
+find all the indexes in a numpy 2d array where the value is 1,zip(*np.where(a == 1))
+using python logging in multiple modules,loggerB = logging.getLogger(__name__ + '.B')
+finding consecutive segments in a pandas data frame,"df.reset_index().groupby(['A', 'block'])['index'].apply(np.array)"
+"python: dictionary to string, custom format?","""""""<br/>"""""".join([('%s:: %s' % (key, value)) for key, value in list(d.items())])"
+get a list `no_integers` of all the items in list `mylist` that are not of type `int`,"no_integers = [x for x in mylist if not isinstance(x, int)]"
+how do i add space between two variables after a print in python,"print('{0}  {1}'.format(count, conv))"
+how to initialize multiple columns to existing pandas dataframe,df.reindex(columns=list['abcd'])
+problems trying to format currency with python (django),"locale.setlocale(locale.LC_ALL, '')"
+how to do many-to-many django query to find book with 2 given authors?,Book.objects.filter(author__id=1).filter(author__id=2)
+delete all objects in a list,del mylist[:]
+"test if either of strings `a` or `b` are members of the set of strings, `['b', 'a', 'foo', 'bar']`","set(['a', 'b']).issubset(['b', 'a', 'foo', 'bar'])"
+using a variable in xpath in python selenium,"driver.find_element_by_xpath(""//option[@value='"" + state + ""']"").click()"
+"string formatting with ""{0:d}"" doesn't convert to integer","print('{0}, {0:s}, {0:d}, {0:02X}, {0:f}'.format(ten))"
+redirect prints to log file,logging.info('hello')
+sorting the content of a dictionary by the value and by the key,"sorted(list(d.items()), key=lambda x: (x[1], x[0]))"
+how to add a new row to an empty numpy array,"arr = np.append(arr, np.array([[4, 5, 6]]), axis=0)"
+split a string `yas` based on tab '\t',"re.split('\\t+', yas.rstrip('\t'))"
+replace a string located between,"re.sub(',(?=[^][]*\\])', '', str)"
+nltk - counting frequency of bigram,bigram_measures = nltk.collocations.BigramAssocMeasures()
+is there any way to use special characters inside a regex set?,""""""".*?\\b"""""""
+how to get output of exe in python script?,p1.communicate()[0]
+pandas unique values multiple columns,"np.unique(df[['Col1', 'Col2']].values)"
+how to write custom python logging handler?,logger.setLevel(logging.DEBUG)
+plotting more than one histogram in a figure with matplotlib,plt.show()
+convert unicode codepoint to utf8 hex in python,"chr(int('fd9b', 16)).encode('utf-8')"
+list of non-zero elements in a list in python,"[1, 1, 0, 0, 1, 0]"
+sort a list of tuples depending on two elements,"sorted(unsorted, key=lambda element: (element[1], element[2]))"
+print new line character as `\n` in a string `foo\nbar`,print('foo\nbar'.encode('string_escape'))
+open a file in sublime text and wait until it is closed while python script is running,"subprocess.Popen(['subl', '-w', 'parameters.py']).wait()"
+convert numpy array into python list structure,"np.array([[1, 2, 3], [4, 5, 6]]).tolist()"
+is there a list of all ascii characters in python's standard library?,ASCII = ''.join(chr(x) for x in range(128))
+django database query: how to filter objects by date range?,"Sample.objects.filter(date__year='2011', date__month='01')"
+how can i turn 000000000001 into 1?,"int('08', 10)"
+plotting different colors in matplotlib,plt.show()
+set value for key `a` in dict `count` to `0` if key `a` does not exist or if value is `none`,"count.setdefault('a', 0)"
+python: converting string into decimal number,"result = [float(x.strip(' ""')) for x in A1]"
+sorting a tuple that contains tuples,"sorted(my_tuple, key=lambda tup: tup[1])"
+convert string `user_input` into a list of integers `user_list`,"user_list = [int(number) for number in user_input.split(',')]"
+changing line properties in matplotlib pie chart,plt.rcParams['line.color'] = 'white'
+"how to capture a video (and audio) in python, from a camera (or webcam)",cv2.destroyAllWindows()
+get the position of item 1 in `testlist`,"[i for (i, x) in enumerate(testlist) if (x == 1)]"
+how can i open files in external programs in python?,webbrowser.open(filename)
+increment numpy array with repeated indices,"array([0, 0, 2, 1, 0, 1])"
+converting a 3d list to a 3d numpy array,"A = [[[0, 0, 0], [0, 0, 0], [0, 0, 0]], [[0], [0], [0]]]"
+print first key value in an ordered counter,"next((key, value) for key, value in list(c.items()) if value > 1)"
+get creation time of file `file`,time.ctime(os.path.getctime(file))
+"how to set ticks on fixed position , matplotlib",plt.show()
+how do i integrate ajax with django applications?,"url('^home/', 'myapp.views.home'),"
+convert a list `l` of ascii values to a string,""""""""""""".join(chr(i) for i in L)"
+sort dataframe `df` based on column 'b' in ascending and column 'c' in descending,"df.sort_values(['b', 'c'], ascending=[True, False], inplace=True)"
+why do i need lambda to apply functions to a pandas dataframe?,df['SR'] = df['Info'].apply(foo)
+split column 'ab' in dataframe `df` into two columns by first whitespace ' ',"df['AB'].str.split(' ', 1, expand=True)"
+scikit learn hmm training with set of observation sequences,model.fit([X])
+is there a function in python to split a word into a list?,list('Word to Split')
+how to merge two python dictionaries in a single expression?,c = dict(list(a.items()) | list(b.items()))
+recursively go through all subdirectories and files in `rootdir`,"for (root, subFolders, files) in os.walk(rootdir):
+    pass"
+recursively remove folder `name`,os.removedirs(name)
+how can i make a blank subplot in matplotlib?,plt.show()
+python - compress ascii string,comptest('test')
+python tuple to dict,"dict((y, x) for x, y in t)"
+how to remove two chars from the beginning of a line,[line[2:] for line in lines]
+averaging over every n elements of a numpy array,"np.mean(arr.reshape(-1, 3), axis=1)"
+merge two lists `a` and `b` into a single list,"[j for i in zip(a, b) for j in i]"
+how to download a file via ftp with python ftplib,"ftp.retrbinary('RETR %s' % filename, file.write)"
+"difference between using commas, concatenation, and string formatters in python","print('I am printing {0} and {y}'.format(x, y=y))"
+matching blank lines with regular expressions,"re.split('(?m)^\\s*$\\s*', text)"
+function that accepts both expanded arguments and tuple,"f(*((1, 4), (2, 5)))"
+image erosion and dilation with scipy,"im = scipy.misc.imread('flower.png', flatten=True).astype(np.uint8)"
+python : reverse order of list,"lines.sort(key=itemgetter(2), reverse=True)"
+numpy: comparing elements in two arrays,"array([True, False, False, True, True, False], dtype=bool)"
+how to add border around an image in opencv python,cv2.waitKey(0)
+removing duplicate characters from a string,""""""""""""".join(set(foo))"
+mmap file inquiry for a blank file in python,sys.stdout.flush()
+insert row into mysql database with column 'column1' set to the value `value`,"cursor.execute('INSERT INTO table (`column1`) VALUES (%s)', (value,))"
+how to read numbers in text file using python?,data = [[int(v) for v in line.split()] for line in lines]
+how can i make a scatter plot colored by density in matplotlib?,plt.show()
+best way to extract subset of key-value pairs from python dictionary object,"dict((k, bigdict[k]) for k in ('l', 'm', 'n'))"
+generate a random string of length `x`  containing lower cased ascii letters,""""""""""""".join(random.choice(string.lowercase) for x in range(X))"
+convert list of strings to dictionary,"{' Failures': 0, 'Tests run': 1, ' Errors': 0}"
+"how to read a ""c source, iso-8859 text""","codecs.open('myfile', 'r', 'iso-8859-1').read()"
+python - sort a list of nested lists,"sorted(l, key=asum)"
+run a command `echo hello world` in bash instead of shell,"os.system('/bin/bash -c ""echo hello world""')"
+check for a valid domain name in a string?,"""""""^(?=.{4,255}$)([a-zA-Z0-9][a-zA-Z0-9-]{,61}[a-zA-Z0-9]\\.)+[a-zA-Z0-9]{2,5}$"""""""
+regular expression to find any number in a string,nums.search('0001.20000').group(0)
+sorting list of lists by a third list of specified non-sorted order,"sorted(a, key=lambda x: b.index(x[0]))"
+how to sort a dataframe in python pandas by two or more columns?,"df.sort_values(['a', 'b'], ascending=[True, False])"
+"is it possible to take an ordered ""slice"" of a dictionary in python based on a list of keys?","res = [(x, my_dictionary[x]) for x in my_list if x in my_dictionary]"
+how to set first column to a constant value of an empty np.zeros numpy matrix?,"myArray = np.zeros((6, 6))"
+adding alpha channel to rgb array using numpy,"numpy.dstack((your_input_array, numpy.zeros((25, 54))))"
+plot point marker '.' on series `ts`,ts.plot(marker='.')
+how to read aloud python list comprehensions?,"[(x, y) for x in [1, 2, 3] for y in [3, 1, 4] if x != y]"
+running bash script 'sleep.sh',"subprocess.call('sleep.sh', shell=True)"
+create a list of tuples with adjacent list elements if a condition is true,"[(x, y) for x, y in zip(myList, myList[1:]) if y == 9]"
+python not able to open file with non-english characters in path,"""""""kureizihitsutsu!"""""""
+python accessing values in a list of dictionaries,print('\n'.join(sorted(d['Name'] for d in thisismylist)))
+where does python root logger store a log?,logging.basicConfig(level=logging.WARNING)
+trying to use hex() without 0x,"""""""{0:06x}"""""".format(int(line))"
+how can i filter for string values in a mixed datatype object in python pandas dataframe,df['Admission_Source_Code'] = [str(i) for i in df['Admission_Source_Code']]
+rearrange tuple of tuples `t`,tuple(zip(*t))
+how to access the class variable by string in python?,"getattr(test, a_string)"
+faster convolution of probability density functions in python,"convolve_many([[0.6, 0.3, 0.1], [0.5, 0.4, 0.1], [0.3, 0.7], [1.0]])"
+"execute sql query 'insert into table values(%s,%s,%s,%s,%s,%s,%s,%s,%s)' with all parameters in list `tup`","cur.executemany('INSERT INTO table VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)', tup)"
+can a python method check if it has been called from within itself?,foo()
+how to get all possible combination of items from 2-dimensional list in python?,list(itertools.product(*a))
+pandas dataframe to list of dictionaries,df.to_dict('records')
+how to combine two list containing dictionary with similar keys?,"result = [{k: (d1[k] + d2[k]) for k in d1} for d1, d2 in zip(var1, var2)]"
+change permissions via ftp in python,ftp.quit()
+how do i get the raw representation of a string in python?,return repr(s)
+how to use different view for django-registration?,"url('^accounts/', include('registration.backends.default.urls')),"
+check if a program exists from a python script,"subprocess.call(['wget', 'your', 'parameters', 'here'])"
+add a tuple with value `another_choice` to a tuple `my_choices`,"final_choices = ((another_choice,) + my_choices)"
+how do i insert a list at the front of another list?,"a.insert(0, k)"
+sorting while preserving order in python,"sorted(enumerate(a), key=lambda x: x[1])"
+regular expression matching all but a string,"re.findall('-(?!aa|bb)([^-]+)', string)"
+convert a flat list to list of list in python,zip(*([iter(l)] * 2))
+how to switch two elements in string using python regex?,"pattern.sub('A*\\3\\2\\1*', s)"
+argparse associate zero or more arguments with flag 'file',"parser.add_argument('file', nargs='*')"
+replace each value in column 'prod_type' of dataframe `df` with string 'responsive',df['prod_type'] = 'responsive'
+convert float series into an integer series in pandas,"df.resample('1Min', how=np.mean)"
+how to remove an element from a set?,[(x.discard('') or x) for x in test]
+invert colors when plotting a png file using matplotlib,"plt.imshow(cv2.cvtColor(cube, cv2.COLOR_BGR2RGB))"
+specify multiple positional arguments with argparse,"parser.add_argument('input', nargs='+')"
+sorting numpy array on multiple columns in python,df.sort(['date'])
+extract all the values of a specific key named 'values' from a list of dictionaries,results = [item['value'] for item in test_data]
+ignore an element while building list in python,[r for r in (f(char) for char in string) if r is not None]
+python datetime formatting without zero-padding,"""""""{d.month}/{d.day}/{d.year}"""""".format(d=datetime.datetime.now())"
+python dict comprehension with two ranges,"dict(zip(list(range(1, 5)), list(range(7, 11))))"
+how to convert a timedelta object into a datetime object,today + datetime.timedelta(days=1)
+removing duplicates in each row of a numpy array,numpy.array([v for v in vals if len(set(v)) == len(v)])
+is it possible to define global variables in a function in python,globals()['something'] = 'bob'
+split dictionary of lists into list of dictionaries,"[{'key1': a, 'key2': b} for a, b in zip(d['key1'], d['key2'])]"
+tweaking axis labels and names orientation for 3d plots in matplotlib,plt.show()
+convert a string to integer with decimal in python,int(float(s))
+how can i view a text representation of an lxml element?,"print(etree.tostring(root, pretty_print=True))"
+tensorflow strings: what they are and how to work with them,"x = tf.constant(['This is a string', 'This is another string'])"
+removing white space around a saved image in matplotlib,"plt.savefig('test.png', bbox_inches='tight')"
+how can i make tabs in pygtk closable?,gtk.main()
+matplotlib contour plot with intersecting contour lines,plt.show()
+how to construct a set out of list items in python?,"lst = ['foo.py', 'bar.py', 'baz.py', 'qux.py', Ellipsis]"
+creating a pandas dataframe from columns of other dataframes with similar indexes,"pd.concat([df1['c'], df2['c']], axis=1, keys=['df1', 'df2'])"
+all combinations of a list of lists,list(itertools.product(*a))
+how to extract from a list of objects a list of specific attribute?,[o.my_attr for o in my_list]
+how can i set the aspect ratio in matplotlib?,fig.savefig('force.png')
+get the size of list `s`,len(s)
+python/matplotlib - is there a way to make a discontinuous axis?,plt.show()
+plot a bar graph from the column 'color' in the dataframe 'df',df.colour.value_counts().plot(kind='bar')
+convert a list to a dictionary in python,"a = ['bi', 'double', 'duo', 'two']"
+grab one random item from a database `model` in django/postgresql,model.objects.all().order_by('?')[0]
+list all the files that matches the pattern `hello*.txt`,glob.glob('hello*.txt')
+python string to unicode,a = '\\u2026'
+"downloading an image, want to save to folder, check if file exists","urllib.request.urlretrieve('http://stackoverflow.com', filename)"
+how do i determine the size of an object in python?,sys.getsizeof('this also')
+how to extract tuple values in pandas dataframe for use of matplotlib?,df.head()
+get the characters count in a file `filepath`,os.stat(filepath).st_size
+ordering a list of dictionaries in python,"mylist.sort(key=lambda d: (d['weight'], d['factor']))"
+django: faking a field in the admin interface?,"forms.ModelForm.__init__(self, *args, **kwargs)"
+sorting by nested dictionary in python dictionary,"a['searchResult'].sort(key=lambda d: d['ranking'], reverse=True)"
+how to convert an hexadecimale line in a text file to an array (python)?,"'87', 'e9', 'b1', 'a4', '0a', '92', '9a', 'b6', '13', '56', '65', 'c2'"
+comparing previous row values in pandas dataframe,df['match'] = df['col1'].diff().eq(0)
+how to initialize nested dictionaries in python,my_tree['a']['b']['c']['d']['e'] = 'whatever'
+find monday's date with python,today - datetime.timedelta(days=today.weekday())
+imshow subplots with the same colorbar,plt.colorbar()
+how to calculate percentage of sparsity for a numpy array/matrix?,np.isnan(a).sum() / np.prod(a.shape)
+gnuplot linecolor variable in matplotlib?,"plt.scatter(list(range(len(y))), y, c=z, cmap=cm.hot)"
+receiving broadcast packets in python,"s.bind(('', 12345))"
+how do i watch a file for changes using python?,os.stat(filename).st_mtime
+get total number of values in a nested dictionary `food_colors`,sum(len(x) for x in list(food_colors.values()))
+reference to part of list - python,"[0, 1, 0, 1, 2, 5, 6, 7, 8, 9]"
+reading output from pexpect sendline,child.sendline('python -V\r')
+create list `instancelist` containing 29 objects of type myclass,instancelist = [MyClass() for i in range(29)]
+i want to use matplotlib to make a 3d plot given a z function,plt.show()
+how to send a session message to an anonymous user in a django site?,request.session['message'] = 'Some Error Message'
+find average of every three columns in pandas dataframe,"df.resample('Q', axis=1).mean()"
+how can i do multiple substitutions using regex in python?,"re.sub('(.)', '\\1\\1', text.read())"
+how to pack spheres in python?,r = [(1) for i in range(n)]
+concatenate dataframe `df_1` to dataframe `df_2` sorted by values of the column 'y',"pd.concat([df_1, df_2.sort_values('y')])"
+"can you create a python list from a string, while keeping characters in specific keywords together?","['x', 'y', 'z', 'car', 'bus', 'a', 'b', 'c', 'car', '!']"
+how to count occurences at the end of the list,"print(list_end_counter([1, 2, 1, 1, 1, 1, 1, 1]))"
+"convert hex string ""a"" to integer","int('a', 16)"
+making a request to a restful api using python,"response = requests.post(url, data=data)"
+print a list `l` and move first 3 elements to the end of the list,print(l[3:] + l[:3])
+how to create a hyperlink with a label in tkinter?,webbrowser.open_new('file://c:\\test\\test.csv')
+python: how to sort a dictionary by key,"sorted(iter(result.items()), key=lambda key_value: key_value[0])"
+double square brackets side by side in python,"l = ['foo', 'bar', 'buz']"
+how do i get current url in selenium webdriver 2 python?,print(browser.current_url)
+python regular expression match whole word,"re.search('\\bis\\b', your_string)"
+encode string 'data to be encoded',encoded = base64.b64encode('data to be encoded')
+custom constructors for models in google app engine (python),"rufus = Dog(name='Rufus', breeds=['spaniel', 'terrier', 'labrador'])"
+creating a pandas dataframe from elements of a dictionary,"df = pd.DataFrame.from_dict({k: v for k, v in list(nvalues.items()) if k != 'y3'})"
+how to extract data from matplotlib plot,gca().get_lines()[n].get_xydata()
+retrieve arabic texts from string `my_string`,"print(re.findall('[\\u0600-\\u06FF]+', my_string))"
+what's the best way to search for a python dictionary value in a list of dictionaries?,any(d['site'] == 'Superuser' for d in data)
+determine number of files on a drive with python,os.statvfs('/').f_files - os.statvfs('/').f_ffree
+send the output of pprint object `dataobject` to file `logfile`,"pprint.pprint(dataobject, logFile)"
+deleting rows in numpy array,"x = numpy.delete(x, 0, axis=0)"
+python global variable with thread,time.sleep(1)
+using lxml to parse namepaced html?,"print(link.attrib.get('title', 'No title'))"
+convert list of strings `str_list` into list of integers,[int(i) for i in str_list]
+django create a foreign key column `user` and link it to table 'user',"user = models.ForeignKey('User', unique=True)"
+python pandas: how to move one row to the first row of a dataframe?,df.sort(inplace=True)
+python data structure sort list alphabetically,"sorted(lst, key=str.lower)"
+how to get column by number in pandas?,df['b']
+"download ""http://randomsite.com/file.gz"" from http and save as ""file.gz""","testfile = urllib.request.URLopener()
+testfile.retrieve('http://randomsite.com/file.gz', 'file.gz')"
+mapping a nested list with list comprehension in python?,nested_list = [[s.upper() for s in xs] for xs in nested_list]
+argsort for a multidimensional ndarray,"a[np.arange(np.shape(a)[0])[:, (np.newaxis)], np.argsort(a)]"
+how can i process a python dictionary with callables?,"{k: (v() if callable(v) else v) for k, v in a.items()}"
+sorting the letters of a one worded string in python?,""""""""""""".join(sorted(x))"
+calculating difference between two rows in python / pandas,data.set_index('Date').diff()
+inserting characters at the start and end of a string,"yourstring = ''.join(('L', 'yourstring', 'LL'))"
+accessing the default argument values in python,test.__defaults__
+multiple 'in' operators in python?,"all(word in d for word in ['somekey', 'someotherkey', 'somekeyggg'])"
+3d plots using maplot3d from matplotlib-,plt.show()
+django rest framework - how to test viewset?,"self.assertEqual(response.status_code, 200)"
+pyqt qpushbutton background color,self.pushButton.setStyleSheet('background-color: red')
+python - subprocess - how to call a piped command in windows?,"subprocess.call(['ECHO', 'Ni'], shell=True)"
+python- insert a character into a string,""""""""""""".join(parts[1:])"
+how to get all sub-elements of an element tree with python elementtree?,[elem.tag for elem in a.iter() if elem is not a]
+removing rows in a pandas dataframe where the row contains a string present in a list?,df[~df.From.str.contains('|'.join(ignorethese))]
+"how to join two sets in one line without using ""|""","set([1, 2, 3]) | set([4, 5, 6])"
+get value of first child of xml node `name`,name[0].firstChild.nodeValue
+flatten a dictionary of dictionaries (2 levels deep) of lists in python,[x for d in thedict.values() for alist in d.values() for x in alist]
+obtain the current day of the week in a 3 letter format from a datetime object,datetime.datetime.now().strftime('%a')
+extract a part of values from a column,df.Results.str.extract('passed ([0-9]+)').fillna(0)
+matplotlib: multiple datasets on the same scatter plot,plt.show()
+reading and running a mathematical expression in python,"eval(""__import__('sys').exit(1)"")"
+"get an element at index `[1,1]`in a numpy array `arr`","print(arr[1, 1])"
+how can i get the index value of a list comprehension?,"{(p.id, ind): {'id': p.id, 'position': ind} for ind, p in enumerate(p_list)}"
+sort a numpy array like a table,"array([[2, 1], [5, 1], [0, 3], [4, 5]])"
+intersection of 2d and 1d numpy array,"A.ravel()[np.in1d(A, B)] = 0"
+beautifulsoup select 'div' elements with an id attribute value ending with sub-string '_answer' in html parsed string `soup`,soup.select('div[id$=_answer]')
+how can i sum the product of two list items using for loop in python?,"list(zip(a, b))"
+beautiful soup using regex to find tags?,soup.find_all(re.compile('(a|div)'))
+print variable `count` and variable `conv` with space string '    ' in between,print(str(count) + '    ' + str(conv))
+how can i solve system of linear equations in sympy?,"linsolve(Matrix(([1, 1, 1, 1], [1, 1, 2, 3])), (x, y, z))"
+a better way to assign list into a var,starf = [int(i) for i in starf]
+how to check if type of a variable is string?,"isinstance(s, str)"
+numpy replace negative values in array,"numpy.where(a <= 2, a, 2)"
+how to make four-way logarithmic plot in matplotlib?,plt.savefig('example.pdf')
+how to convert hex string to integer in python?,"y = str(int(x, 16))"
+list of lists changes reflected across sublists unexpectedly,[([1] * 4) for n in range(3)]
+python - find text using beautifulsoup then replace in original soup variable,findtoure = commentary.find(text=re.compile('Yaya Toure'))
+how to choose bins in matplotlib histogram,"plt.hist(x, bins=list(range(-4, 5)))"
+extract the first four rows of the column `id` from a pandas dataframe `df`,df.groupby('ID').head(4)
+how to convert decimal to binary list in python,[int(x) for x in bin(8)[2:]]
+getting a list of all subdirectories in the current directory,os.walk(directory)
+can i put a breakpoint in a running python program that drops to the interactive terminal?,pdb.set_trace()
+lambda returns lambda in python,"curry = lambda f, a: lambda x: f(a, x)"
+"does filter,map, and reduce in python create a new copy of list?",[x for x in list_of_nums if x != 2]
+how to fix unicode issue when using a web service with python suds,thestring = thestring.decode('utf8')
+selecting specific column in each row from array,"a[np.arange(3), (0, 1, 0)]"
+"in python, how can i find the index of the first item in a list that is not some value?","return next((i for i, v in enumerate(L) if v != x), -1)"
+sum the length of all strings in a list `strings`,length = sum(len(s) for s in strings)
+setting the window to a fixed size with tkinter,root.mainloop()
+pythonic method of determining if a list's contents change from odd to even values,"(0, 1) not in ((x % 2, y % 2) for x, y in zip(values, values[1:]))"
+pandas dataframe count row values,pd.DataFrame({name: df['path'].str.count(name) for name in wordlist})
+setting different bar color in matplotlib python,plt.show()
+scrolling down a page with selenium webdriver,"driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')"
+how to remove the space between subplots in matplotlib.pyplot?,ax.set_yticklabels([])
+how to get a function name as a string in python?,my_function.__name__
+subtract 1 hour and 10 minutes from time object `t`,"(t - datetime.timedelta(hours=1, minutes=10))"
+convert string to ascii value python,[ord(c) for c in s]
+how to subset a data frame using pandas based on a group criteria?,df.groupby('User')['X'].filter(lambda x: x.sum() == 0)
+check to see if a collection of properties exist inside a dict object in python,all(dict_obj.get(key) is not None for key in properties_to_check_for)
+numpy:  check if array 'a' contains all the numbers in array 'b'.,numpy.array([(x in a) for x in b])
+convert a 1d `a` array to a 2d array `b`,"B = np.reshape(A, (-1, 2))"
+convert enum to int in python,print(nat.index(nat.Germany))
+remove strings containing only white spaces from list,[name for name in starring if name.strip()]
+"real time face detection opencv, python","cv2.rectangle(img, (x, y), (x + w, y + h), (255, 0, 0), 2)"
+best way to plot an angle between two lines in matplotlib,plt.show()
+converting html to text with python,soup = BeautifulSoup(html)
+reset index of dataframe `df`so that existing index values are transferred into `df`as columns,df.reset_index(inplace=True)
+extract array from list in python,"zip((1, 2), (40, 2), (9, 80))"
+list all files of a directory `mypath`,"onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]"
+"combining flask-restless, flask-security and regular python requests",app.run()
+how to exclude a character from a regex group?,re.compile('[^a-zA-Z0-9-]')
+selecting across multiple columns with python pandas?,df[(df['A'] > 1) | (df['B'] < -1)]
+how to make a histogram from a list of strings in python?,df.plot(kind='bar')
+how to filter (or replace) unicode characters that would take more than 3 bytes in utf-8?,"pattern = re.compile('[^\\u0000-\\uFFFF]', re.UNICODE)"
+how to retrieve table names in a mysql database with python and mysqldb?,cursor.execute('SHOW TABLES')
+"python/scipy: find ""bounded"" min/max of a matrix","b = np.sort(a[..., :-1], axis=-1)"
+how do you select choices in a form using python?,[f.name for f in br.forms()]
+apply a function to the 0-dimension of an ndarray,np.asarray([func(i) for i in arr])
+write `newfilebytes` to a binary file `newfile`,"newFile.write(struct.pack('5B', *newFileBytes))"
+split a python string with nested separated symbol,"[k for j in re.findall(""(\\d)|'([^']*)'"", i) for k in j if k]"
+"in python, how do i check to see if keys in a dictionary all have the same value x?",len(set(d.values())) == 1
+"pass a list of parameters `((1, 2, 3),) to sql queue 'select * from table where column in %s;'","cur.mogrify('SELECT * FROM table WHERE column IN %s;', ((1, 2, 3),))"
+python load json file with utf-8 bom header,json.loads(open('sample.json').read().decode('utf-8-sig'))
+how to draw line inside a scatter plot,ax.set_ylabel('TPR or sensitivity')
+convert a string representation of a dictionary to a dictionary?,"ast.literal_eval(""shutil.rmtree('mongo')"")"
+python jsonify dictionary in utf-8,"json.dumps(data, ensure_ascii=False).encode('utf8')"
+how to query for distinct results in mongodb with python?,Students.objects(name='Tom').distinct(field='class')
+how to get a single result from a sqlite query in python?,cursor.fetchone()[0]
+"in django, how do i filter based on all entities in a many-to-many relation instead of any?","Task.objects.exclude(prerequisites__status__in=['A', 'P', 'F'])"
+get the content of child tag with`href` attribute whose parent has css `someclass`,self.driver.find_element_by_css_selector('.someclass a').get_attribute('href')
+pandas: best way to select all columns starting with x,df.columns.map(lambda x: x.startswith('foo'))
+merge pandas dataframe `x` with columns 'a' and 'b' and dataframe `y` with column 'y',"pd.merge(y, x, on='k')[['a', 'b', 'y']]"
+get the value associated with unicode key 'from_user' of first dictionary in list `result`,result[0]['from_user']
+creating dictionary from space separated key=value string in python,"{k: v.strip('""') for k, v in re.findall('(\\S+)=("".*?""|\\S+)', s)}"
+get canonical path of the filename `path`,os.path.realpath(path)
+"python: convert ""5,4,2,4,1,0"" into [[5, 4], [2, 4], [1, 0]]","[l[i:i + 7] for i in range(0, len(l), 7)]"
+sending a file over tcp sockets in python,s.send('Hello server!')
+how can i add nothing to the list in list comprehension?,[(2 * x) for x in some_list if x > 2]
+remove false entries from a dictionary `hand`,"{k: v for k, v in list(hand.items()) if v}"
+matplotlib - how to plot a random-oriented rectangle (or any shape)?,plt.show()
+python how do you sort list by occurrence with out removing elements from the list?,"sorted(lst, key=lambda x: (-1 * c[x], lst.index(x)))"
+how to include a quote in a raw python string?,"""""""what""ever"""""""
+how to execute a python script file with an argument from inside another python script file,"os.system('getCameras.py ""path_to_the_scene"" ')"
+checking if a variable belongs to a class in python,"isinstance(variable, States)"
+get the indexes of the largest `2` values from a list of integers `a`,"sorted(list(range(len(a))), key=lambda i: a[i], reverse=True)[:2]"
+how to quit a pygtk application after last window is closed/destroyed,"window.connect('destroy', gtk.main_quit)"
+concatenate a series `students` onto a dataframe `marks` with pandas,"pd.concat([students, pd.DataFrame(marks)], axis=1)"
+"how to print a list in python ""nicely""",pprint(the_list)
+"in python, how to get subparsers to read in parent parser's argument?",args = parser.parse_args()
+"python, remove all occurrences of string in list","set(['cheese', 'tomato'])"
+how to specify column names while reading an excel file using pandas?,"df.columns = ['W', 'X', 'Y', 'Z']"
+pandas dataframe - desired index has duplicate values,"df.pivot('Symbol', 'TimeStamp').stack()"
+converting a string to list in python,"[int(x) for x in '0,1,2'.split(',')]"
+python dictionary to url parameters,"urllib.parse.urlencode({'p': [1, 2, 3]}, doseq=True)"
+how do i return a string from a regex match in python,"print(""yo it's a {}"".format(imgtag.group(0)))"
+remove letters from string `example_line` if the letter exist in list `bad_chars`,""""""""""""".join(dropwhile(lambda x: x in bad_chars, example_line[::-1]))[::-1]"
+print two numbers `10` and `20` using string formatting,"""""""{0} {1}"""""".format(10, 20)"
+how to sort a tuple with lambda,"sorted(l, key=lambda i: hypot(i[0] - pt[0], i[1] - pt[1]))"
+adding two items at a time in a list comprehension,"print([y for x in zip(['^'] * len(mystring), mystring.lower()) for y in x])"
+scrapy:how to print request referrer,"response.request.headers.get('Referer', None)"
+how to calculate a column in a row using two columns of the previous row in spark data frame?,"df.select('*', current_population).show()"
+how to retrieve row and column names from data frame?,cmat.stack().to_frame('item').query('.3 < item < .9')
+map two lists into one single list of dictionaries,"return [dict(zip(keys, values[i:i + n])) for i in range(0, len(values), n)]"
+read lines containing integers from a file in python?,"a, b, c = (int(i) for i in line.split())"
+how can i list only the folders in zip archive in python?,set([os.path.split(x)[0] for x in zf.namelist() if '/' in x])
+create a list containing all ascii characters as its elements,[chr(i) for i in range(127)]
+how to get tuples from lists using list comprehension in python,"[(lst[i], lst2[i]) for i in range(len(lst))]"
+replacing the empty strings in a string,"string2.replace('', string1)"
+sort list `keys` based on its elements' dot-seperated numbers,"keys.sort(key=lambda x: map(int, x.split('.')))"
+call bash command 'tar c my_dir | md5sum' with pipe,"subprocess.call('tar c my_dir | md5sum', shell=True)"
+count occurrences of number by column in pandas data frame,(df == 1).sum()
+"python 2.7 - find and replace from text file, using dictionary, to new text file","""""""abc abc abcd ab"""""".replace('abc', 'def')"
+how can i draw half circle in opencv?,"cv2.imwrite('half_circle_no_round.jpg', image)"
+how to change the window title in pyside?,self.setWindowTitle('Checkbox')
+merge two arrays into a matrix in python and sort,"A2, B2 = zip(*sorted(zip(A, B), key=lambda x: x[1]))"
+conversion from a numpy 3d array to a 2d array,"a.reshape(-1, 3, 3, 3, 3, 3).transpose(0, 2, 4, 1, 3, 5).reshape(27, 27)"
+best way to return a value from a python script,sys.exit(0)
+sort by key of dictionary inside a dictionary in python,"result = sorted(iter(promotion_items.items()), key=lambda pair: list(pair[1].items()))"
+how to use logging with python's fileconfig and configure the logfile filename,"logging.fileConfig(loginipath, defaults={'logfilename': '/var/log/mylog.log'})"
+"in django, select 100 random records from the database `content.objects`",Content.objects.all().order_by('?')[:100]
+memory usage of a probabilistic parser,"('S', 'NP', 'VP') is ('S', 'NP', 'VP')"
+add multiple columns to pandas dataframe from function,"df[['hour', 'weekday', 'weeknum']] = df.apply(lambdafunc, axis=1)"
+date ticks and rotation in matplotlib,"plt.setp(axs[1].xaxis.get_majorticklabels(), rotation=70)"
+list of all unique characters in a string?,""""""""""""".join(k for k, g in groupby(sorted('aaabcabccd')))"
+joining two dataframes from the same source,"df_one.join(df_two, df_one['col1'] == df_two['col1'], 'inner')"
+split a `utf-8` encoded string `stru` into a list of characters,list(stru.decode('utf-8'))
+"python, print all floats to 2 decimal places in output","print('%.2f kg = %.2f lb = %.2f gal = %.2f l' % (var1, var2, var3, var4))"
+"how do i get the ""visible"" length of a combining unicode string in python?",wcswidth('\xe1\x84\x80\xe1\x85\xa1\xe1\x86\xa8')
+split a list of tuples into sub-lists of the same tuple field,"zip(*[(1, 4), (2, 5), (3, 6)])"
+"for a dictionary `a`, set default value for key `somekey` as list and append value `bob`  in that key","a.setdefault('somekey', []).append('bob')"
+how to initialize a two-dimensional array in python?,[[Foo() for x in range(10)] for y in range(10)]
+get a list of integers `lst` from a file `filename.txt`,"lst = map(int, open('filename.txt').readlines())"
+pandas dataframe select columns in multiindex,"df.xs('A', level='Col', axis=1)"
+type conversion in python from int to float,data_df['grade'] = pd.to_numeric(data_df['grade']).astype(int)
+find the column name which has the maximum value for each row,"df['Max'] = df[['Communications', 'Business']].idxmax(axis=1)"
+python unittest multiple mixins,"self.assertEqual(4, 2 + 2)"
+how to access pandas groupby dataframe by key,df.loc[gb.groups['foo']]
+python: how to convert currency to decimal?,cents_int = int(round(float(dollars.strip('$')) * 100))
+how to change plot background color?,ax.patch.set_facecolor('black')
+python - how to cut a string in python?,s[:s.rfind('&')]
+how to execute a python script and write output to txt file?,"subprocess.call(['python', './script.py'], stdout=output)"
+python - bulk select then insert from one db to another,"cursor.execute('ATTACH ""/path/to/main.sqlite"" AS master')"
+resizing window doesn't resize contents in tkinter,"root.grid_columnconfigure(0, weight=1)"
+python - how can i do a string find on a unicode character that is a variable?,zzz = 'foo'
+python pandas group by date using datetime data,df = df.groupby([df['Date_Time'].dt.date]).mean()
+how can i add values in the list using for loop in python?,a = int(eval(input('Enter number of players: ')))
+how to smooth matplotlib contour plot?,plt.show()
+read a file from redirected stdin and save to variable `result`,result = sys.stdin.read()
+variable number of digit in format string,"""""""{0:.{1}%}"""""".format(value, digits)"
+remove all whitespace in a string `sentence`,"sentence.replace(' ', '')"
+save a list of objects in django,o.save()
+how to create list of 3 or 4 columns of dataframe in pandas when we have 20 to 50 colums?,df[df.columns[2:5]]
+how to create a trie in python,"make_trie('foo', 'bar', 'baz', 'barz')"
+how can i fill a matplotlib grid?,plt.show()
+how to get the current port number in flask?,app.run(port=port)
+is there a cleaner way to iterate through all binary 4-tuples?,"itertools.product(list(range(2)), repeat=4)"
+converting hex to int in python,ord('\xff')
+pandas: transforming the dataframegroupby object to desired format,"df.columns = ['code/colour', 'id:amount']"
+python: how do i randomly select a value from a dictionary key?,"['Protein', 'Green', 'Squishy']"
+how can i convert nested dictionary keys to strings?,"{'1': {}, '2': {'101': 'OneZeroOne', '202': 'TwoZeroTwo'}}"
+matplotlib scatter plot colour as function of third variable,plt.show()
+save matplotlib graph to image file `filename.png` at a resolution of `300 dpi`,"plt.savefig('filename.png', dpi=300)"
+run r script '/usr/bin/rscript --vanilla /pathto/myrscript.r',"subprocess.call('/usr/bin/Rscript --vanilla /pathto/MyrScript.r', shell=True)"
+upload files to google cloud storage from appengine app,"upload_url = blobstore.create_upload_url('/upload', gs_bucket_name='my_bucket')"
+how do you extract a column from a multi-dimensional array?,"A = [[1, 2, 3, 4], [5, 6, 7, 8]]"
+combining numpy arrays,"b = np.concatenate((a, a), axis=0)"
+"""typeerror: string indices must be integers"" when trying to make 2d array in python","[Boardsize, Boardsize]"
+how to check if a file is a directory or regular file in python?,os.path.isfile('bob.txt')
+how to visualize descriptor matching using opencv module in python,cv2.waitKey()
+python mysqldb typeerror: not all arguments converted during string formatting,"cursor.execute('select * from table where example=%s', (example,))"
+python: find the sum of all the multiples of 3 or 5 below 1000,sum([i for i in range(1000) if i % 3 == 0 or i % 5 == 0])
+string slugification in python,"self.assertEqual(r, 'jaja-lol-mememeoo-a')"
 execute script 'script.ps1' using 'powershell.exe' shell,"os.system('powershell.exe', 'script.ps1')"
-sort a list of tuples `b` by third item in the tuple,b.sort(key=lambda x: x[1][2])
-get a list of all keys in cassandra database `cf` with pycassa,list(cf.get_range().get_keys())
-create a datetime with the current date & time,datetime.datetime.now()
-get the index of an integer `1` from a list `lst` if the list also contains boolean items,"next(i for i, x in enumerate(lst) if not isinstance(x, bool) and x == 1)"
-subtract 13 from every number in a list `a`,a[:] = [(x - 13) for x in a]
-"choose a random file from the directory contents of the c drive, `c:\\`",random.choice(os.listdir('C:\\'))
-get the highest element in absolute value in a numpy matrix `x`,"max(x.min(), x.max(), key=abs)"
-get all urls within text `s`,"re.findall('""(http.*?)""', s, re.MULTILINE | re.DOTALL)"
-match urls whose domain doesn't start with `t` from string `document` using regex,"re.findall('http://[^t][^s""]+\\.html', document)"
-split a string `mystring` considering the spaces ' ',"mystring.replace(' ', '! !').split('!')"
-open file `path` with mode 'r',"open(path, 'r')"
-sum elements at the same index in list `data`,[[sum(item) for item in zip(*items)] for items in zip(*data)]
-add a new axis to array `a`,"a[:, (np.newaxis)]"
+create a list of integers with duplicate values in python,"['a', 'a', 'a', 'b', 'b', 'b', 'c', 'c', 'c', 'd', 'd', 'd', 'e', 'e', 'e']"
+substitute occurrences of unicode regex pattern u'\\p{p}+' with empty string '' in string `text`,"return re.sub('\\p{P}+', '', text)"
+extract a list from itertools.cycle,"itertools.cycle([1, 2, 3])"
+checking if a datetime object in mongodb is in utc format or not from python,v.astimezone(pytz.timezone('US/Eastern'))
+find 3 letter words,words = [word for word in string.split() if len(word) == 3]
+"how to make a python script which can logoff, shutdown, and restart a computer?","subprocess.call(['shutdown', '/a '])"
+remove column from multi index dataframe,df.columns = pd.MultiIndex.from_tuples(df.columns.to_series())
+how to loop backwards in python?,"[10, 9, 8, 7, 6, 5, 4, 3, 2, 1]"
+python getting a list of value from list of dict,[d['value'] for d in l]
+python print string to text file,text_file.close()
+how to grab one random item from a database in django/postgresql?,model.objects.all().order_by('?')[0]
+getting a list with new line characters,"pattern = re.compile('(.)\\1?', re.IGNORECASE | re.DOTALL)"
+"add array of shape `(6, 9, 20)` to array `[1, 2, 3, 4, 5, 6, 7, 8, 9]`","np.zeros((6, 9, 20)) + np.array([1, 2, 3, 4, 5, 6, 7, 8, 9]).reshape((1, 9, 1))"
+conversion of bytes to string,binascii.b2a_hex('\x02P\x1cA\xd1\x00\x00\x02\xcb\x11\x00').decode('ascii')
+how to get the width of a string in pixels?,"width, height = dc.GetTextExtent('Text to measure')"
+implementing google's diffmatchpatch api for python 2/3,"[(-1, 'stackoverflow'), (1, 'so'), (0, ' is '), (-1, 'very'), (0, ' cool')]"
+how do i make the width of the title box span the entire plot?,plt.show()
+elegant way to transform a list of dict into a dict of dicts,"dict((d['name'], d) for d in listofdict)"
+how to get object from pk inside django template?,"return render_to_response('myapp/mytemplate.html', {'a': a})"
+upload binary file `myfile.txt` with ftplib,"ftp.storbinary('STOR myfile.txt', open('myfile.txt', 'rb'))"
+how to make a related field mandatory in django?,raise ValidationError('At least one address is required.')
+convert list `x` into a flat list,"y = map(operator.itemgetter(0), x)"
+convert zero-padded bytes to utf-8 string,"'hiya\x00x\x00'.split('\x00', 1)[0]"
+insert 77 to index 2 of list `x`,"x.insert(2, 77)"
+what is the proper way to print a nested list with the highest value in python,"print(max(x, key=sum))"
+how to get the pointer address of a ctypes.c_char_p instance,"ctypes.cast(s, ctypes.c_void_p).value"
+"remove a substring "".com"" from the end of string `url`","if url.endswith('.com'):
+    url = url[:(-4)]"
+find indices of a value in 2d matrix,"[(index, row.index(val)) for index, row in enumerate(mymatrix) if val in row]"
+clear tkinter canvas `canvas`,canvas.delete('all')
+python regex get string between two substrings,"re.findall(""api\\('(.*?)'"", ""api('randomkey123xyz987', 'key', 'text')"")"
+set max number of threads at runtime on numpy/openblas,"np.dot(x, y)"
+python/matplotlib - is there a way to make a discontinuous axis?,ax2.yaxis.tick_right()
+read file 'myfile.txt' using universal newline mode 'u',"print(open('myfile.txt', 'U').read())"
+splitting comma delimited strings in python,"split_at('obj<1, 2, 3>, x(4, 5), ""msg, with comma""', ',')"
+find string with regular expression in python,print(pattern.search(url).group(1))
+parse string `s` to int when string contains a number,int(''.join(c for c in s if c.isdigit()))
+join two dataframes based on values in selected columns,"pd.merge(a, b, on=['A', 'B'], how='outer')"
+reading gps rinex data with pandas,"df.set_index(['%_GPST', 'satID'])"
+extracting all rows from pandas dataframe that have certain value in a specific column,data['Value'] == 'TRUE'
+call external program from python and get its output,"subprocess.check_output(['ls', '-l', '/dev/null'])"
+get last element of string splitted by '\\' from list of strings `list_dirs`,[l.split('\\')[-1] for l in list_dirs]
+float64 with pandas to_csv,"df.to_csv('pandasfile.csv', float_format='%.3f')"
+wildcard matching a string in python regex search,pattern = '6 of\\D*?(\\d+)\\D*?fans'
+generate list of numbers in specific format,[('%.2d' % i) for i in range(16)]
+python: creating a 2d histogram from a numpy matrix,"plt.imshow(Z, interpolation='none')"
+render an xml to a view,"return HttpResponse(open('myxmlfile.xml').read(), content_type='text/xml')"
+python: find index of first digit in string?,"{c: i for i, c in enumerate('xdtwkeltjwlkejt7wthwk89lk') if c.isdigit()}"
+"removing duplicate characters from a string variable ""foo""",""""""""""""".join(set(foo))"
+python: a complete list of modules,list(sys.modules.keys())
+remove directory tree '/folder_name',shutil.rmtree('/folder_name')
+how to append in a json file in python?,"json.dump(data, f)"
+python accessing values in a list of dictionaries,print('\n'.join(d['Name'] for d in thisismylist))
+remove lines from textfile with python,"open('newfile.txt', 'w').writelines(lines[3:-1])"
+pipe output from shell command to a python script,print(sys.stdin.read())
+clear the terminal screen in linux,os.system('clear')
+"syntaxerror: invalid token in datetime.datetime(2012,05,22,09,03,41)?","datetime.datetime(2012, 5, 22, 9, 3, 41)"
+check if a given key `key` exists in dictionary `d`,"if (key in d):
+    pass"
+python: removing spaces from list objects,hello = [x.strip(' ') for x in hello]
+get a list `slice` of array slices of the first two rows and columns from array `arr`,"slice = [arr[i][0:2] for i in range(0, 2)]"
+django models selecting single field,"Employees.objects.values_list('eng_name', 'rank')"
+finding whether a list contains a particular numpy array,"any(np.array_equal(np.array([[0, 0], [0, 0]]), x) for x in my_list)"
+how do i change my float into a two decimal number with a comma as a decimal point separator in python?,"('%.2f' % 1.2333333).replace('.', ',')"
+select rows from a dataframe based on values in a column in pandas,df.loc[df['column_name'] == some_value]
+printing list elements on separated lines in python,print('\n'.join(sys.path))
+sort list `strings` in alphabetical order based on the letter after percent character `%` in each element,"strings.sort(key=lambda str: re.sub('.*%(.).*', '\\1', str))"
+sort a list of strings based on regular expression match or something similar,"strings.sort(key=lambda str: re.sub('.*%', '', str))"
+find rows with non zero values in a subset of columns where `df.dtypes` is not equal to `object` in pandas dataframe,"df.loc[(df.loc[:, (df.dtypes != object)] != 0).any(1)]"
+splitting the sentences in python,"re.findall('\\w+', ""Don't read O'Rourke's books!"")"
+add new column in pandas dataframe python,df['Col3'] = (df['Col2'] <= 1).astype(int)
+multiple linear regression with python,import pandas as pd
+pandas: fill missing values by mean in each group faster than transfrom,df[['value']].fillna(df.groupby('group').transform('mean'))
+how to write a simple bittorrent application?,time.sleep(1)
+create a pandas dataframe `df` from elements of a dictionary `nvalues`,"df = pd.DataFrame.from_dict({k: v for k, v in list(nvalues.items()) if k != 'y3'})"
+how to get synonyms from nltk wordnet python,wn.synsets('small')
+abort a list comprehension,[(x ** 2) for x in range(10)]
+finding index of maximum value in array with numpy,x[np.where(x == 5)]
+get a md5 hash from string `thecakeisalie`,k = hashlib.md5('thecakeisalie').hexdigest()
+how can i split and parse a string in python?,"""""""2.7.0_bf4fda703454"""""".split('_')"
+sort a dictionary `data` by its values,sorted(data.values())
+how do i use a decimal number in a django url pattern?,"""""""^/item/value/(\\d+\\.\\d+)$"""""""
+"displaying numbers with ""x"" instead of ""e"" scientific notation in matplotlib",plt.show()
+loop for each item in a list,"itertools.product(mydict['item1'], mydict['item2'])"
+"join multiple dataframes `d1`, `d2`, and `d3` on column 'name'","df1.merge(df2, on='name').merge(df3, on='name')"
+how to reorder indexed rows based on a list in pandas data frame,"df.reindex(['Z', 'C', 'A'])"
+how to display the first few characters of a string in python?,a_string = 'This is a string'
+pandas changing cell values based on another cell,b = df[(df['time'] > X) & (df['time'] < Y)]
+how to erase the file contents of text file in python?,"open('filename', 'w').close()"
+concatenate rows of pandas dataframe with same id,df1.reset_index()
+how to make mxn piechart plots with one legend and removed y-axis titles in matplotlib,plt.show()
+how to combine two columns with an if/else in python pandas?,"df['year'] = df['year'].where(source_years != 0, df['year'])"
+how to make a window fullscreen in a secondary display with tkinter?,root.mainloop()
+python pandas drop columns based on max value of column,df[df.columns[df.max() > 0]]
+subset of dictionary keys,{key: data[key] for key in data if not_seen(key.split(':')[0])}
+converting dd-mm-yyyy hh:mm to mysql timestamp,"time.strftime('%Y-%m-%d %H:%M', time.strptime(s, '%d-%m-%Y %H:%M'))"
+how do i run selenium in xvfb?,browser.quit()
+sort a set `s` by numerical value,"sorted(s, key=float)"
+python - intersection of two lists of lists,"{tuple(x) for x in l1}.intersection(map(tuple, l2))"
+join a list of strings `list` using a space ' ',""""""" """""".join(list)"
+calculate the mean of each element in array `x` with the element previous to it,(x[1:] + x[:-1]) / 2
+get value in string `line` matched by regex pattern '\\blog_addr\\s+(\\s+)',"print(re.search('\\bLOG_ADDR\\s+(\\S+)', line).group(1))"
+how to sort a dictionary in python by value when the value is a list and i want to sort it by the first index of that list,"sorted(list(data.items()), key=lambda x: x[1][0])"
+finding key from value in python dictionary:,"[k for k, v in d.items() if v == desired_value]"
+how to add an html class to a django form's help_text?,field = models.TextField(help_text=mark_safe('some<br>html'))
+get column name where value is something in pandas dataframe,"df_result = pd.DataFrame(ts, columns=['value'])"
+using python to execute a command on every file in a folder,"print(os.path.join(directory, file))"
+how to use re match objects in a list comprehension,"return [m.group(1) for m in (re.search(regex, l) for l in lines) if m]"
+finding the largest delta between two integers in a list in python,"max(abs(x - y) for x, y in zip(values[1:], values[:-1]))"
+equivalent of objects.latest() in app engine,MyObject.all().order('-time').fetch(limit=1)[0]
+how to dynamically select a method call in python?,"getattr(foo_obj, command)()"
+xml parsing in python using elementtree,tree.find('//BODY').text
+python matplotlib - how to specify values on y axis?,"plt.plot(x, y)"
+stratified sampling in numpy,"np.all(np.unique(A[['idx1', 'idx2']]) == np.unique(B[['idx1', 'idx2']]))"
+get output of python script from within python script,print(proc.communicate()[0])
+trim whitespace (including tabs) in `s` on the right side,s = s.rstrip()
+how to remove multiple columns that end with same text in pandas?,"df2 = df.ix[:, (~df.columns.str.endswith('prefix'))]"
+get the directory name of `path`,os.path.dirname(path)
+getting inverse (1/x) elements of a numpy array,"array = np.array([1, 2, 3, 4])"
+"how to bind multiple widgets with one ""bind"" in tkinter?",root.mainloop()
+add horizontal lines to plot based on sort_values criteria,plt.show()
+convert a string `my_string` with dot and comma into a float number `my_float`,"my_float = float(my_string.replace(',', ''))"
+how to construct diagonal array using a 2d array in numpy?,"np.eye(foo.shape[1]) * foo[:, (np.newaxis)]"
+python pandas: replace values multiple columns matching multiple columns from another dataframe,"df_merged = pd.merge(df1, df2, how='inner', on=['chr', 'pos'])"
+find maximum value of a column and return the corresponding row values using pandas,"df.groupby(['country', 'place'], as_index=False)['value'].max()"
+how do i convert a django queryset into list of dicts?,"Blog.objects.values('id', 'name')"
+how to transform string into dict,"out = [a, b, c, d, e, f]"
+how to detect a sign change for elements in a numpy array,"array([0, 0, 1, 0, 0, 1, 0])"
+find array corresponding to minimal values along an axis in another array,"np.repeat(np.arange(x), y)"
+print line `line` from text file with 'utf-16-le' format,print(line.decode('utf-16-le').split())
+custom keys for google app engine models (python),kwargs['key_name'] = kwargs['name']
+create a list containing digits of number 123 as its elements,list(str(123))
+how to check if all values in the columns of a numpy matrix are the same?,"np.equal.reduce([1, 0, 0, 1])"
+how do i can format exception stacktraces in python logging?,logging.info('Sample message')
+group a pandas data frame by monthly frequenct `m` using groupby,df.groupby(pd.TimeGrouper(freq='M'))
+python selenium: find object attributes using xpath,"browser.find_elements_by_xpath(""//*[@type='submit']"").get_attribute('value')"
+multiplying values from two different dictionaries together in python,"{k: (v * dict2[k]) for k, v in list(dict1.items()) if k in dict2}"
+get list of values from dictionary 'mydict' w.r.t. list of keys 'mykeys',[mydict[x] for x in mykeys]
+key to maxima of dictionary in python,"['e', 'f']"
+python: script to detect data hazards,"line1 = ['ld a8,0x8910', 'mul a3,a2,8', 'shl a3,a3,4', 'add a3,a3,a8']"
+add x and y labels to a pandas plot,ax.set_ylabel('y label')
+restart a computer after `900` seconds using subprocess,"subprocess.call(['shutdown', '/r', '/t', '900'])"
+multiprocessing writing to pandas dataframe,"pd.concat(d, ignore_index=True)"
+how to put parameterized sql query into variable and then execute in python?,"cursor.execute(sql_and_params[0], sql_and_params[1:])"
+print letter that appears most frequently in string `s`,print(collections.Counter(s).most_common(1)[0])
+regular expression in python 2.7 to identify any non numeric symbol in a column in dataframe,print(df.applymap(lambda x: str(x).isdigit()))
+how do i return a json array with bottle?,"{'data': [{'id': 1, 'name': 'Test Item 1'}, {'id': 2, 'name': 'Test Item 2'}]}"
+python getting a list of value from list of dict,[d['value'] for d in l if 'value' in d]
+assigning string with boolean expression,openmode = 'w'
+saving scatterplot animations with matplotlib,plt.show()
+clicking on a link via selenium in python,link = driver.find_element_by_link_text('Details')
+how to read csv file with of data frame with row names in pandas,"pd.io.parsers.read_csv('tmp.csv', sep='\t', index_col=0)"
+error when trying to insert values into mysql table with python,"0, '2012-11-06T16:23:36-05:00', 0, None, 23759918, 'baseline', '0 to 100', null, 105114, 2009524, True, 'charge', 'Charge'"
+"selenium: trying to log in with cookies - ""can only set cookies for current domain""","driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')"
+removing key values pairs from a list of dictionaries,"[dict((k, v) for k, v in d.items() if k != 'mykey1') for d in mylist]"
+merge dataframes in pandas using the mean,"pd.concat((df1, df2), axis=1)"
+is there a way to use phantomjs in python?,driver.quit()
+removing _id element from pymongo results,"db.collection.find({}, {'_id': False})"
+how to replace string values in pandas dataframe to integers?,stores['region'] = stores['region'].astype('category')
+how can i add textures to my bars and wedges?,plt.show()
+reverse y-axis in pyplot,plt.gca().invert_xaxis()
+using django orm get_or_create with multiple databases,MyModel.objects.using('my_non_default_database').get_or_create(name='Bob')
+extract ip address from an html string,"ip = re.findall('[0-9]+(?:\\.[0-9]+){3}', s)"
+rotate the xtick labels of matplotlib plot `ax` by `45` degrees to make long labels readable,"ax.set_xticklabels(labels, rotation=45)"
+indexerror when trying to read_table with pandas,"len(['DATE', 'TIME', 'DLAT', 'DLON', 'SLAT', 'SLON', 'SHGT', 'HGT', 'N', 'E'])"
+how can i write a list of lists into a txt file?,"[[0, 1, 2, 3, 4], ['A', 'B', 'C', 'D', 'E'], [0, 1, 2, 3, 4]]"
+logging across multiple co-routines / greenlets / microthreads with gevent?,gevent.joinall(jobs)
+how to pass variables with spaces through url in :django,"urlpatterns = patterns('kiosks.views', url('^([\\w ]+)/$', 'dashboard'))"
+get a dataframe `df2` that contains all the columns of dataframe `df` that do not end in `prefix`,"df2 = df.ix[:, (~df.columns.str.endswith('prefix'))]"
+check if type of variable `s` is a string,"isinstance(s, str)"
+what is a good size (in bytes) for a log file?,"RotatingFileHandler(filename, maxBytes=10 * 1024 * 1024, backupCount=5)"
+"trimming a string ""bob has a cat""",'Bob has a cat'.strip()
+where's the error in this for loop to generate a list of ordered non-repeated combinations?,"[(1,), (2,), (3,), (1, 2), (1, 3), (2, 3), (1, 2, 3)]"
+simple way to convert list to dict,dict(i.split('=') for i in x)
+create a list containing elements from list `list` that are predicate to function `f`,[f(x) for x in list]
+how do i release memory used by a pandas dataframe?,df.info()
+how do i pass a variable by reference?,"print(('after, outer_list =', outer_list))"
+row-wise indexing in numpy,"A[i, j]"
+sort list of nested dictionaries `yourdata` in reverse based on values associated with each dictionary's key 'subkey',"sorted(yourdata, key=lambda d: d.get('key', {}).get('subkey'), reverse=True)"
+how to recognize whether a script is running on a tty?,sys.stdout.isatty()
+how can i split and parse a string in python?,print(mycollapsedstring.split(' '))
+pandas replace zeros with previous non zero value,"df['A'].replace(to_replace=0, method='ffill')"
+how to handle unicode (non-ascii) characters in python?,outbytes = yourstring.encode('utf-8')
+sort a zipped list `zipped` using lambda function,"sorted(zipped, key=lambda x: x[1])"
+adding calculated column(s) to a dataframe in pandas,d['A'][:-1] < d['C'][1:]
+reading integers from binary file in python,"print(struct.unpack('i', fin.read(4)))"
+setting an item in nested dictionary with __setitem__,"db.__setitem__('a', {'alpha': 'aaa'})"
+python list of tuples to list of int,y = [i[0] for i in x]
+python heatmap from 3d coordinates,plt.show()
+check for a cookie with python flask,request.cookies.get('my_cookie')
+how do i download a file using urllib.request in python 3?,f.write(g.read())
+python: flatten to a list of lists but no more,"[[1, 2, 3], ['a', 'b', 'c']]"
+get last three digits of an integer,int(str(x)[-3:])
+driver python for postgresql,session.commit()
+sort list of strings by integer suffix in python,"sorted(the_list, key=lambda k: int(k.split('_')[1]))"
+is there a python function to determine which quarter of the year a date is in?,df['quarter'] = df['date'].dt.quarter
+how to print more than one value in a list comprehension?,"output = [[word, len(word), word.upper()] for word in sent]"
+numpy concatenate two arrays `a` and `b` along the second axis,"print(concatenate((a, b), axis=1))"
+how to erase the file contents of text file in python?,"open('file.txt', 'w').close()"
+multiply column 'a' and column 'b' by column 'c' in datafram `df`,"df[['A', 'B']].multiply(df['C'], axis='index')"
+how do i use a dictionary to update fields in django models?,Book.objects.filter(id=id).update()
+cleanest way to get a value from a list element,"print(re.search('\\bLOG_ADDR\\s+(\\S+)', line).group(1))"
+how to create a list with the characters of a string?,"['5', '+', '6']"
+run a python script with arguments,"mrsync.sync('/tmp/targets.list', '/tmp/sourcedata', '/tmp/targetdata')"
+remove empty strings from list `str_list`,str_list = list([_f for _f in str_list if _f])
+how do i plot a step function with matplotlib in python?,plt.show()
+image library for python 3,img.save('output.png')
+getting a request parameter in jinja2,{{request.args.get('a')}}
+pandas dataframe select columns in multiindex,"df.loc[:, (slice(None), 'A')]"
+pandas cumulative sum on column with condition,v = df['value'].dropna()
+how to convert from boolean array to int array in python,new_data = np.vectorize(boolstr_to_floatstr)(data).astype(float)
+how to insert a small image on the corner of a plot with matplotlib?,plt.show()
+print a dictionary `{'user': {'name': 'markus'}}` with string formatting,"""""""Hello {user[name]}"""""".format(**{'user': {'name': 'Markus'}})"
+create a dictionary using two lists`x` and `y`,"dict(zip(x, y))"
+how to remove multiple indexes from a list at the same time?,del my_list[2:6]
+python accessing data in json object,result['streams']
+setting timezone in python,time.strftime('%X %x %Z')
+assigning a value to an element of a slice in python,a[0:1][0][0] = 5
+how do i halt execution in a python script?,sys.exit(0)
+mysql execute query 'select * from foo where bar = %s and baz = %s' with parameters `param1` and `param2`,"c.execute('SELECT * FROM foo WHERE bar = %s AND baz = %s', (param1, param2))"
+multi-line logging in python,logging.getLogger().setLevel(logging.DEBUG)
+pandas dataframe with 2-rows header and export to csv,"df.to_csv('test.csv', mode='a', index=False, header=False)"
+google app engine: how can i programmatically access the properties of my model class?,p.properties()[s].get_value_for_datastore(p)
+convert a string to integer with decimal in python,round(float('23.45678'))
+"check whether a path ""/does/not/exist"" exists",print(os.path.exists('/does/not/exist'))
+how do i capture sigint in python?,sys.exit(0)
+(django) how to get month name?,today.strftime('%B')
+how to print a list more nicely?,"zip([1, 2, 3], ['a', 'b', 'c'], ['x', 'y', 'z'])"
+find and replace 2nd occurrence of word 'cat' by 'bull' in a sentence 's',"re.sub('^((.*?cat.*?){1})cat', '\\1Bull', s)"
+python accessing values in a list of dictionaries,{d['Name']: d['Age'] for d in thisismylist}
+splitting a string into words and punctuation,"re.findall('\\w+|[^\\w\\s]', text, re.UNICODE)"
+how do i run selenium in xvfb?,browser.get('http://www.google.com')
+how convert a jpeg image into json file in google machine learning,{'instances': [{'image_bytes': {'b64': 'dGVzdAo='}}]}
+sorting a counter in python by keys,"sorted(list(c.items()), key=itemgetter(0))"
+control a print format when printing a list in python,"print('[%s]' % ', '.join('%.3f' % val for val in list))"
+python: one-liner to perform an operation upon elements in a 2d array (list of lists)?,[[int(y) for y in x] for x in values]
+python: how to escape 'lambda',"print(getattr(args, 'lambda'))"
+how do you split a list into evenly sized chunks?,"[l[i:i + n] for i in range(0, len(l), n)]"
+how to convert this list into a dictionary,"{'pigeon': '1', 'hate': '10', 'hello': '10', 'would': '5', 'adore': '10'}"
+change background color in tkinter,root.configure(background='black')
+using savepoints in python sqlite3,"conn.execute('insert into example values (?, ?);', (2, 202))"
+sort rows of numpy matrix `arr` in ascending order according to all column values,"numpy.sort(arr, axis=0)"
+how to calculate the percentage of each element in a list?,"[[0.4, 0.6, 0.0, 0.0], [0.2, 0.4, 0.4, 0.0], [0.0, 0.0, 0.4, 0.6]]"
+how to add different graphs (as an inset) in another python graph,plt.show()
+creating sets of tuples in python,"mySet = set((x, y) for x in range(1, 51) for y in range(1, 51))"
+pandas dataseries - how to address difference in days,df.index.to_series().diff()
+how do i print the content of a .txt file in python?,"f = open('example.txt', 'r')"
+group a list `list_of_tuples` of tuples by values,zip(*list_of_tuples)
+python/matplotlib - is there a way to make a discontinuous axis?,ax.yaxis.tick_left()
+read pandas data frame csv `comma.csv` with extra commas in column specifying string delimiter `'`,"df = pd.read_csv('comma.csv', quotechar=""'"")"
+print variable line by line with string in front python 2.7,print('\n'.join(formatted))
+get index of the top n values of a list in python,"zip(*sorted(enumerate(a), key=operator.itemgetter(1)))[0][-2:]"
+open a file `/home/user/test/wsservice/data.pkl` in binary write mode,"output = open('/home/user/test/wsservice/data.pkl', 'wb')"
+pandas - grouping intra day timeseries by date,"df.groupby(pd.TimeGrouper('D')).transform(np.cumsum).resample('D', how='ohlc')"
+python - getting list of numbers n to 0,"list(range(N, -1, -1)) is better"
+"how to set a variable to be ""today's"" date in python/pandas",dt.datetime.today().strftime('%m/%d/%Y')
+how can i create a list from two dictionaries?,"fu_list = [(k, fus_d.get(k), fus_s.get(k)) for k in fus_d.keys() | fus_s]"
+python split function -avoids last empy space,my_str.rstrip(';').split(';')
+how do i extract table data in pairs using beautifulsoup?,[[td.findNext(text=True) for td in tr.findAll('td')] for tr in rows]
+python convert list to dictionary,"d = dict(itertools.zip_longest(fillvalue='', *([iter(l)] * 2)))"
+checking number of elements in python's `counter`,sum(counter.values())
+open a text file `data.txt` in io module with encoding `utf-16-le`,"file = io.open('data.txt', 'r', encoding='utf-16-le')"
+how can i set the y axis in radians in a python plot?,"ax.plot(x, y, 'b.')"
+how can i do multiple substitutions using regex in python?,"re.sub('([characters])', '\\1\\1', text.read())"
+paging depending on grouping of items in django,messages = Message.objects.filter(head=True).order_by('time')[0:15]
+how to append to the end of an empty list?,list1 = [i for i in range(n)]
+write all tuple of tuples `a` at once into csv file,writer.writerows(A)
+how to call a python function with no parameters in a jinja2 template,template_globals.filters['ctest'] = ctest
+how to find out if the elements in one list are in another?,print([x for x in A if all(y in x for y in B)])
+python: read hex from file into list?,hex_list = ('{:02x}'.format(ord(c)) for c in fp.read())
+how to get the number of <p> tags inside div in scrapy?,"len(response.xpath('//div[@class=""entry-content""]/p'))"
+check if dictionary `l[0].f.items()` is in dictionary `a3.f.items()`,set(L[0].f.items()).issubset(set(a3.f.items()))
+how do i run twisted from the console?,reactor.run()
+how to calculate mean in python?,numpy.mean(gp2)
+pandas pivot table of sales,"df.groupby(['saleid', 'upc']).size().unstack(fill_value=0)"
+how to remove positive infinity from numpy array...if it is already converted to a number?,"np.array([0.0, pinf, ninf]) < 0"
+removing duplicates from nested list based on first 2 elements,"list(dict(((x[0], x[1]), x) for x in L).values())"
+convert list of dictionaries to dataframe,pd.DataFrame(d)
+deploy flask app as windows service,app.run(host='192.168.1.6')
+"how to do an inverse `range`, i.e. create a compact range based on a set of numbers?","[1, 1, 2, 2]"
+"in python, how to convert list of float numbers to string with certain format?",str_list = [tuple('{0:.8e}'.format(flt) for flt in sublist) for sublist in lst]
+notebook widget in tkinter,root.title('ttk.Notebook')
+how to generate a module object from a code object in python,sys.modules['m']
+closed lines in matplotlib contour plots,plt.savefig('test.pdf')
+sub matrix of a list of lists (without numpy),[row[2:5] for row in LoL[1:4]]
+how can i get href links from html using python?,print(link.get('href'))
+regex: how to match sequence of key-value pairs at end of string,"['key1: val1-words ', 'key2: val2-words ', 'key3: val3-words']"

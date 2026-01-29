@@ -16,7 +16,7 @@ app.use(express.json());
 //   .catch((err) => console.log('Failed to connect to MongoDB:', err));
 
 
-// Would delete all previous data in the database
+// Deletes all previous data in the database
 mongoose.connect(config.mongodbUri)
   .then(async () => {await Code.deleteMany({}); console.log('Connected to MongoDB');})
   .catch((err) => console.log('Failed to connect to MongoDB:', err));

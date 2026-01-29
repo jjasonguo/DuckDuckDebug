@@ -52,7 +52,7 @@ class BertEmbedder(nn.Module):
         outputs = self.layer_norm(outputs)
         return F.normalize(outputs, p=2, dim=1).cpu().tolist()
 
-# Simple dataset for demonstration
+
 class CoNaLaDataset(Dataset):
     def __init__(self, csv_file):
         import pandas as pd

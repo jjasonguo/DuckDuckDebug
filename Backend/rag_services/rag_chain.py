@@ -1,6 +1,21 @@
 import os
-from dotenv import load_dotenv
+import re
 import sys
+
+import torch
+from dotenv import load_dotenv
+from operator import itemgetter
+from pymongo import MongoClient
+
+from langchain.load import dumps, loads
+from langchain.prompts import ChatPromptTemplate
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import Chroma
+from langchain_core.documents import Document
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables import RunnablePassthrough
+from langchain_openai import ChatOpenAI
+from models.custom_bert_embedder import CustomBertEmbeddings
 
 # Dynamically add the project root to sys.path
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -14,36 +29,43 @@ langsmith_endpoint = os.getenv("LANGCHAIN_ENDPOINT", "https://api.smith.langchai
 langsmith_tracing = os.getenv("LANGCHAIN_TRACING_V2", "true")
 mongo_URI = os.getenv("MONGO_URI")
 
-# Set them into os.environ (if LangChain needs them this way)
+# Set environment variables for LangChain
 os.environ['OPENAI_API_KEY'] = openai_key
 os.environ['LANGCHAIN_API_KEY'] = langsmith_key
 os.environ['LANGCHAIN_ENDPOINT'] = langsmith_endpoint
 os.environ['LANGCHAIN_TRACING_V2'] = langsmith_tracing
 
-import torch
-from models.custom_bert_embedder import CustomBertEmbeddings
-from pymongo import MongoClient
-from langchain_core.documents import Document
-from langchain_community.vectorstores import Chroma
-from langchain.text_splitter import RecursiveCharacterTextSplitter
-from langchain.prompts import ChatPromptTemplate
-from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import RunnablePassthrough
-from langchain.load import dumps, loads
-from langchain_openai import ChatOpenAI
-from operator import itemgetter
-
 device = torch.device("mps" if torch.backends.mps.is_available() else "cpu")
 
-# Connect to your MongoDB
+# Text splitter and retriever configuration
+CHUNK_SIZE = 300
+CHUNK_OVERLAP = 50
+RETRIEVER_K = 5
+
 client = MongoClient(mongo_URI)
 db = client["test"]
 collection = db["codes"]
 
-import re
+vectorstore = None
+retriever = None
+embedding_fn = CustomBertEmbeddings()
+splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+    chunk_size=CHUNK_SIZE, 
+    chunk_overlap=CHUNK_OVERLAP
+)
 
-# Load code documents from MongoDB
+
 def clean_metadata(entry, function_name=None):
+    """
+    Clean and normalize metadata from a MongoDB entry.
+    
+    Args:
+        entry: MongoDB document containing code metadata
+        function_name: Optional function name to include in metadata
+        
+    Returns:
+        dict: Cleaned metadata dictionary
+    """
     def safe(val):
         return str(val) if val is not None else ""
 
@@ -55,8 +77,17 @@ def clean_metadata(entry, function_name=None):
         "function_name": safe(function_name) if function_name else ""
     }
 
+
 def extract_python_functions(content):
-    """Extract individual functions from Python code with their content."""
+    """
+    Extract individual functions from Python code with their content.
+    
+    Args:
+        content: String containing Python source code
+        
+    Returns:
+        list: List of dicts with 'name' and 'content' keys for each function
+    """
     functions = []
     lines = content.split('\n')
     
@@ -95,14 +126,13 @@ def extract_python_functions(content):
     
     return functions
 
-# Global variables for lazy initialization
-vectorstore = None
-retriever = None
-embedding_fn = CustomBertEmbeddings()
-splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=300, chunk_overlap=50)
-
 def load_code_docs():
-    """Load code documents from MongoDB, split by function."""
+    """
+    Load code documents from MongoDB, split by function.
+    
+    Returns:
+        list: List of LangChain Document objects
+    """
     code_docs = []
     for entry in collection.find({"language": "Python"}):
         content = entry.get("content")
@@ -128,7 +158,14 @@ def load_code_docs():
     return code_docs
 
 def refresh_vectorstore():
-    """Refresh the vectorstore with current MongoDB documents. Call this after code upload."""
+    """
+    Refresh the vectorstore with current MongoDB documents.
+    
+    Call this after code upload to update the RAG context.
+    
+    Returns:
+        bool: True if successful, False if no documents found
+    """
     global vectorstore, retriever
     
     code_docs = load_code_docs()
@@ -141,32 +178,42 @@ def refresh_vectorstore():
     
     splits = splitter.split_documents(code_docs)
     vectorstore = Chroma.from_documents(splits, embedding=embedding_fn)
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+    retriever = vectorstore.as_retriever(search_kwargs={"k": RETRIEVER_K})
     print("Vectorstore refreshed successfully with", len(splits), "chunks.")
     return True
 
-# Try to initialize on startup (will gracefully handle empty DB)
-refresh_vectorstore() 
 
-# Final RAG chain
-template1 = """Determine whether or not it seems like this person has solved their issue. If so, output a 1, otherwise output a 0.
+def get_context(x):
+    """
+    Get relevant documents for a query.
+    
+    Handles the case where the retriever is not yet initialized.
+    
+    Args:
+        x: Dict containing 'question' key
+        
+    Returns:
+        list or str: Retrieved documents or error message
+    """
+    global retriever
+    if retriever is None:
+        return "No code documents loaded yet."
+    return retriever.get_relevant_documents(x["question"])
+
+# =============================================================================
+# PROMPT TEMPLATES
+# =============================================================================
+
+FILTERING_TEMPLATE = """Determine whether or not it seems like this person has solved their issue. If so, output a 1, otherwise output a 0.
 User Query: {question}
 """
-final_prompt1 = ChatPromptTemplate.from_template(template1)
-llm = ChatOpenAI(temperature=0)
 
-filtering_chain = (
-    itemgetter("question")
-    | final_prompt1
-    | llm
-    | StrOutputParser()
-)
-template2 = """I want you to act as a rubber duck debugger. Your job is to help the user work through 
+DEBUGGING_TEMPLATE = """I want you to act as a rubber duck debugger. Your job is to help the user work through 
 a bug in their codebase by asking a follow-up question that guides them to explain and reflect on their code. 
 Ask questions that encourage the user to clarify their assumptions, walk through their logic, and examine 
 specific parts of their code. Never reveal the bug or the fix — your role is to guide, not solve. 
 
-The user’s input may contain irrelevant information, so focus your questions on the parts most likely 
+The user's input may contain irrelevant information, so focus your questions on the parts most likely 
 related to the issue.
 
 Do not start your ouput with your questions. Start with a statement about the bug or trying to comfort the user.
@@ -181,33 +228,47 @@ Context: {context}
 
 User Query: {question}
 """
-final_prompt2 = ChatPromptTemplate.from_template(template2)
-llm = ChatOpenAI(temperature=0)
 
-def get_context(x):
-    """Get relevant documents, handling case where retriever is not initialized."""
-    global retriever
-    if retriever is None:
-        return "No code documents loaded yet."
-    return retriever.get_relevant_documents(x["question"])
-
-final_rag_chain1 = (
-    # {"context": retrieval_chain, "question": itemgetter("question")}
-    {"context": get_context, "question": itemgetter("question")}
-    | final_prompt2
-    | llm
-    | StrOutputParser()
-)
-
-template3 = """Write out a congratulation message for the user they just solved a very difficult bug.
+CONGRATULATION_TEMPLATE = """Write out a congratulation message for the user they just solved a very difficult bug.
 User Query: {question}"""
-final_prompt3 = ChatPromptTemplate.from_template(template3)
+
+# =============================================================================
+# LLM CHAINS
+# =============================================================================
+
+# Initialize LLM (shared across chains)
 llm = ChatOpenAI(temperature=0)
 
-final_rag_chain2 = (
-    # {"context": retrieval_chain, "question": itemgetter("question")}
+# Filtering chain - determines if user has solved their issue
+filtering_prompt = ChatPromptTemplate.from_template(FILTERING_TEMPLATE)
+filtering_chain = (
     itemgetter("question")
-    | final_prompt3
+    | filtering_prompt
     | llm
     | StrOutputParser()
 )
+
+# Debugging chain - provides rubber duck debugging assistance
+debugging_prompt = ChatPromptTemplate.from_template(DEBUGGING_TEMPLATE)
+final_rag_chain1 = (
+    {"context": get_context, "question": itemgetter("question")}
+    | debugging_prompt
+    | llm
+    | StrOutputParser()
+)
+
+# Congratulation chain - celebrates when user solves the bug
+congratulation_prompt = ChatPromptTemplate.from_template(CONGRATULATION_TEMPLATE)
+final_rag_chain2 = (
+    itemgetter("question")
+    | congratulation_prompt
+    | llm
+    | StrOutputParser()
+)
+
+# =============================================================================
+# INITIALIZATION
+# =============================================================================
+
+# Initialize vectorstore on module load (handles empty DB gracefully)
+refresh_vectorstore()
