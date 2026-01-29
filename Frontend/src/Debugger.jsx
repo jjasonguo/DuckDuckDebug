@@ -10,11 +10,11 @@ import FileUploader from "./FileUploader";
 const DuckDuckDebug = () => {
   const [activeTab, setActiveTab] = useState("code");
   const [content, setContent] = useState({
-    code: `// This is your CODE view\nfunction debug() {\n  console.log("Hello from Duck Debug!");\n}`,
-    uml: `{\n  "file": "main.js",\n  "lines": 42,\n  "errors": []\n}`,
+    code: `# This is your CODE view\ndef debug():\n    print("Hello from Duck Debug!")`,
+    uml: `To be implemented`,
   });
   const [bubbleText, setBubbleText] = useState(
-    "What are you having trouble with? "
+    "Hello! What are you having trouble with? "
   );
   const [inputText, setInputText] = useState("");
   const fileInputRef = useRef(null);
@@ -60,12 +60,14 @@ const DuckDuckDebug = () => {
       const codeMatches = await retrievedRes.json();
 
       const combinedCode = codeMatches
-        .map(
-          (doc, idx) =>
-            `// [Match ${idx + 1}] from ${
-              doc.metadata.file_name || "unknown"
-            }\n${doc.content}`
-        )
+        .map((doc, idx) => {
+          const fileName = doc.metadata.file_name || "unknown";
+          const functionName = doc.metadata.function_name || "";
+          const header = functionName
+            ? `// [Match ${idx + 1}] ${functionName}() in ${fileName}`
+            : `// [Match ${idx + 1}] ${fileName}`;
+          return `${header}\n${doc.content}`;
+        })
         .join("\n\n" + "=".repeat(40) + "\n\n");
 
       setContent((prev) => ({

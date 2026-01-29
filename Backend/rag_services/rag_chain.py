@@ -40,8 +40,10 @@ client = MongoClient(mongo_URI)
 db = client["test"]
 collection = db["codes"]
 
+import re
+
 # Load code documents from MongoDB
-def clean_metadata(entry):
+def clean_metadata(entry, function_name=None):
     def safe(val):
         return str(val) if val is not None else ""
 
@@ -49,8 +51,78 @@ def clean_metadata(entry):
         "class_name": safe(entry.get("class_name")),
         "file_name": safe(entry.get("file_name")),
         "file_path": safe(entry.get("file_path")),
-        "language": safe(entry.get("language"))
+        "language": safe(entry.get("language")),
+        "function_name": safe(function_name) if function_name else ""
     }
+
+def extract_java_functions(content):
+    """Extract individual functions from Java code with their content."""
+    functions = []
+    # Match method definitions - handles public/private/protected, static, return types
+    pattern = r'((?:public|private|protected)\s+(?:static\s+)?[\w<>\[\]]+\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+[\w,\s]+)?\s*\{)'
+    
+    matches = list(re.finditer(pattern, content))
+    
+    for i, match in enumerate(matches):
+        func_name = match.group(2)
+        start = match.start()
+        
+        # Find the matching closing brace
+        brace_count = 0
+        end = match.end() - 1  # Start from the opening brace
+        for j in range(match.end() - 1, len(content)):
+            if content[j] == '{':
+                brace_count += 1
+            elif content[j] == '}':
+                brace_count -= 1
+                if brace_count == 0:
+                    end = j + 1
+                    break
+        
+        func_content = content[start:end]
+        functions.append({"name": func_name, "content": func_content})
+    
+    return functions
+
+def extract_python_functions(content):
+    """Extract individual functions from Python code with their content."""
+    functions = []
+    lines = content.split('\n')
+    
+    i = 0
+    while i < len(lines):
+        line = lines[i]
+        # Match function definition
+        match = re.match(r'^(\s*)def\s+(\w+)\s*\([^)]*\)\s*(?:->.*?)?:', line)
+        if match:
+            indent = len(match.group(1))
+            func_name = match.group(2)
+            func_lines = [line]
+            i += 1
+            
+            # Collect all lines that are part of this function (indented more or blank)
+            while i < len(lines):
+                next_line = lines[i]
+                # Empty line or more indented = part of function
+                if next_line.strip() == '':
+                    func_lines.append(next_line)
+                    i += 1
+                elif len(next_line) - len(next_line.lstrip()) > indent:
+                    func_lines.append(next_line)
+                    i += 1
+                else:
+                    break
+            
+            # Remove trailing empty lines
+            while func_lines and func_lines[-1].strip() == '':
+                func_lines.pop()
+            
+            func_content = '\n'.join(func_lines)
+            functions.append({"name": func_name, "content": func_content})
+        else:
+            i += 1
+    
+    return functions
 
 # Global variables for lazy initialization
 vectorstore = None
@@ -59,15 +131,35 @@ embedding_fn = CustomBertEmbeddings()
 splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=300, chunk_overlap=50)
 
 def load_code_docs():
-    """Load code documents from MongoDB."""
+    """Load code documents from MongoDB, split by function."""
     code_docs = []
     for entry in collection.find({"language": {"$in": ["Java", "Python"]}}):
         content = entry.get("content")
-        if content:
+        language = entry.get("language")
+        
+        if not content:
+            continue
+        
+        # Extract functions based on language
+        if language == "Java":
+            functions = extract_java_functions(content)
+        elif language == "Python":
+            functions = extract_python_functions(content)
+        else:
+            functions = []
+        
+        # Create a document for each function
+        if functions:
+            for func in functions:
+                metadata = clean_metadata(entry, function_name=func["name"])
+                code_docs.append(Document(page_content=func["content"], metadata=metadata))
+        else:
+            # Fallback: use entire file if no functions found
             metadata = clean_metadata(entry)
             code_docs.append(Document(page_content=content, metadata=metadata))
+    
     print("Document count:", collection.count_documents({}))
-    print("Loaded", len(code_docs), "code documents from MongoDB")
+    print("Loaded", len(code_docs), "function documents from MongoDB")
     return code_docs
 
 def refresh_vectorstore():

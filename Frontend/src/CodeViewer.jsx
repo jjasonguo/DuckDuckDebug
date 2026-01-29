@@ -13,7 +13,7 @@ const CodeViewer = ({ content, activeTab }) => {
     }
   }, [content, activeTab]);
 
-  const language = activeTab === "uml" ? "json" : "javascript";
+  const language = activeTab === "uml" ? "plaintext" : "python";
 
   return (
     <div className="content-box" id="tab-content">
