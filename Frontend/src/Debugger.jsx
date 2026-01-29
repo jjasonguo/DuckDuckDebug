@@ -49,7 +49,7 @@ const DuckDuckDebug = () => {
   const sendTranscription = async (question) => {
     try {
       const retrievedRes = await fetch(
-        "http://localhost:5001/get_retrieved_code",
+        "http://localhost:8000/api/rag/retrieved-code",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -76,7 +76,7 @@ const DuckDuckDebug = () => {
       }));
       setActiveTab("code");
 
-      const aiRes = await fetch("http://localhost:8000/api/rag/rag-query", {
+      const aiRes = await fetch("http://localhost:8000/api/rag/query", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ question }),
@@ -88,7 +88,7 @@ const DuckDuckDebug = () => {
         setBubbleText(aiText);
 
         try {
-          const ttsRes = await fetch("http://localhost:5001/tts", {
+          const ttsRes = await fetch("http://localhost:8000/api/audio/tts", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: aiText }),
@@ -98,7 +98,7 @@ const DuckDuckDebug = () => {
 
           if (ttsData.audio_url) {
             const audioRes = await fetch(
-              `http://localhost:5001${ttsData.audio_url}`
+              `http://localhost:8000/api${ttsData.audio_url}`
             );
             if (!audioRes.ok) throw new Error("Failed to fetch audio file");
 
@@ -185,7 +185,7 @@ const DuckDuckDebug = () => {
         formData.append("audio", audioBlob, "recording.webm");
 
         try {
-          const res = await fetch("http://localhost:5001/process_audio", {
+          const res = await fetch("http://localhost:8000/api/audio/process", {
             method: "POST",
             body: formData,
           });
@@ -193,7 +193,7 @@ const DuckDuckDebug = () => {
           const data = await res.json();
           if (data.transcription) {
             setInputText(data.transcription);
-            await sendTranscription(data.transcription); // 👈 TTS and RAG logic here
+            await sendTranscription(data.transcription);
           } else {
             setBubbleText(
               "❌ Transcription error: " + (data.error || "Unknown error")
