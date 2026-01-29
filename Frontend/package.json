@@ -34,13 +34,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AndrewG828/HooHacks_SP25.git"
+    "url": "git+https://github.com/jjasonguo/DuckDuckDebug.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AndrewG828/HooHacks_SP25/issues"
+    "url": "https://github.com/jjasonguo/DuckDuckDebug/issues"
   },
-  "homepage": "https://github.com/AndrewG828/HooHacks_SP25#readme"
+  "homepage": "https://github.com/jjasonguo/DuckDuckDebug#readme"
 }
