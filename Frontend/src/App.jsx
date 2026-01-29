@@ -1,4 +1,3 @@
-// src/App.jsx
 import React, { useState, useEffect } from "react";
 import {
   BrowserRouter as Router,
@@ -7,9 +6,9 @@ import {
   useLocation,
 } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
-import DuckDuckDebug from "./Debugger";
-import LandingPage from "./LandingPage";
-import "./LandingPage.css";
+
+import { LandingPage, DebugPage } from "./pages";
+import "./styles/index.css";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -22,6 +21,7 @@ const AnimatedRoutes = () => {
 
     return () => clearTimeout(timeout);
   }, []);
+
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
@@ -44,7 +44,7 @@ const AnimatedRoutes = () => {
                 transition={{ duration: 0.5 }}
                 style={{ position: "relative" }}
               >
-                <DuckDuckDebug />
+                <DebugPage />
               </motion.div>
               <motion.img
                 src="/duck_closed.png"

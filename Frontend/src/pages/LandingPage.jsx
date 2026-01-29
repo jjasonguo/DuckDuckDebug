@@ -1,48 +1,47 @@
-// src/LandingPage.jsx
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import "./LandingPage.css";
 
-const LandingPage = ({ onStart }) => {
-  const navigate = useNavigate();
-  // Update the duckVariants in LandingPage.jsx
-  const duckVariants = {
-    hidden: {
-      x: -700,
-      y: -300,
-      scaleX: 1,
-      scaleY: 1,
-      opacity: 1,
-    },
-    visible: {
-      x: 0,
-      y: [-150, 0, -80, 0, -40, 0, -20, 0],
-      scaleX: [1, 1.15, 1, 1.1, 1, 1.1, 1, 1, 1, 1.2, 1],
-      scaleY: [1, 0.85, 1, 0.9, 1, 0.9, 1, 1, 1, 0.8, 1],
-      opacity: 1,
-      transition: {
-        x: {
-          type: "tween",
-          ease: "easeOut",
-          duration: 1.95,
-        },
-        y: {
-          duration: 3,
-          times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65],
-          ease: "easeInOut",
-        },
-        scaleX: {
-          duration: 3,
-          times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65, 0.87, 0.95, 1],
-        },
-        scaleY: {
-          duration: 3,
-          times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65, 0.87, 0.95, 1],
-        },
+const duckVariants = {
+  hidden: {
+    x: -700,
+    y: -300,
+    scaleX: 1,
+    scaleY: 1,
+    opacity: 1,
+  },
+  visible: {
+    x: 0,
+    y: [-150, 0, -80, 0, -40, 0, -20, 0],
+    scaleX: [1, 1.15, 1, 1.1, 1, 1.1, 1, 1, 1, 1.2, 1],
+    scaleY: [1, 0.85, 1, 0.9, 1, 0.9, 1, 1, 1, 0.8, 1],
+    opacity: 1,
+    transition: {
+      x: {
+        type: "tween",
+        ease: "easeOut",
+        duration: 1.95,
+      },
+      y: {
+        duration: 3,
+        times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65],
+        ease: "easeInOut",
+      },
+      scaleX: {
+        duration: 3,
+        times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65, 0.87, 0.95, 1],
+      },
+      scaleY: {
+        duration: 3,
+        times: [0, 0.24, 0.4, 0.5, 0.56, 0.6, 0.63, 0.65, 0.87, 0.95, 1],
       },
     },
-  };
+  },
+};
+
+const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="landing-page">
       <div>
@@ -72,7 +71,7 @@ const LandingPage = ({ onStart }) => {
           }}
         />
         <motion.p
-          class="subtitle"
+          className="subtitle"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.2 } }}

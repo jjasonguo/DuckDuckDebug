@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { marked } from "marked";
 
 const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
   const fileInputRef = useRef(null);
@@ -14,8 +13,6 @@ const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
       .forEach((file) => {
         formData.append("files", file, file.webkitRelativePath);
       });
-
-    console.log(formData);
 
     try {
       const res = await fetch("http://localhost:8000/api/code/scrape-python", {
