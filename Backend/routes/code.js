@@ -93,10 +93,12 @@ function extractPythonDetails(content) {
     return { className, functions };
 }
 
+const config = require('../config/config');
+
 // Helper function to refresh the RAG vectorstore
 async function refreshVectorstore() {
     try {
-        const response = await fetch('http://localhost:5001/refresh', {
+        const response = await fetch(`${config.flaskBaseUrl}/refresh`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' }
         });

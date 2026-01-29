@@ -1,9 +1,10 @@
 const express = require('express');
 const axios = require('axios');
+const config = require('../config/config');
 
 const router = express.Router();
 
-const FLASK_BASE_URL = 'http://localhost:5001';
+const FLASK_BASE_URL = config.flaskBaseUrl;
 
 // RAG query
 router.post('/query', async (req, res) => {

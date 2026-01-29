@@ -2,11 +2,12 @@ const express = require('express');
 const axios = require('axios');
 const multer = require('multer');
 const FormData = require('form-data');
+const config = require('../config/config');
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
 
-const FLASK_BASE_URL = 'http://localhost:5001';
+const FLASK_BASE_URL = config.flaskBaseUrl;
 
 // Text-to-speech
 router.post('/tts', async (req, res) => {
