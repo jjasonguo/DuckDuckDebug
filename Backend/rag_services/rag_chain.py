@@ -55,35 +55,6 @@ def clean_metadata(entry, function_name=None):
         "function_name": safe(function_name) if function_name else ""
     }
 
-def extract_java_functions(content):
-    """Extract individual functions from Java code with their content."""
-    functions = []
-    # Match method definitions - handles public/private/protected, static, return types
-    pattern = r'((?:public|private|protected)\s+(?:static\s+)?[\w<>\[\]]+\s+(\w+)\s*\([^)]*\)\s*(?:throws\s+[\w,\s]+)?\s*\{)'
-    
-    matches = list(re.finditer(pattern, content))
-    
-    for i, match in enumerate(matches):
-        func_name = match.group(2)
-        start = match.start()
-        
-        # Find the matching closing brace
-        brace_count = 0
-        end = match.end() - 1  # Start from the opening brace
-        for j in range(match.end() - 1, len(content)):
-            if content[j] == '{':
-                brace_count += 1
-            elif content[j] == '}':
-                brace_count -= 1
-                if brace_count == 0:
-                    end = j + 1
-                    break
-        
-        func_content = content[start:end]
-        functions.append({"name": func_name, "content": func_content})
-    
-    return functions
-
 def extract_python_functions(content):
     """Extract individual functions from Python code with their content."""
     functions = []
@@ -133,20 +104,14 @@ splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=300, 
 def load_code_docs():
     """Load code documents from MongoDB, split by function."""
     code_docs = []
-    for entry in collection.find({"language": {"$in": ["Java", "Python"]}}):
+    for entry in collection.find({"language": "Python"}):
         content = entry.get("content")
-        language = entry.get("language")
         
         if not content:
             continue
         
-        # Extract functions based on language
-        if language == "Java":
-            functions = extract_java_functions(content)
-        elif language == "Python":
-            functions = extract_python_functions(content)
-        else:
-            functions = []
+        # Extract functions from Python code
+        functions = extract_python_functions(content)
         
         # Create a document for each function
         if functions:
@@ -197,7 +162,7 @@ filtering_chain = (
     | StrOutputParser()
 )
 template2 = """I want you to act as a rubber duck debugger. Your job is to help the user work through 
-a bug in their codebase by asking 1 follow-up question that guide them to explain and reflect on their code. 
+a bug in their codebase by asking a follow-up question that guides them to explain and reflect on their code. 
 Ask questions that encourage the user to clarify their assumptions, walk through their logic, and examine 
 specific parts of their code. Never reveal the bug or the fix — your role is to guide, not solve. 
 
@@ -234,7 +199,7 @@ final_rag_chain1 = (
     | StrOutputParser()
 )
 
-template3 = """Write out a congratulation message for the user as he as just solved a very difficult bug.
+template3 = """Write out a congratulation message for the user they just solved a very difficult bug.
 User Query: {question}"""
 final_prompt3 = ChatPromptTemplate.from_template(template3)
 llm = ChatOpenAI(temperature=0)
