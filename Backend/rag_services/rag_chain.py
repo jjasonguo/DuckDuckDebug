@@ -52,22 +52,44 @@ def clean_metadata(entry):
         "language": safe(entry.get("language"))
     }
 
-code_docs = []
-
-for entry in collection.find({"language": "Java"}):
-    content = entry.get("content")
-    if content:
-        metadata = clean_metadata(entry)
-        code_docs.append(Document(page_content=content, metadata=metadata))
-print("Document count:", collection.count_documents({}))
-print("Loaded", len(code_docs), "code documents from MongoDB")
-
-splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=300, chunk_overlap=50)
-splits = splitter.split_documents(code_docs)
-
+# Global variables for lazy initialization
+vectorstore = None
+retriever = None
 embedding_fn = CustomBertEmbeddings()
-vectorstore = Chroma.from_documents(splits, embedding=embedding_fn)
-retriever = vectorstore.as_retriever(search_kwargs={"k": 5}) 
+splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(chunk_size=300, chunk_overlap=50)
+
+def load_code_docs():
+    """Load code documents from MongoDB."""
+    code_docs = []
+    for entry in collection.find({"language": {"$in": ["Java", "Python"]}}):
+        content = entry.get("content")
+        if content:
+            metadata = clean_metadata(entry)
+            code_docs.append(Document(page_content=content, metadata=metadata))
+    print("Document count:", collection.count_documents({}))
+    print("Loaded", len(code_docs), "code documents from MongoDB")
+    return code_docs
+
+def refresh_vectorstore():
+    """Refresh the vectorstore with current MongoDB documents. Call this after code upload."""
+    global vectorstore, retriever
+    
+    code_docs = load_code_docs()
+    
+    if not code_docs:
+        print("No documents found in MongoDB. Vectorstore not initialized.")
+        vectorstore = None
+        retriever = None
+        return False
+    
+    splits = splitter.split_documents(code_docs)
+    vectorstore = Chroma.from_documents(splits, embedding=embedding_fn)
+    retriever = vectorstore.as_retriever(search_kwargs={"k": 5})
+    print("Vectorstore refreshed successfully with", len(splits), "chunks.")
+    return True
+
+# Try to initialize on startup (will gracefully handle empty DB)
+refresh_vectorstore() 
 
 # Final RAG chain
 template1 = """Determine whether or not it seems like this person has solved their issue. If so, output a 1, otherwise output a 0.
@@ -105,9 +127,16 @@ User Query: {question}
 final_prompt2 = ChatPromptTemplate.from_template(template2)
 llm = ChatOpenAI(temperature=0)
 
+def get_context(x):
+    """Get relevant documents, handling case where retriever is not initialized."""
+    global retriever
+    if retriever is None:
+        return "No code documents loaded yet."
+    return retriever.get_relevant_documents(x["question"])
+
 final_rag_chain1 = (
     # {"context": retrieval_chain, "question": itemgetter("question")}
-    {"context": lambda x: retriever.get_relevant_documents(x["question"]), "question": itemgetter("question")}
+    {"context": get_context, "question": itemgetter("question")}
     | final_prompt2
     | llm
     | StrOutputParser()

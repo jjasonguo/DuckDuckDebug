@@ -1,4 +1,5 @@
-from rag_chain import final_rag_chain1, final_rag_chain2, filtering_chain, retriever
+from rag_chain import final_rag_chain1, final_rag_chain2, filtering_chain, refresh_vectorstore
+import rag_chain  # Import module to access mutable retriever
 from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 from elevenlabs import ElevenLabs
@@ -96,11 +97,27 @@ def get_audio(filename):
         return jsonify({'error': str(e)}), 500
     
 
+@app.route("/refresh", methods=["POST"])
+def refresh():
+    """Refresh the vectorstore after code upload."""
+    try:
+        success = refresh_vectorstore()
+        if success:
+            return jsonify({"message": "Vectorstore refreshed successfully."})
+        else:
+            return jsonify({"message": "No documents found. Vectorstore not initialized."}), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route("/get_retrieved_code", methods=["POST"])
 def get_retrieved_code():
     data = request.get_json()
     question = data.get("question", "")
-    docs = retriever.get_relevant_documents(question)
+    
+    if rag_chain.retriever is None:
+        return jsonify({"error": "No code documents loaded. Please upload code first."}), 400
+    
+    docs = rag_chain.retriever.get_relevant_documents(question)
     top2 = docs[:5]
     return jsonify([
         {"content": doc.page_content, "metadata": doc.metadata}
