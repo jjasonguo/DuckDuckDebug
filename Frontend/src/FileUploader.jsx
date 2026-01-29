@@ -10,7 +10,7 @@ const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
 
     const formData = new FormData();
     files
-      .filter((file) => file.name.endsWith(".java"))
+      .filter((file) => file.name.endsWith(".py"))
       .forEach((file) => {
         formData.append("files", file, file.webkitRelativePath);
       });
@@ -18,7 +18,7 @@ const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
     console.log(formData);
 
     try {
-      const res = await fetch("http://localhost:8000/api/code/scrape-java", {
+      const res = await fetch("http://localhost:8000/api/code/scrape-python", {
         method: "POST",
         body: formData,
       });
