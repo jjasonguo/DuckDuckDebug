@@ -2,6 +2,10 @@ import os
 import re
 import sys
 
+# Dynamically add the project root to sys.path (must be before local imports)
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, project_root)
+
 import torch
 from dotenv import load_dotenv
 from operator import itemgetter
@@ -16,10 +20,6 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 from langchain_openai import ChatOpenAI
 from models.custom_bert_embedder import CustomBertEmbeddings
-
-# Dynamically add the project root to sys.path
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-sys.path.append(project_root)
 
 load_dotenv()
 
@@ -198,17 +198,19 @@ def get_context(x):
     global retriever
     if retriever is None:
         return "No code documents loaded yet."
-    return retriever.get_relevant_documents(x["question"])
+    return retriever.invoke(x["question"])
 
 # =============================================================================
 # PROMPT TEMPLATES
 # =============================================================================
 
-FILTERING_TEMPLATE = """Determine whether or not it seems like this person has solved their issue. If so, output a 1, otherwise output a 0.
+FILTERING_TEMPLATE = """Determine whether or not it seems like this person has solved their issue. Evaluate the error in the user's current code, and check 
+if they have described where the error is located and how to fix it. If they have solved their issue, output only the singular number 1. 
+Otherwise, output only the singular number 0.
 User Query: {question}
 """
 
-DEBUGGING_TEMPLATE = """I want you to act as a rubber duck debugger. Your job is to help the user work through 
+DEBUGGING_TEMPLATE = """Act as a debugging assistant. Your job is to help the user work through 
 a bug in their codebase by asking a follow-up question that guides them to explain and reflect on their code. 
 Ask questions that encourage the user to clarify their assumptions, walk through their logic, and examine 
 specific parts of their code. Never reveal the bug or the fix — your role is to guide, not solve. 

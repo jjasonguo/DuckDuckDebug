@@ -19,10 +19,10 @@ def query():
     try:
         working = filtering_chain.invoke({"question": question})
         print (working)
-        if working == "0":
-            answer = final_rag_chain1.invoke({"question": question})
-        else:
+        if working == "1":
             answer = final_rag_chain2.invoke({"question": question})
+        else:
+            answer = final_rag_chain1.invoke({"question": question})
         return jsonify({"answer": answer})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
@@ -117,7 +117,7 @@ def get_retrieved_code():
     if rag_chain.retriever is None:
         return jsonify({"error": "No code documents loaded. Please upload code first."}), 400
     
-    docs = rag_chain.retriever.get_relevant_documents(question)
+    docs = rag_chain.retriever.invoke(question)
     top2 = docs[:5]
     return jsonify([
         {"content": doc.page_content, "metadata": doc.metadata}
