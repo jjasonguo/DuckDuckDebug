@@ -51,6 +51,20 @@ const DebugPage = () => {
     [setBubbleText]
   );
 
+  const handleUploadSuccess = useCallback(
+    (message) => {
+      setBubbleText(`✅ ${message}`);
+    },
+    [setBubbleText]
+  );
+
+  const handleUploadError = useCallback(
+    (message) => {
+      setBubbleText(`❌ ${message}`);
+    },
+    [setBubbleText]
+  );
+
   const { isRecording, toggleRecording } = useAudioRecorder({
     onRecordingComplete: handleRecordingComplete,
     onError: handleRecordingError,
@@ -80,9 +94,8 @@ const DebugPage = () => {
           onTabClick={handleTabClick}
           fileUploader={
             <FileUploader
-              setContent={setContent}
-              setActiveTab={setActiveTab}
-              setBubbleText={setBubbleText}
+              onUploadSuccess={handleUploadSuccess}
+              onUploadError={handleUploadError}
             />
           }
         />

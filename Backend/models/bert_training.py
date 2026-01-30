@@ -67,7 +67,7 @@ class CoNaLaDataset(Dataset):
         return self.nl_texts[idx], self.code_texts[idx]
 
 
-def train_model(model, train_loader, val_loader, epochs=5, lr=2e-5, temperature=0.07):
+def train_model(model, train_loader, val_loader, epochs, lr=2e-5, temperature=0.07):
     model.to(device)
     optimizer = optim.AdamW(model.parameters(), lr=lr)
 

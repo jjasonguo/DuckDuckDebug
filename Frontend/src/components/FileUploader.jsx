@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 
-const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
+const FileUploader = ({ onUploadSuccess, onUploadError }) => {
   const fileInputRef = useRef(null);
 
   const handleFileChange = async (e) => {
@@ -21,10 +21,10 @@ const FileUploader = ({ setContent, setActiveTab, setBubbleText }) => {
       });
 
       const data = await res.json();
-      setBubbleText(`✅ ${data.message}`);
+      onUploadSuccess(data.message);
     } catch (err) {
       console.error("Scrape failed", err);
-      setBubbleText("❌ Upload failed.");
+      onUploadError("Upload failed.");
     }
   };
 
